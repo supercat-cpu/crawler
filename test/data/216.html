@@ -1,0 +1,103 @@
+
+
+xmltramp: Make XML documents easily accessible.
+
+
+
+
+
+xmltramp: Make XML documents easily accessible.
+
+
+Everyone's got their data in XML these days. You need to read it. You've looked at the other XML APIs and they all contain miles of crud that's only necessary when parsing the most arcane documents. Wouldn't it be nice to have an easy-to-use API for the normal XML documents you deal with? That's xmltramp:
+
+>>> import xmltramp
+>>> doc = xmltramp.Namespace("http://example.org/bar")
+>>> bbc = xmltramp.Namespace("http://example.org/bbc")
+>>> dc = xmltramp.Namespace("http://purl.org/dc/elements/1.1/")
+>>> d = xmltramp.parse("""<doc version="2.7182818284590451"
+  xmlns="http://example.org/bar" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:bbc="http://example.org/bbc">
+	<author><name>John Polk</name> and <name>John Palfrey</name></author>
+	<dc:creator>John Polk</dc:creator>
+	<dc:creator>John Palfrey</dc:creator>
+	<bbc:show bbc:station="4">Buffy</bbc:show>
+</doc>""")
+>>> d
+<doc version="2.7182818284590451">...</doc>
+>>> d('version')
+'2.7182818284590451'
+>>> d(version='2.0')
+>>> d('version')
+'2.0'
+>>> d._dir
+[<author>...</author>, <dc:creator>...</dc:creator>, <dc:creator>...</dc:creator>, <bbc:show bbc:station="4">...</bbc:show>]
+>>> d._name
+(u'http://example.org/bar', u'doc')
+>>> d[0]                # First child.
+<author>...</author>
+>>> d.author            # First author.
+<author>...</author>
+>>> str(d.author)
+'John Polk and John Palfrey'
+>>> d[dc.creator]        # First dc:creator.
+<dc:creator>...</dc:creator>
+>>> d[dc.creator:]       # All creators.
+[<dc:creator>...</dc:creator>, <dc:creator>...</dc:creator>]
+>>> d[dc.creator] = "Me!!!"
+>>> str(d[dc.creator])
+'Me!!!'
+>>> d[bbc.show](bbc.station)
+'4'
+>>> d[bbc.show](bbc.station, '5')
+>>> d[bbc.show](bbc.station)
+'5'
+
+
+Download: xmltramp.py.
+
+PyPI
+easy_install xmltramp
+RPM
+yum install python-xmltramp
+
+Related
+Lots of people seem to have done similar things for other languages. Here are the ones that I know about:
+
+Perl
+XML::Smart
+Tcl
+I just remembered I wrote essentially the same API for Tcl four years ago (1999).
+RDFTRAMP
+HTML
+BeautifulSoup
+PyMeld
+
+Use xmltramp to access Web services: Technorati, Amazon (coming soon).
+Endorsements
+"xmltramp looked enticing to me when i first saw it, but it's actually a quick-and-dirty hack that corrupts data" -- Mark Pilgrim
+"xmltramp is good software. It's the simplest way I know of to handle XML content. Sort of like DOM but without all the obnoxious function calls." -- Nelson Minar
+History
+
+2008-08-01: 2.18 released. Fix KeyError reporting.
+2006-04-20: 2.17 released. Small bug fix in error message.
+2003-09-01: 2.16 released. Changed namespace prefix storage to a stack to solve ambiguity in SAX spec. (tx Sam Ruby)
+2003-09-01: 2.15 released. Quotes quotes in attributes. (tx Sam Ruby)
+2003-08-31: 2.14 released. Quotes attributes, better Unicode, accepts all slices. (tx Marc-Antoine)
+2003-08-31: 2.13 released. Fixed a bug with encoding "]]>". (tx Sam Ruby)
+2003-08-05: 2.12 released. Added support for automagical xml: namespace.
+2003-08-03: 2.11 released. Fixed bug that caused problem with 2.3 (raised KeyError instead of AttributeError). (Thanks, Marc-Antoine!)
+2003-07-09: 2.1 released. Quotes content and collapes HTML tags.
+2003-05-14: 2.0 released. Namespace, unicode, all-elements, mixed content, and setting support.
+2003-05-14: 1.22 released. Replaced "is int" for compatibility with Python 2.1.
+2003-05-13: 1.21 released. Uses handlers compatible with older versions of PyXML.
+2003-05-13: 1.2 released. Keeps whitespace, supports attribute access, added serialization (foo.__repr__(1)).
+2003-05-12: 1.1 released. Got rid of throw/catch communication kluge.
+2003-05-12: 1.0 released. First version.
+
+
+
+Aaron Swartz (me@aaronsw.com)
+
+

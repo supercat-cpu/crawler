@@ -1,0 +1,395 @@
+
+
+
+
+Python â Software und Beratung â Dr. Ing. Stefan Behnel
+
+
+
+
+
+Dr. Ing. Stefan Behnel
+Python â Software und Beratung
+    Â»der leichte Weg zu
+schnellem CodeÂ«
+
+
+
+Wer bin ich?
+Was biete ich an?
+AusgewÃ¤hlte VortrÃ¤ge
+Projektangebot
+Projektreferenzen
+VerÃ¶ffentlichungen
+
+This page in other languages:
+en
+de
+fr
+
+
+Wer bin ich?
+
+Ich bin ein erfahrener Open-Source
+Software-Entwickler, IT-Trainer und Consultant im
+Python-Umfeld,
+GrÃ¼ndungsmitglied des Python
+Software Verband e.V., und
+"Fellow" der Python Software Foundation (PSF).
+Die meisten meiner Projekte befassen sich
+mit High-Performance-Tools und schnellem Code.  Ich arbeite an diesen
+Projekten weil ich es mag, performance-kritischen Code zu optimieren.
+Und weil ich es mag, Software-Werkzeuge zu schreiben, die es
+Entwicklern leicht machen,
+schnellen Code zu schreiben.  Denn mit den richtigen Werkzeugen wird
+das wirklich einfach.
+
+Mein Doktortitel wurde mir
+von der Technischen UniversitÃ¤t
+Darmstadt am Institut
+fÃ¼r Datenbanken und Verteilte Systeme verliehen, das von Professor
+Alejandro Buchmann geleitet wurde.  Meine Doktorarbeit Ã¼ber effiziente, modellbasierte
+Software-Entwicklung von hochskalierbaren, selbstverwaltenden
+verteilten Systemen ist
+online
+verfÃ¼gbar.
+
+
+
+Was biete ich an?
+
+VortrÃ¤ge und Schulungen (auch In-House)
+Software-Entwicklung und Optimierung
+Professionelle Code-Reviews
+Beratung
+
+insbesondere zu den Themen
+
+Python Performance-Optimierung
+High-Performance XML-Verarbeitung
+Cython-Programmierung. 
+
+
+Schulungen:
+
+Fast code with the Cython compiler (DE/EN, 1-2 Tage)
+Fast NumPy processing with Cython (DE/EN, 1 Tag)
+High Performance XML Processing in Python (DE/EN, 1-2 Tage)
+
+
+Aktuell wohne ich in Celle, in der NÃ¤he von Hannover, aber auch
+lÃ¤ngere Anreisen sind kein Problem.  Bitte kontaktieren Sie mich
+unter der Adresse
+< consulting (AT) behnel.de >.
+
+
+AusgewÃ¤hlte VortrÃ¤ge
+
+ Cython to speed up your Python code (video), 
+      at EuroPython 2018, Edinburgh, UK, 2018
+
+ Cython to the Rescue (video), 
+      at PyConCZ 2018, Praha, Czech Republic, 2018
+
+ Lift your Speed Limits with Cython (video, slides, notebook, interview), 
+      at FOSDEM 2018, Bruxelles, Belgium, February 2018
+
+ Lift your Speed Limits with Cython (video), 
+      at PyCon-DE 2017, Karlsruhe, Germany, October 2017
+
+ Intro to Cython (tutorial, video), 
+      at EuroSciPy 2017, Erlangen, Germany, August 2017
+
+ Introduction to Tornado (tutorial), 
+      at PyCon.Web 2017, MÃ¼nchen, Germany, May 2017
+
+ Getting native with Cython (video), 
+      at PyCon.DE 2016, MÃ¼nchen, Germany, October 2016
+
+ Fast Async Code with Cython and AsyncIO (video), 
+      at EuroPython 2016, Bilbao, Spain, July 2016
+
+ NumPy with Cython (tutorial), 
+      at EuroPython 2016, Bilbao, Spain, July 2016
+
+ Get native with Cython (video, examples)
+      at EuroPython 2015, Bilbao, Spain, July 2015
+
+ The Cython Compiler for Python (video)
+      at EuroPython 2014, Berlin, Germany, July 2014
+
+ XML generieren mit lxml (video)
+      at PyCon-DE 2013, KÃ¶ln, Germany, October 2013
+
+ Cython fÃ¼r schnelleren Python-Code (video)
+      at PyCon-DE 2013, KÃ¶ln, Germany, October 2013
+
+ Lupa - LuaJIT in Python (video)
+      at PyCon-DE 2013, KÃ¶ln, Germany, October 2013
+
+ Schneller ohne C++ (video)
+      at PyCon-DE 2012, Leipzig, Germany, October/November 2012
+
+ Schnelle Schleifen mit Cython (video)
+      at PyCon-DE 2012, Leipzig, Germany, October/November 2012
+
+ lxml - schnelles XML mit Python
+      at PyCon-DE 2011, Leipzig, Germany, October 2011
+
+ Cython - das Beste aus Python und C
+      at PyCon-DE 2011, Leipzig, Germany, October 2011
+
+ Using the Cython compiler to write fast Python code
+      at FACETS CodeJam Workshop #3, invited talk and tutorial, Freiburg, Germany, October 2009
+
+ The Cython Compiler for C-extensions in Python
+      at EuroPython 2008, Vilnius, Lituania, July 2008
+      
+ Implementing XML languages with lxml
+      at EuroPython 2008, Vilnius, Lituania, July 2008
+      
+ XML mit Python - Eine EinfÃ¼hrung
+      at the 1st Workshop "Python im deutschsprachigen Raum", Leipzig, Germany, September 2006
+      
+
+
+
+Projektangebot
+Die folgende Liste nennt einige interessante
+Software-Entwicklungsprojekte die ich gerne umsetzen wÃ¼rde. Wenn Sie
+Interesse an deren Implementierung haben und sie finanziell
+unterstÃ¼tzen mÃ¶chten, kontaktieren Sie mich bitte unter der Adresse
+< consulting (AT) behnel.de
+>.
+
+
+Offene Aufgaben rund um das Cython Compiler
+Projekt:
+    
+Neuimplementierung von
+"Inlined Generator Expressions": Vor der vollstÃ¤ndigen
+UnterstÃ¼tzung fÃ¼r Generatoren ("yield") boten
+Cython 0.13
+und 0.14 eine
+Optimierung fÃ¼r bestimmte Generator-AusdrÃ¼cke.  Wenn diese in Builtins
+hineingereicht werden, konnte in einigen FÃ¤llen der Generator in eine
+einfache Schleife umgewandelt werden.  Dies bringt einen beachtlichen
+Geschwindigkeitsvorteil, da erstens der wiederholte Aufrufaufwand fÃ¼r
+den Generator wegfÃ¤llt und zweitens Cython in vielen FÃ¤llen den
+Datentyp des Ergebnisses besser optimieren kann.  Leider kollidierte
+die ursprÃ¼ngliche Optimierung mit der spÃ¤teren Implementierung von
+allgemeinen Generatoren und musste entfernt werden.  Die
+AufwandsschÃ¤tzung fÃ¼r eine Neuimplementierung betrÃ¤gt etwa zehn bis 15
+Tage.
+SprachunterstÃ¼tzung fÃ¼r
+"borrowed references": In der Sprache Cython gibt es bisher
+keine UnterstÃ¼tzung fÃ¼r Objektreferenzen, die nicht dem
+Reference-Counting unterliegen. Daher haben alle Zuweisungen von
+Objektreferenzen leichte Performance-Auswirkungen und kÃ¶nnen weniger
+gut durch den C-Compiler optimiert werden. Auch sind Objektreferenzen
+nicht innerhalb von Code-BlÃ¶cken erlaubt, die den "global interpreter
+lock" (GIL) von CPython freigeben.  SprachunterstÃ¼tzung fÃ¼r geliehene
+Referenzen wÃ¼rde somit einfacheren und schnelleren Code erlauben.  Der
+Status dieses Features findet sich
+in Trac-Ticket
+498.  Die AufwandsschÃ¤tzung betrÃ¤gt etwa zehn Tage fÃ¼r die
+explizite SprachunterstÃ¼tzung sowie optional einige weitere Tage fÃ¼r
+darauf aufbauende Optimierungen des Compilers um dieses Feature wo
+mÃ¶glich auch ohne explizite Deklaration zu verwenden.
+
+
+Offene Aufgaben rund um das lxml Projekt:
+    
+Dokument-Locks:
+      lxml hat eine lange Historie von Threading-Problemen und
+      verwendet Threading daher nur an sehr ausgewÃ¤hlten und sicheren
+      Stellen.  Das reduziert die ParallelitÃ¤t bei der XML-Verarbeitung
+      weit unter das MÃ¶gliche.  Ziel dieses Projekts ist es, Locking
+      auf Dokument-Ebene zu implementieren, so dass der GIL bei mehr
+      Operationen sicher frei gegeben werden kann.  Die AufwandsschÃ¤tzung
+      betrÃ¤gt etwa zehn bis 15 Tage.
+
+
+Bessere ParallelitÃ¤t beim
+      inkrementellen Parsen:
+      Aktuell speichert lxml SAX-Events auf Python-Ebene und benÃ¶tigt
+      dazu bei jedem Ausruf aus libxml2 den GIL (Pythons Global
+      Interpreter Lock).  Ziel dieses Projektes ist es, die Events auf
+      C-Ebene zwischenzuspeichern und erst nach Abarbeitung eines
+      Datenblocks in Python-Events umzuwandeln.  Dadurch kÃ¶nnte der GIL
+      fÃ¼r die gesamte Dauer des Parsens eines Datenblockes freigegeben
+      werden, was zu wesentlich besserer ParallelitÃ¤t und Performance
+      fÃ¼hrt.  Die AufwandsschÃ¤tzung betrÃ¤gt etwa zehn Tage.
+
+
+Offene Aufgaben rund um das Lupa Projekt:
+    
+Direkte Unterstützung
+      für Pythons Buffer-Interface in Lua: Seit Version
+      2.6 hat CPython eine
+      exzellente
+      C-Schnittstelle zum Zugriff auf interne
+      Datenspeicherbereiche, so auch auf Matrizen in
+      NumPy.  Die Integration in
+      Lupa würde eine direkte und sehr effiziente Verwendung dieser Speicher
+      aus Lua-Code heraus ermöglichen, insbesondere durch
+      LuaJITs
+      neue, schnelle
+      FFI-API.
+
+
+
+
+
+Projektreferenzen
+Die wichtigsten Projekte, an denen ich in den letzten Jahren
+gearbeitet habe, sind
+lxml und Cython.
+Lupa ist ein neues
+Projekt, das sich noch in seien AnfÃ¤ngen befindet.
+
+Cython
+
+http://cython.org
+Die Programmiersprache Cython
+ist ein Dialekt der Sprache Python.
+Sie bietet optionale statische Typ-Deklarationen und wird in schnellen
+C-Code Ã¼bersetzt. Ihre Anwendungsgebiete als allgemeine
+Programmiersprache sind breit gestreut. Vor allem im Bereich des
+Scientific Computing ist sie aber einer der GrÃ¼nde fÃ¼r die weite
+Verbreitung von Python als eine der wichtigsten Programmiersprachen.
+Nicht unbedingt, weil sie Fortran ersetzen wollte. Sondern weil es
+wesentlich einfacher ist, den Hauptteil des Codes in einer Hochsprache
+zu schreiben, und ihn dann mit kleinen Mengen an handoptimiertem
+low-level Code zusammenzufÃ¼gen.
+
+Cython ist eine perfekte 80/20
+Sprache. Es verbindet auf einzigartige Weise eine hohe
+Entwicklungsgeschwindigkeit beim GroÃteil des Source-Codes einer
+Anwendung mit der leichten Optimierbarkeit kleiner, kritischer
+Code-Teile. ZusÃ¤tzlich zu der leichten und schnellen
+Software-Entwicklung, fÃ¼r die Python bekannt ist, erlaubt Cython eine
+merkliche Code-Beschleunigung durch das einfache HinzufÃ¼gen statischer
+Typ-Deklarationen in genau den performance-kritischen Sektionen, die
+sich in Benchmarks offenbaren. Und wenn blanke Performance gefragt ist,
+lassen sich sehr leicht einzelne Code-Bereiche in C, C++, Fortran oder
+kompatiblen Sprachen reimplementieren und einbinden.
+
+Meine Leistungen als MitbegrÃ¼nder und
+Core-Entwickler des Cython-Projekts
+beinhalten zahlreiche Compiler-Optimierungen auf allen Ebenen, wichtige
+Design-Entscheidungen und die Implementierung mehrerer groÃer Features
+aus der Programmiersprache Python. Zudem zeichne ich mich fÃ¼r Design
+und Implementierung einiger Sprach-Features verantwortlich, die Cython
+zu einer einzigartigen Sprache in der Integration von Python und C
+machen.
+
+lxml
+http://lxml.de
+Nach mehreren Jahren stetiger Weiterentwicklung hat sich lxml lÃ¤ngst
+den Titel der fÃ¼hrenden
+high-performance XML-Bibliothek fÃ¼r Python erworben. Es bietet
+eine einzigartige Kombination aus zahllosen XML-Features, einer
+sehr hohen Geschwindigkeit und einer erstaunlichen Leichtigkeit der
+Benutzung. Die wohlbekannten C-Bibliotheken libxml2 and libxslt bilden
+die standard-konforme Basis, die lxml mit Hilfe von Cython zu einer
+hochintegrierten, objekt-orientierten XML-API verbindet.
+
+Als Leiter des lxml Projekts
+bin ich fÃ¼r die wesentlichen Entwicklungen an der Code-Basis
+verantwortlich, fÃ¼r Design und Projekt-Management. Zudem entwickelte
+ich einen groÃen Teil der Implementierung, der wichtigsten Features und
+Performance-Optimierungen, die lxml so nÃ¼tzlich fÃ¼r die
+XML-Verarbeitung unter Python machen.
+
+Lupa
+https://github.com/scoder/lupa
+Lupa ist ein Python-Wrapper
+fÃ¼r die schnelle Lua-Laufzeitumgebung
+LuaJIT2.
+Es ist in Cython implementiert und ermÃ¶glicht die bidirektionale
+Kommunikation zwischen Lua-Code und Python-Code.
+
+Lua ist eine sehr gute ErgÃ¤nzung zu Python. Als Sprache ist es Ã¤hnlich dynamisch wie Python, aber
+LuaJIT Ã¼bersetzt es in sehr schnellen Maschinencode, teilweise sogar schneller
+als viele statisch kompilierte Sprachen. Die Laufzeitumgebung ist
+extrem klein und in allen
+Bereichen auf Embedding optimiert. Das vollstÃ¤ndige BinÃ¤rmodul von
+Lupa, inklusive der statisch eingebundenen LuaJIT2 Umgebung,
+ist auf einem 64-bit System gerade einmal 500KB groÃ.
+
+Jedoch lassen Lua und seine Umgebung auch einiges vermissen was
+Python-Entwickler als selbstverstÃ¤ndlich ansehen, sei es als Teil der
+Python Standardbibliothek ("Batteries included") oder an verfÃ¼gbaren
+Bibliotheken und Entwicklerwerkzeugen. Diese BeschrÃ¤nkungen machen die
+Entwicklung von Lua-Anwendungen aufwÃ¤ndiger als vergleichbare
+Python-Anwendungen. Daher wird Lua nur selten als
+Hauptentwicklungssprache fÃ¼r grÃ¶Ãere Anwendungen verwendet. Als
+schnelle, dynamische und speicherfreundliche Hilfssprache innerhalb der
+Python Laufzeitumgebung macht es jedoch eine sehr gute Figur wenn hohe
+Geschwindigkeit gefragt ist und die Umlaufzeit des "edit-compile-run"
+Zyklus zu schwerfÃ¤llig fÃ¼r agile Code-Entwicklung und das
+Hot-Deployment von Software-Komponenten wird.
+
+Als Leiter des Lupa Projekts
+bin ich fÃ¼r die wesentlichen Entwicklungen an der Code-Basis
+verantwortlich, fÃ¼r Design und Projekt-Management ebenso wie fÃ¼r die
+Implementierung.
+
+
+
+VerÃ¶ffentlichungen
+
+ Cython - The Best of Both Worlds (preprint)
+      Stefan Behnel, Robert Bradshaw, Craig Citro, Lisandro DalcÃ­n, Dag Sverre Seljebotn, Kurt Smith
+      In: Fernando PÃ©rez, Brian E. Granger, John D. Hunter, editors, "Python: an ecosystem for scientific computing", Computing in Science and Engineering, March 2011
+      
+ Cython Tutorial
+      Stefan Behnel, Robert W. Bradshaw, Dag Sverre Seljebotn
+      Proceedings of the 8th Python in Science Conference (SciPy2009), Pasadena, CA, USA, August 2009
+      
+ A Model Driven Architecture for Adaptable Overlay Networks
+      Stefan Behnel
+      Doctoral Thesis, Darmstadt University of Technologies, Darmstadt, Germany, August 2007
+      
+ SLOSL - A Modelling Language for Topologies and Routing in Overlay Networks
+      Stefan Behnel
+      Proc. of the 1st Int. Workshop on Modeling, Simulation and Optimization of Peer-to-peer environments (MSOP2P), Naples, Italy, February 2007
+      
+ A Specification-to-Deployment Architecture for Overlay Networks
+      Stefan Behnel, Alejandro Buchmann, Paul Grace, Barry Porter, Geoff Coulson
+      Proc. of the Int. Symposium on Distributed Objects and Applications (DOA), Montpellier, France, October 2006
+      
+ XML mit Python - Eine EinfÃ¼hrung
+      Stefan Behnel
+      Workshop Proc. "Python im deutschsprachigen Raum", Leipzig, Germany, September 2006
+      
+ On Quality-of-Service and Publish/Subscribe
+      Stefan Behnel, Ludger Fiege, Gero MÃ¼hl
+      Fifth International Workshop on Distributed Event-based Systems (DEBS'06), Lisbon, Portugal, July 2006
+      Received "DEBS 2006 Most Influential Paper" award in 2019.
+      
+ Overlay Networks - Implementation by Specification
+      Stefan Behnel, Alejandro Buchmann
+      Proceedings of the International Middleware Conference (Middleware2005), Grenoble, France, November 2005
+      
+ Models and Languages for Overlay Networks
+      Stefan Behnel, Alejandro Buchmann
+      Proc. of the 3rd Int. VLDB Workshop on Databases, Information Systems and Peer-to-Peer Computing (DBISP2P 2005), Trondheim, Norway, August 2005
+      
+ Bit Zipper Rendezvous - Optimal Data Placement for General P2P Queries
+      Wesley W. Terpstra, Stefan Behnel, Ludger Fiege, Jussi Kangasharju, Alejandro Buchmann
+      EDBT 04 Workshop on Peer-to-Peer Computing & DataBases, Heraclion, Grece, March 2004
+      Received the best-paper award.
+      
+ A Peer-to-Peer Approach to Content-Based Publish/Subscribe
+      Wesley W. Terpstra, Stefan Behnel, Ludger Fiege, Andreas Zeidler, Alejandro P. Buchmann
+      In Proceedings of the 2nd International Workshop on Distributed Event-Based Systems (DEBS'03), ACM Press, San Diego, CA, USA, June 2003
+      Received "DEBS 2003 Most Influential Paper" award in 2019.
+      
+
+
+
+Imprint / Impressum
+
+

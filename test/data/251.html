@@ -1,0 +1,216 @@
+
+
+
+
+
+lxml - Processing XML and HTML with Python
+
+
+
+
+
+
+MenulxmllxmlIntroductionSupport the projectDocumentationDownloadMailing listBug trackerLicenseOld VersionsLegal Notice for DonationsWhy lxml?MottoAimsInstalling lxmlWhere to get itRequirementsInstallationBuilding lxml from dev sourcesUsing lxml with python-libxml2Source builds on MS WindowsSource builds on MacOS-XBenchmarks and SpeedGeneral notesHow to read the timingsParsing and SerialisingThe ElementTree APIXPathA longer examplelxml.objectifyElementTree compatibility of lxml.etreelxml FAQ - Frequently Asked QuestionsGeneral QuestionsInstallationContributingBugsThreadingParsing and SerialisationXPath and Document TraversalDeveloping with lxmlThe lxml.etree TutorialThe Element classThe ElementTree classParsing from strings and filesNamespacesThe E-factoryElementPathAPI referenceAPIs specific to lxml.etreelxml.etreeOther Element APIsTrees and DocumentsIterationError handling on exceptionsError loggingSerialisationIncremental XML generationCDATAXInclude and ElementIncludewrite_c14n on ElementTreeParsing XML and HTML with lxmlParsersThe target parser interfaceThe feed parser interfaceIncremental event parsingiterparse and iterwalkPython unicode stringsValidation with lxmlValidation at parse timeDTDRelaxNGXMLSchemaSchematron(Pre-ISO-Schematron)XPath and XSLT with lxmlXPathXSLTlxml.objectifyThe lxml.objectify APIAsserting a SchemaObjectPathPython data typesHow data types are matchedWhat is different from lxml.etree?lxml.htmlParsing HTMLHTML Element MethodsRunning HTML doctestsCreating HTML with the E-factoryWorking with linksFormsCleaning up HTMLHTML DiffExampleslxml.cssselectThe CSSSelector classThe cssselect methodSupported SelectorsNamespacesBeautifulSoup ParserParsing with the soupparserEntity handlingUsing soupparser as a fallbackUsing only the encoding detectionhtml5lib ParserDifferences to regular HTML parsingFunction ReferenceExtending lxmlDocument loading and URL resolvingXML CatalogsURI ResolversDocument loading in contextI/O access control in XSLTPython extensions for XPath and XSLTXPath Extension functionsXSLT extension elementsUsing custom Element classes in lxmlBackground on Element proxiesElement initializationSetting up a class lookup schemeGenerating XML with custom classesImplementing namespacesSax supportBuilding a tree from SAX eventsProducing SAX events from an ElementTree or ElementInterfacing with pulldom/minidomThe public C-API of lxml.etreePassing generated trees through PythonWriting external modules in CythonWriting external modules in CDeveloping lxmlHow to build lxml from sourceCythonGithub, git and hgBuilding the sourcesRunning the tests and reporting errorsBuilding an egg or wheelBuilding lxml on MacOS-XStatic linking on WindowsBuilding Debian packages from SVN sourcesHow to read the source of lxmlWhat is Cython?Where to start?lxml.etreePython moduleslxml.objectifylxml.htmlRelease ChangelogCreditsMain contributorsSpecial thanks goes to:Sitemaplxml - XML and HTML with Python
+
+» lxml takes all the pain out of XML. «
+Stephan Richter
+
+lxml is the most feature-rich
+and easy-to-use library
+for processing XML and HTML
+in the Python language.
+
+Introduction
+The lxml XML toolkit is a Pythonic binding for the C libraries
+libxml2 and libxslt.  It is unique in that it combines the speed and
+XML feature completeness of these libraries with the simplicity of a
+native Python API, mostly compatible but superior to the well-known
+ElementTree API.  The latest release works with all CPython versions
+from 2.6 to 3.6.  See the introduction for more information about
+background and goals of the lxml project.  Some common questions are
+answered in the FAQ.
+
+Support the project
+lxml has been downloaded from the Python Package Index more than
+two million times and is also available directly in many package
+distributions, e.g. for Linux or MacOS-X.
+Most people who use lxml do so because they like using it.
+You can show us that you like it by blogging about your experience
+with it and linking to the project website.
+If you are using lxml for your work and feel like giving a bit of
+your own benefit back to support the project, consider sending us
+money through PayPal that we can use for fixing bugs in the software
+and improving its features and documentation.  Please read the Legal
+Notice below, at the bottom of this page.  Thank you for your support.
+
+Please contact Stefan Behnel for other ways to support the lxml project,
+as well as commercial consulting, customisations and trainings on lxml and
+fast Python XML processing.
+
+
+
+Documentation
+The complete lxml documentation is available for download as PDF
+documentation.  The HTML documentation from this web site is part of
+the normal source download.
+
+Tutorials:
+the lxml.etree tutorial for XML processing
+John Shipman's tutorial on Python XML processing with lxml
+Fredrik Lundh's tutorial for ElementTree
+
+
+ElementTree:
+ElementTree API
+compatibility and differences of lxml.etree
+ElementTree performance characteristics and comparison
+
+
+lxml.etree:
+lxml.etree specific API documentation
+the generated API documentation as a reference
+parsing and validating XML
+XPath and XSLT support
+Python XPath extension functions for XPath and XSLT
+custom XML element classes for custom XML APIs (see EuroPython 2008 talk)
+a SAX compliant API for interfacing with other XML tools
+a C-level API for interfacing with external C/Cython modules
+
+
+lxml.objectify:
+lxml.objectify API documentation
+a brief comparison of objectify and etree
+
+
+
+lxml.etree follows the ElementTree API as much as possible, building
+it on top of the native libxml2 tree.  If you are new to ElementTree,
+start with the lxml.etree tutorial for XML processing.  See also the
+ElementTree compatibility overview and the ElementTree performance
+page comparing lxml to the original ElementTree and cElementTree
+implementations.
+Right after the lxml.etree tutorial for XML processing and the
+ElementTree documentation, the next place to look is the lxml.etree
+specific API documentation.  It describes how lxml extends the
+ElementTree API to expose libxml2 and libxslt specific XML
+functionality, such as XPath, Relax NG, XML Schema, XSLT, and
+c14n.  Python code can be called from XPath expressions and XSLT
+stylesheets through the use of XPath extension functions.  lxml
+also offers a SAX compliant API, that works with the SAX support in
+the standard library.
+There is a separate module lxml.objectify that implements a data-binding
+API on top of lxml.etree.  See the objectify and etree FAQ entry for a
+comparison.
+In addition to the ElementTree API, lxml also features a sophisticated
+API for custom XML element classes.  This is a simple way to write
+arbitrary XML driven APIs on top of lxml.  lxml.etree also has a
+C-level API that can be used to efficiently extend lxml.etree in
+external C modules, including fast custom element class support.
+
+
+Download
+The best way to download lxml is to visit lxml at the Python Package
+Index (PyPI).  It has the source
+that compiles on various platforms.  The source distribution is signed
+with this key.
+The latest version is lxml 4.0.0, released 2017-09-17
+(changes for 4.0.0).  Older versions
+are listed below.
+Please take a look at the
+installation instructions !
+This complete web site (including the generated API documentation) is
+part of the source distribution, so if you want to download the
+documentation for offline use, take the source archive and copy the
+doc/html directory out of the source tree, or use the
+PDF documentation.
+The latest installable developer sources should usually be available from the
+build server.  It's also possible to check out
+the latest development version of lxml from github directly, using a command
+like this (assuming you use hg and have hg-git installed):
+
+hg clone git+ssh://git@github.com/lxml/lxml.git lxml
+
+Alternatively, if you use git, this should work as well:
+
+git clone https://github.com/lxml/lxml.git lxml
+
+You can browse the source repository and its history through
+the web.  Please read how to build lxml from source
+first.  The latest CHANGES of the developer version are also
+accessible.  You can check there if a bug you found has been fixed
+or a feature you want has been implemented in the latest trunk version.
+
+
+Mailing list
+Questions? Suggestions? Code to contribute? We have a mailing list.
+You can search the archive with Gmane or Google.
+
+
+Bug tracker
+lxml uses the launchpad bug tracker.  If you are sure you found a
+bug in lxml, please file a bug report there.  If you are not sure
+whether some unexpected behaviour of lxml is a bug or not, please
+check the documentation and ask on the mailing list first.  Do not
+forget to search the archive (e.g. with Gmane)!
+
+
+License
+The lxml library is shipped under a BSD license. libxml2 and libxslt2
+itself are shipped under the MIT license. There should therefore be no
+obstacle to using lxml in your codebase.
+
+
+Old Versions
+See the websites of lxml
+1.3,
+2.0,
+2.1,
+2.2,
+2.3,
+3.0,
+3.1,
+3.2,
+3.3,
+3.4,
+3.5,
+3.6,
+3.7
+3.8
+
+lxml 4.0.0, released 2017-09-17 (changes for 4.0.0)
+lxml 3.8.0, released 2017-06-03 (changes for 3.8.0)
+lxml 3.7.3, released 2017-02-18 (changes for 3.7.3)
+lxml 3.7.2, released 2017-01-08 (changes for 3.7.2)
+lxml 3.7.1, released 2016-12-22 (changes for 3.7.1)
+lxml 3.7.0, released 2016-12-10 (changes for 3.7.0)
+lxml 3.6.4, released 2016-08-18 (changes for 3.6.4)
+lxml 3.6.3, released 2016-08-18 (changes for 3.6.3)
+lxml 3.6.2, released 2016-08-18 (changes for 3.6.2)
+lxml 3.6.1, released 2016-07-24 (changes for 3.6.1)
+lxml 3.6.0, released 2016-03-17 (changes for 3.6.0)
+older releases
+
+
+Legal Notice for Donations
+Any donation that you make to the lxml project is voluntary and
+is not a fee for any services, goods, or advantages.  By making
+a donation to the lxml project, you acknowledge that we have the
+right to use the money you donate in any lawful way and for any
+lawful purpose we see fit and we are not obligated to disclose
+the way and purpose to any party unless required by applicable
+law.  Although lxml is free software, to the best of our knowledge
+the lxml project does not have any tax exempt status.  The lxml
+project is neither a registered non-profit corporation nor a
+registered charity in any country.  Your donation may or may not
+be tax-deductible; please consult your tax advisor in this matter.
+We will not publish or disclose your name and/or e-mail address
+without your consent, unless required by applicable law.  Your
+donation is non-refundable.
+
+
+
+
+Generated on: 2017-09-18.
+
+
+

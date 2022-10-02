@@ -1,0 +1,453 @@
+
+
+
+
+
+Configuration — Read the Docs Sphinx Theme 1.0.0 documentation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                stable
+              
+
+
+
+
+
+
+
+
+Theme Documentation
+
+Installation
+Configuration
+Theme options
+Table of contents options
+Miscellaneous options
+
+
+File-wide metadata
+Other configuration
+Adding a logo
+Adding custom CSS or Javascript
+
+
+How the table of contents displays
+
+
+Development
+Contributing
+
+
+Changelog
+
+Demo Documentation
+
+1. Structural Elements
+2. Structural Elements 2
+3. Paragraph Level Markup
+4. Lists & Tables
+5. API documentation and generated content
+
+This is an incredibly long caption for a long menu
+
+1. Long Sticky Nav
+
+
+
+
+
+
+Read the Docs Sphinx Theme
+
+
+
+
+
+ »
+Configuration
+
+ Edit on GitHub
+
+
+
+
+
+
+
+Configurationï
+
+Theme optionsï
+The following options can be defined in your projectâs conf.py file, using
+the html_theme_options configuration option.
+For example:
+html_theme_options = {
+    'analytics_id': 'G-XXXXXXXXXX',  #  Provided by Google in your dashboard
+    'analytics_anonymize_ip': False,
+    'logo_only': False,
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': False,
+    'vcs_pageview_mode': '',
+    'style_nav_header_background': 'white',
+    # Toc options
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False
+}
+
+
+
+Table of contents optionsï
+The following options change how toctree directives generate
+documentation navigation.
+
+
+collapse_navigationï
+With this enabled, navigation entries are not expandable â the [+]
+icons next to each entry are removed.
+
+Type
+boolean
+
+Default
+True
+
+
+
+Note
+Setting collapse_navigation to False and using a high value
+for navigation_depth on projects with many files and a deep file
+structure can cause long compilation times and can result in HTML files that
+are significantly larger in file size.
+
+
+
+
+sticky_navigationï
+Scroll the navigation with the main page content as you scroll the page.
+
+Type
+boolean
+
+Default
+True
+
+
+
+
+
+navigation_depthï
+The maximum depth of the table of contents tree. Set
+this to -1 to allow unlimited depth.
+
+Type
+integer
+
+Default
+4
+
+
+
+
+
+includehiddenï
+Specifies if the navigation includes hidden table(s) of contents â that is,
+any toctree directive that is marked with the :hidden:
+option.
+
+Type
+boolean
+
+Default
+True
+
+
+
+
+
+titles_onlyï
+When enabled, page subheadings are not included in the
+navigation.
+
+Type
+boolean
+
+Default
+False
+
+
+
+
+
+Miscellaneous optionsï
+
+
+analytics_idï
+If specified, Google Analyticsâ gtag.js is included in your pages.
+Set the value to the ID provided to you by google (like UA-XXXXXXX or G-XXXXXXXXXX).
+
+Type
+string
+
+
+
+
+
+analytics_anonymize_ipï
+
+Anonymize visitor IP addresses in Google Analytics.
+
+
+Type
+boolean
+
+Default
+False
+
+
+
+
+
+canonical_urlï
+This will specify a canonical URL meta link element to tell search
+engines which URL should be ranked as the primary URL for your
+documentation. This is important if you have multiple URLs that your
+documentation is available through. The URL points to the root path of the
+documentation and requires a trailing slash.
+
+Type
+URL
+
+
+
+Deprecated since version 0.6.0: Use html_baseurl instead.
+
+
+
+
+display_versionï
+If True, the version number is shown at the top of the sidebar.
+
+Type
+boolean
+
+Default
+True
+
+
+
+
+
+logo_onlyï
+Only display the logo image, do not display the project name at the top of
+the sidebar
+
+Type
+boolean
+
+Default
+False
+
+
+
+
+
+prev_next_buttons_locationï
+Location to display Next and Previous buttons. This
+can be either bottom, top, both , or None.
+
+Type
+string
+
+Default
+bottom
+
+
+
+
+
+style_external_linksï
+Add an icon next to external links.
+
+Type
+boolean
+
+Default
+False
+
+
+
+
+
+vcs_pageview_modeï
+Changes how to view files when using display_github, display_gitlab,
+etc.  When using GitHub or GitLab this can be: blob (default), edit,
+or raw. On Bitbucket, this can be either: view (default) or
+edit.
+
+Type
+string
+
+Default
+blob or view
+
+
+
+
+
+style_nav_header_backgroundï
+Changes the background of the search area in the navigation bar. The value
+can be anything valid in a CSS background property.
+
+Type
+string
+
+Default
+#2980B9
+
+
+
+
+
+
+File-wide metadataï
+The following options can be used as file-wide metadata:
+
+
+github_urlï
+Force the Edit on GitHub button to use the configured URL.
+
+
+
+bitbucket_urlï
+Force the Edit on Bitbucket button to use the configured URL.
+
+
+
+gitlab_urlï
+Force the Edit on GitLab button to use the configured URL.
+
+
+
+Other configurationï
+
+Adding a logoï
+Using the Sphinx standard option html_logo,
+you can set an image file to be used as a logo at the top of the sidebar. The
+theme option logo_only also allows for only the logo to be shown
+at the top of the sidebar.
+
+
+Adding custom CSS or Javascriptï
+Adding custom CSS or Javascript can help you alter the look and feel of this
+theme without forking the theme for local use.
+In order to add custom CSS or Javascript without disrupting the existing theme
+files, you can add files to be included in your documentation output.
+
+
+
+How the table of contents displaysï
+Currently the left menu will build based upon any toctree directives defined
+in your source files.  It outputs 4 levels of depth by default, to allow for
+quick navigation through topics. If no TOC trees are defined, Sphinxâs default
+behavior is to use the page headings instead.
+Itâs important to note that if you donât follow the same styling for your reST
+headings across your documents, the TOC tree will build incorrectly, and the
+resulting menu might not show the correct depth when it renders.
+Also note that by default the table of contents is set with
+includehidden=True. This allows you to set a hidden TOC in your index file
+with the :hidden: property that will allow you
+to build a TOC without it rendering in your index.
+By default, the navigation will âstickâ to the screen as you scroll. However if
+your TOC is not tall enough, it will revert to static positioning. To disable the
+sticky navigation altogether, change the sticky_navigation theme option.
+
+
+
+
+
+ Previous
+Next 
+
+
+
+© Copyright Dave Snider, Read the Docs, Inc. & contributors.
+      Revision c9b1bde5.
+      
+
+
+  Built with Sphinx using a
+    theme
+    provided by Read the Docs.
+   
+
+
+
+
+
+
+
+
+ Read the Docs
+      v: stable
+      
+
+
+
+Versions
+latest
+stable
+1.0.0
+1.0.0rc1
+0.5.2
+0.5.1
+0.5.0
+0.4.3
+
+
+Downloads
+
+
+On Read the Docs
+
+Project Home
+
+
+Builds
+
+
+
+
+
+

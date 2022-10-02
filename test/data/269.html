@@ -1,0 +1,97 @@
+
+
+BlinkFlash - the unofficial winkflash commandline client
+
+
+;> BlinkFlash 1.3  -is broken :(
+ The unofficial winkflash commandline client
+ BlinkFlash does not work anymore. It scraps the winkflash website which changed a few years after I wrote this program. I may fix it in the future but like everyone time is short.
+Summary
+BlinkFlash is a commandline tool for uploading images to winkflash, a mail order digital photo printer. It is a script that automates the Web-based file upload process. It can also create new albums, set photo notes (which are printed on the backs of photos) and download photos.
+Requirements and Download
+BlinkFlash is written in python and uses a few extra python libraries
+ which are included in the download (
+  ClientCookie,
+  ClientForm and
+  BeautifulSoup).
+ The only dependency is python 2.3 
+ It is intended for Linux users (that's what I use) but as its written in python it may work on other platforms.
+You can download it here
+Background
+ I use winkflash for printing
+my digital photos. At the time of writing (October 2004 -still true November 2005)
+they provide a very efficient service, have a reasonable
+and simple pricing structure (99p + 9p per photo, or 99c + 12c in the USA) and
+will even print notes on the back of the photos for you.
+My only problem has been that none of their 3 uploading
+options work for me. They have a windows upload tool
+but I don't use windows, there is a java applet which
+has never worked for me and finally they have a web based
+facility. In the past I have used the web based interface
+but it takes ages to add the photos one at a time and
+editing a photo's notes requires 3 clicks per photo.
+I decided to automate this process and create a command line
+client which uses the web based upload facility as a backend.
+So I wrote blinkflash (faster than winkflash).
+Usage
+
+blinkflash 1.3   the unofficial winkflash commandline client
+usage: ./blinkflash.py    [action arguments]
+  actions:
+    list-albums                                -list all albums
+    create-album <album-name>                  -create a new empty album
+    upload <album-name> file[,file,..,..]      -upload file(s) to an album
+    list-images <album-name>                   -list images in album
+    download-image <album-name> <filename>     -download image (to filename.jpg)
+    download-album <album-name>                -download a whole album
+    set-notes <album-name> <filename> <notes>  -set an image's notes
+    bulk-upload <album-name> <inputfile>       -upload files and set notes
+     for the bulk action the format is filename <tab> alias <tab> notes
+          eg.   IMG012.JPG      photo1  Holiday day one
+                IMG013.JPG      photo2  Duncans brother bill
+                              (if run twice, only new files will be uploaded)
+some examples:
+  ./blinkflash.py johnsmith b2xtf list-albums
+  ./blinkflash.py johnsmith b2xtf create-album 'Holiday 2004'
+  ./blinkflash.py johnsmith b2xtf upload 'Holiday 2004' img01.jpg img02.jpg
+  ./blinkflash.py johnsmith b2xtf set-notes 'Holiday 2004' img01.jpg 'day 1'
+  ./blinkflash.py johnsmith b2xtf bulk-upload 'Holiday 2004' filesandnotes.txt
+
+ **if logged in with a web browser you must log out and log in to see changes**
+
+Features
+1.3
+
+Download image. You can download your images (and whole albums) which makes winkflash useful for image backups.
+Fixed bug setting notes for USA accounts
+
+1.2
+
+USA accounts supported
+
+1.1
+
+Retries on I/O error
+Aliased filenames. With bulk upload an aliased filename can be supplied. This is useful because the winkflash filename is printed on the back of printed photos.
+Incremental upload. Bulk upload checks for images which are already uploaded.
+
+1.0
+
+List albums
+Create album
+Upload images
+List images in abum
+Set notes
+Bulk upload (upload files and set notes)
+
+Disclamer
+winkflash know nothing about blinkflash. If you get
+in trouble for using this (I can't think why) I can't
+be held responsible.
+Author
+BlinkFlash is written by me, Thomas Rynne. I have a homepage and you can email me at thomas-blinkflash@XnospamX.lifesok.co.uk
+Please email me if you have found blinkflash useful or have problems using it.
+Website, CVS and downloads hosted by SourceForge. 
+Created 17October2004 Last modified 16November2005by Thomas Rynne
+
+
