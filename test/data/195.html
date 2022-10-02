@@ -1,0 +1,129 @@
+
+lxml
+
+lxmllxmlIntroductionDocumentationDownloadMailing listBug trackerLicenseOld VersionsWhy lxml?MottoAimslxml - Frequently Asked Questions (FAQ)General QuestionsInstallationContributingBugsThreadingParsing and SerialisationXPath and Document TraversalBenchmarks and SpeedGeneral notesHow to read the timingsParsing and SerialisingThe ElementTree APIXPathA longer examplelxml.objectifyHow to build lxml from sourcePyrexSubversionSetuptoolsRunning the tests and reporting errorsContributing an eggProviding newer library versions on Mac-OS XStatic linking on WindowsBuilding Debian packages from SVN sourcesDeveloping with lxmlThe lxml.etree TutorialThe Element classElements are listsElements carry attributesElements contain textTree iterationAPIs specific to lxml.etreelxml.etreeOther Element APIsTrees and DocumentsIterationError handling on exceptionsError loggingSerialisationXInclude and ElementIncludewrite_c14n on ElementTreeParsing XML and HTML with lxmlParsersiterparse and iterwalkPython unicode stringsValidation with lxmlDTDRelaxNGXMLSchemaXPath and XSLT with lxmlXPathXSLTlxml.objectifySetting up lxml.objectifyThe lxml.objectify APIObjectPathPython data typesHow data types are matchedWhat is different from lxml.etree?Extending lxmlDocument loading and URL resolvingResolversDocument loading in contextI/O access control in XSLTExtension functions for XPath and XSLTThe FunctionNamespaceGlobal prefix assignmentEvaluators and XSLTEvaluator-local extensionsWhat to return from a functionUsing custom Element classes in lxmlElement initializationSetting up a class lookup schemeImplementing namespacesSax supportBuilding a tree from SAX eventsProducing SAX events from an ElementTree or ElementInterfacing with pulldom/minidomThe public C-API of lxml.etreeWriting external modules in PyrexWriting external modules in Clxml
+
+lxml is the most feature-rich
+and easy-to-use library
+for working with XML and HTML
+in the Python language.
+
+
+Introduction
+lxml is a Pythonic binding for the libxml2 and libxslt libraries.  It is
+unique in that it combines the speed and feature completeness of these
+libraries with the simplicity of a native Python API, mostly compatible but
+superior to the ElementTree API.  See the introduction for more information
+about background and goals.  Some common questions are answered in the FAQ.
+This page describes the current stable version of lxml.  See also the
+    web page of the development
+    version.
+
+Documentation
+ElementTree:ElementTree API
+compatibility and differences of lxml.etree
+benchmark results
+
+lxml.etree:the lxml.etree Tutorial
+lxml.etree specific API documentation
+parsing and validating XML
+XPath and XSLT support
+Python extension functions for XPath and XSLT
+custom element classes for custom XML APIs
+a SAX compliant API for interfacing with other XML tools
+a C-level API for interfacing with external C/Pyrex modules
+
+lxml.objectify:lxml.objectify API documentation
+a brief comparison of objectify and etree
+
+lxml.etree follows the ElementTree API as much as possible, building it on
+top of the native libxml2 tree.  If you are new to ElementTree, start with the
+lxml.etree Tutorial.  See also the ElementTree compatibility overview and
+the benchmark results comparing lxml to the original ElementTree and
+cElementTree implementations.
+Right after the lxml.etree Tutorial and the ElementTree documentation, the
+most important place to look is the lxml.etree specific API documentation.
+It describes how lxml extends the ElementTree API to expose libxml2 and
+libxslt specific functionality, such as XPath, Relax NG, XML Schema,
+XSLT, and c14n.  Python code can be called from XPath expressions and
+XSLT stylesheets through the use of extension functions.  lxml also offers
+a SAX compliant API, that works with the SAX support in the standard
+library.
+There is a separate module lxml.objectify that implements a data-binding
+API on top of lxml.etree.  See the objectify and etree FAQ entry for a
+comparison.
+In addition to the ElementTree API, lxml also features a sophisticated API for
+custom element classes.  This is a simple way to write arbitrary XML driven
+APIs on top of lxml.  As of version 1.1, lxml.etree has a new C-level API
+that can be used to efficiently extend lxml.etree in external C modules,
+including custom element class support.
+
+
+Download
+The best way to download binary versions is to visit lxml at the Python
+Package Index.  It has the source, eggs and installers for various platforms.
+The source distribution is signed with this key.
+The latest version is lxml 1.3.6, released 2007-10-29 (changes for 1.3.6).
+Older versions are listed below.
+Please take a look at the installation instructions!
+It's also possible to check out the latest development version of lxml
+from svn directly, using a command like this:
+
+svn co https://github.com/lxml/lxml/tree/master/trunk lxml
+
+You can also browse it through the web.  Please read how to build lxml
+from source first.  The latest CHANGES of the developer version are also
+accessible.  You can check there if a bug you found has been fixed or a
+feature you want has been implemented in the latest trunk version.
+
+
+Mailing list
+Questions? Suggestions? Code to contribute? We have a mailing list.
+You can search the archive with Gmane or Google.
+
+
+Bug tracker
+lxml uses the launchpad bug tracker.  If you are sure you found a bug in
+lxml, please file a bug report there.  If you are not sure whether some
+unexpected behaviour of lxml is a bug or not, please ask on the mailing
+list first.  Do not forget to search the archive (e.g. with Gmane)!
+
+
+License
+The lxml library is shipped under a BSD license. libxml2 and libxslt2
+itself are shipped under the MIT license. There should therefore be no
+obstacle to using lxml in your codebase.
+
+
+Old Versions
+lxml 1.3.5, released 2007-10-22 (changes for 1.3.5)
+lxml 1.3.4, released 2007-08-30 (changes for 1.3.4)
+lxml 1.3.3, released 2007-07-26 (changes for 1.3.3)
+lxml 1.3.2, released 2007-07-03 (changes for 1.3.2)
+lxml 1.3.1, released 2007-07-02 (changes for 1.3.1)
+lxml 1.3, released 2007-06-24 (changes for 1.3)
+lxml 1.2.1, released 2007-02-27 (changes for 1.2.1)
+lxml 1.2, released 2007-02-20 (changes for 1.2)
+lxml 1.1.2, released 2006-10-30 (changes for 1.1.2)
+lxml 1.1.1, released 2006-09-21 (changes for 1.1.1)
+lxml 1.1, released 2006-09-13 (changes for 1.1)
+lxml 1.0.4, released 2006-09-09 (changes for 1.0.4)
+lxml 1.0.3, released 2006-08-08 (changes for 1.0.3)
+lxml 1.0.2, released 2006-06-27 (changes for 1.0.2)
+lxml 1.0.1, released 2006-06-09 (changes for 1.0.1)
+lxml 1.0, released 2006-06-01 (changes for 1.0)
+lxml 0.9.2, released 2006-05-10 (changes for 0.9.2)
+lxml 0.9.1, released 2006-03-30 (changes for 0.9.1)
+lxml 0.9,   released 2006-03-20 (changes for 0.9)
+lxml 0.8,   released 2005-11-03 (changes for 0.8)
+lxml 0.7,   released 2005-06-15 (changes for 0.7)
+lxml 0.6,   released 2005-05-14 (changes for 0.6)
+lxml 0.5.1, released 2005-04-09 (changes for 0.5.1)
+lxml 0.5,   released 2005-04-08
+
+
+
+
+Generated on: 2008-02-11.
+
+

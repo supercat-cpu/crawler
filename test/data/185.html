@@ -1,0 +1,934 @@
+
+
+
+HTML Scraper « Python recipes « ActiveState Code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to Search
+Skip to Navigation
+Skip to Content
+
+
+
+
+
+
+
+Community
+|
+Code
+|
+Docs
+|
+Downloads ▼
+
+ActivePerl
+ActivePython
+ActiveTcl
+ActiveGo
+Komodo IDE
+
+
+|
+more ▼
+
+Lists
+Bugs
+PPM Index
+PyPM Index
+
+
+
+
+
+    
+      Welcome, guest
+      | Sign In
+| My Account
+| Store
+| Cart
+
+
+
+
+ActiveState Code » Recipes
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+Languages
+Tags
+Authors
+Sets
+
+
+ 
+ 
+
+
+
+
+
+HTML Scraper
+(Python recipe)
+by Michael Foord
+
+  ActiveState Code (http://code.activestate.com/recipes/286269/)
+
+
+
+
+
+A simple HTML 'parser' that will 'read' through an HTML file and call functions on data and tags etc.
+Useful if you need to implement a straightforward parser that just extracts information from the file or modifies tags etc.
+Shouldn't choke on bad HTML.
+
+
+
+
+
+Python, 295 lines
+Download
+Copy to clipboard
+
+
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295#06-09-04
+#v1.3.0 
+
+# scraper.py
+# A general HTML 'parser' and a specific example that will modify URLs in tags.
+
+# Copyright Michael Foord
+# You are free to modify, use and relicense this code.
+# No warranty express or implied for the accuracy, fitness to purpose or otherwise for this code....
+# Use at your own risk !!!
+
+# E-mail michael AT foord DOT me DOT uk
+# Maintained at www.voidspace.org.uk/atlantibots/pythonutils.html
+
+import re
+
+#namefind is supposed to match a tag name and attributes into groups 1 and 2 respectively.
+#the original version of this pattern:
+# namefind = re.compile(r'(\S*)\s*(.+)', re.DOTALL)
+#insists that there must be attributes and if necessary will steal the last character
+#of the tag name to make it so. this is annoying, so let us try:
+namefind = re.compile(r'(\S+)\s*(.*)', re.DOTALL)
+
+attrfind = re.compile(
+    r'\s*([a-zA-Z_][-:.a-zA-Z_0-9]*)(\s*=\s*'
+    r'(\'[^\']*\'|"[^"]*"|[-a-zA-Z0-9./,:;+*%?!&$\(\)_#=~\'"@]*))?')            # this is taken from sgmllib
+
+class Scraper:
+    def __init__(self):
+        """Initialise a parser."""
+        self.buffer = ''
+        self.outfile = ''
+
+    def reset(self):
+        """This method clears the input buffer and the output buffer."""
+        self.buffer = ''
+        self.outfile = ''
+
+    def push(self):
+        """This returns all currently processed data and empties the output buffer."""
+        data = self.outfile
+        self.outfile = ''
+        return data
+
+    def close(self):
+        """Returns any unprocessed data (without processing it) and resets the parser.
+        Should be used after all the data has been handled using feed and then collected with push.
+        This returns any trailing data that can't be processed.
+
+        If you are processing everything in one go you can safely use this method to return everything.
+        """
+        data = self.push() + self.buffer
+        self.buffer = ''
+        return data
+
+    def feed(self, data):
+        """Pass more data into the parser.
+        As much as possible is processed - but nothing is returned from this method.
+        """
+        self.index = -1
+        self.tempindex = 0
+        self.buffer = self.buffer + data
+        outlist = []
+        thischunk = []
+        while self.index < len(self.buffer)-1:          # rewrite with a list of all the occurences of '<' and jump between them, much faster than character by character - which is fast enough to be fair...
+            self.index += 1
+            inchar = self.buffer[self.index]
+            if inchar == '<':
+                outlist.append(self.pdata(''.join(thischunk)))
+                thischunk = []
+                result = self.tagstart()
+                if result: outlist.append(result)
+                if self.tempindex: break
+            else:
+                thischunk.append(inchar) 
+        if self.tempindex:
+            self.buffer = self.buffer[self.tempindex:]
+        else:
+            self.buffer = ''
+            if thischunk: self.buffer = ''.join(thischunk)
+        self.outfile = self.outfile + ''.join(outlist)
+
+    def tagstart(self):
+        """We have reached the start of a tag.
+        self.buffer is the data
+        self.index is the point we have reached.
+        This function should extract the tag name and all attributes - and then handle them !."""
+        test1 = self.buffer.find('>', self.index+1)
+        test2 = self.buffer.find('<', self.index+1)         # will only happen for broken tags with a missing '>'
+        test1 += 1
+        test2 += 1
+        if not test2 and not test1:                     
+            self.tempindex = self.index                  # if we get this far the buffer is incomplete (the tag doesn't close yet)
+            self.index = len(self.buffer)               # this signals to feed that some of the buffer needs saving
+            return
+        if test1 and test2:
+            test = min(test1, test2)
+            if test == test2:           # if the closing tag is missing and we're working from the next starting tag - we eed to be careful with our index position...
+                mod=1
+            else:
+                mod=0
+        else:
+            test = test1 or test2
+            if test2:
+                mod=1
+            else:
+                mod=0
+        thetag = self.buffer[self.index+1:test-1].strip()
+
+        if thetag.startswith('!'):               # is a declaration or comment
+            return self.pdecl()
+        if thetag.startswith('?'):
+            return self.ppi()                              # is a processing instruction 
+
+        if mod:                   # as soon as we return, the index will have 1 added to it straight away
+            self.index = test -2
+        else:
+            self.index = test -1
+            
+        if thetag.startswith('/'):
+            return self.endtag(thetag)              # is an endtag 
+
+        nt = namefind.match(thetag)
+        if not nt: return self.emptytag(thetag)                              # nothing inside the tag ?
+        name, attributes = nt.group(1,2)
+
+        matchlist = attrfind.findall(attributes)
+        attrs = []
+        #the doc says a tag must be nameless to be "empty" so kill
+        #next line that calls any tag with no attributes "empty"
+        #if not matchlist: return self.emptytag(thetag)                              # nothing inside the tag ?
+        for entry in matchlist:
+            attrname, rest, attrvalue = entry               # this little chunk nicked from sgmllib - except findall is used to match all the attributes
+            if not rest:
+                attrvalue = attrname
+            elif attrvalue[:1] == '\'' == attrvalue[-1:] or \
+                 attrvalue[:1] == '"' == attrvalue[-1:]:
+                attrvalue = attrvalue[1:-1]
+            attrs.append((attrname.lower(), attrvalue))
+        return self.handletag(name.lower(), attrs, thetag)              # deal with what we've found.
+
+################################################################################################
+    # The following methods are called to handle the various HTML elements.
+    # They are intended to be overridden in subclasses.
+
+    def pdata(self, inchunk):
+        """Called when we encounter a new tag. All the unprocessed data since the last tag is passed to this method.
+        Dummy method to override. Just returns the data unchanged."""
+        return inchunk
+
+    def pdecl(self):
+        """Called when we encounter the *start* of a declaration or comment. <!....
+        It uses self.index and isn't passed anything.
+        Dummy method to override. Just returns."""
+        return '<'
+    
+    def ppi(self):
+        """Called when we encounter the *start* of a processing instruction. <?....
+        It uses self.index and isn't passed anything.
+        Dummy method to override. Just returns."""
+        return '<'
+
+    def endtag(self, thetag):
+        """Called when we encounter a close tag. </....
+        It is passed the tag contents (including leading '/') and just returns it."""
+        return '<' + thetag + '>'
+
+    def emptytag(self, thetag):
+        """Called when we encounter a tag that we can't extract any valid name or attributes from.
+        It is passed the tag contents and just returns it."""
+        return '<' + thetag + '>'  
+
+    def handletag(self, name, attrs, thetag):
+        """Called when we encounter a tag.
+        Is passed the tag name and a list of (attrname, attrvalue) - and the original tag contents as a string."""
+        return '<' + thetag + '>'
+
+
+
+#################################################################
+# The simple test script looks for a file called 'index.html'
+# It parses it, and saves it back out as 'index2.html'
+#
+# See how all the parsed file can safely be returned using the close method.
+# If Scraper works - the new file should be a pretty much unchanged copy of the first.
+
+if __name__ == '__main__':
+#    a = approxScraper('http://www.pythonware.com/daily', 'approx.py')
+    a = Scraper()
+    a.feed(open('index.html').read())                   # read and feed
+    open('index2.html','w').write(a.close())
+
+#################################################################
+    
+__doc__ = """
+Scraper is a class to parse HTML files.
+It contains methods to process the 'data portions' of an HTML and the tags.
+These can be overridden to implement your own HTML processing methods in a subclass.
+This class does most of what HTMLParser.HTMLParser does - except without choking on bad HTML.
+It uses the regular expression and a chunk of logic from sgmllib.py (standard python distribution)
+
+The only badly formed HTML that will cause errors is where a tag is missing the closing '>'. (Unfortunately common)
+In this case the tag will be automatically closed at the next '<' - so some data could be incorrectly put inside the tag.
+
+The useful methods of a Scraper instance are :
+
+feed(data)  -   Pass more data into the parser.
+                As much as possible is processed - but nothing is returned from this method.  
+push()      -   This returns all currently processed data and empties the output buffer.
+close()     -   Returns any unprocessed data (without processing it) and resets the parser.
+                Should be used after all the data has been handled using feed and then collected with push.
+                This returns any trailing data that can't be processed.
+reset()     -   This method clears the input buffer and the output buffer.
+
+The following methods are the methods called to handle various parts of an HTML document.
+In a normal Scraper instance they do nothing and are intended to be overridden.
+Some of them rely on the self.index attribute property of the instance which tells it where in self.buffer we have got to.
+Some of them are explicitly passed the tag they are working on - in which case, self.index will be set to the end of the tag.
+After all these methods have returned self.index will be incremented to the next character.
+If your methods do any future processing they can manually modify self.index
+All these methods should return anything to include in the processed document.
+
+pdata(inchunk)
+    Called when we encounter a new tag. All the unprocessed data since the last tag is passed to this method.
+    Dummy method to override. Just returns the data unchanged.
+
+pdecl()
+    Called when we encounter the *start* of a declaration or comment. <!.....
+    It uses self.index and isn't passed anything.
+    Dummy method to override. Just returns '<'.
+
+ppi()
+    Called when we encounter the *start* of a processing instruction. <?.....
+    It uses self.index and isn't passed anything.
+    Dummy method to override. Just returns '<'.
+
+endtag(thetag)
+    Called when we encounter a close tag.   </...
+    It is passed the tag contents (including leading '/') and just returns it.
+
+emptytag(thetag)
+    Called when we encounter a tag that we can't extract any valid name or attributes from.
+    It is passed the tag contents and just returns it.
+
+handletag(name, attrs, thetag)
+    Called when we encounter a tag.
+    Is passed the tag name and attrs (a list of (attrname, attrvalue) tuples) - and the original tag contents as a string.
+
+
+Typical usage :
+
+filehandle = open('file.html', 'r')
+parser = Scraper()
+while True:
+    data = filehandle.read(10000)               # read in the data in chunks
+    if not data: break                      # we've reached the end of the file - python could do with a do:...while syntax...
+    parser.feed(data)
+##    print parser.push()                     # you can output data whilst processing using the push method
+processedfile = parser.close()              # or all in one go using close  
+## print parser.close()                       # Even if using push you will still need a final close
+filehandle.close()
+
+
+
+TODO/ISSUES
+Could be sped up by jumping from '<' to '<' rather than a character by character search (which is still pretty quick).
+Need to check I have all the right tags and attributes in the tagdict in approxScraper.
+The only other modification this makes to HTML is to close tags that don't have a closing '>'.. theoretically it could close them in the wrog place I suppose....
+(This is very bad HTML anyway - but I need to watch for missing content that gets caught like this.)
+Could check for character entities and named entities in HTML like HTMLParser.
+Doesn't do anything special for self clsoing tags (e.g. <br />)
+
+
+CHANGELOG
+06-09-04        Version 1.3.0
+A couple of patches by Paul Perkins - mainly prevents the namefind regular expression grabbing a characters when it has no attributes.
+
+28-07-04        Version 1.2.1
+Was losing a bit of data with each new feed. Have sorted it now.
+
+24-07-04        Version 1.2.0
+Refactored into Scraper and approxScraper classes.
+Is now a general purpose, basic, HTML parser.
+
+19-07-04        Version 1.1.0
+Modified to output URLs using the PATH_INFO method - see approx.py
+Cleaned up tag handling - it now works properly when there is a missing closing tag (common - but see TODO - has to guess where to close it).
+
+11-07-04        Version 1.0.1
+Added the close method.
+
+09-07-04        Version 1.0.0
+First version designed to work with approx.py the CGI proxy.
+
+"""
+
+
+
+
+
+
+Scraper is a class to parse HTML files.
+It contains methods to process the 'data portions' of an HTML and the tags.
+These can be overridden to implement your own HTML processing methods in a subclass.
+This class does most of what HTMLParser.HTMLParser does - except without choking on bad HTML (except character entities etc). I still find BeautifulSoup (even BeautifulStoneSoup) makes too many modifications to the HTML - this makes almost no changes to the HTML as it parses. Less useful for extracting information from HTML - but more useful if you just want to modify a page.
+It uses the regular expression and a chunk of logic from sgmllib.py (standard python distribution)
+The only badly formed HTML that will cause errors is where a tag is missing the closing '>'. (Unfortunately common)
+In this case the tag will be automatically closed at the next 'Scraper is a class to parse HTML files.
+It contains methods to process the 'data portions' of an HTML and the tags.
+These can be overridden to implement your own HTML processing methods in a subclass.
+This class does most of what HTMLParser.HTMLParser does - except without choking on bad HTML (except character entities etc). I still find BeautifulSoup (even BeautifulStoneSoup) makes too many modifications to the HTML - this makes almost no changes to the HTML as it parses. Less useful for extracting information from HTML - but more useful if you just want to modify a page.
+It uses the regular expression and a chunk of logic from sgmllib.py (standard python distribution)
+The only badly formed HTML that will cause errors is where a tag is missing the closing '>'. (Unfortunately common)
+In this case the tag will be automatically closed at the next '<'.
+See the docstring for the rest of the details.
+
+
+
+
+
+
+
+
+
+
+
+    Tags: web
+
+2 comments
+
+
+
+
+
+
+
+
+
+Joel Lawhead
+18 years, 2 months ago
+
+ #
+            |
+            flag
+
+
+
+Another good scraper...  If you like this HTML scraper also check out another great Python HTML/XML scraper called BeautifulSoup at: http://www.crummy.com/software/BeautifulSoup/
+
+
+
+
+
+
+
+
+
+
+
+Michael Foord (author)
+18 years, 1 month ago
+
+ #
+            |
+            flag
+
+
+
+BeautifulSoup is Good.  If you are extracting information from a page BeautifulSoup offers a lot more functionality.
+I was just amending the contents of some tags and found that BS (including StoneSoup) made changes to the page as it went - including mangling the pages !! This recipe should allow you to change pages a lot more easily.
+
+
+
+
+ 
+ 
+ 
+
+
+
+
+
+
+
+Created by Michael Foord
+on Mon, 26 Jul 2004
+(PSF)
+
+
+
+
+◄
+Python recipes (4591)
+►
+
+
+◄
+Michael Foord's recipes (20)
+►
+
+
+
+Tags
+web▶ Show machine tags (5) meta:language=pythonmeta:license=psfmeta:loc=295meta:requires=remeta:score=3
+
+
+Required Modules
+
+re
+
+
+
+
+Other Information and Tasks
+
+Licensed under the PSF License
+Viewed 48460 times
+Revision 5
+(updated 18 years ago)
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+
+
+
+Accounts
+
+Create Account (Free!)
+Sign In
+
+
+
+Code Recipes
+
+Recipes
+Languages
+Tags
+Authors
+Sets
+
+
+
+Feedback & Information
+
+About
+FAQ
+Terms of Service
+
+
+
+ActiveState
+
+ActiveState Blog
+Perl Solutions
+Python Solutions
+Tcl Solutions
+Download ActivePerl
+Download ActivePython
+Download ActiveTcl
+About ActiveState
+Careers
+
+
+
+
+Privacy Policy
+  | Contact Us
+  | Support
+
+© 2022 ActiveState Software Inc. All rights reserved.
+  ActiveState®, Komodo®, ActiveState Perl Dev Kit®,
+  ActiveState Tcl Dev Kit®, ActivePerl®, ActivePython®,
+  and ActiveTcl® are registered trademarks of ActiveState.
+  All other marks are property of their respective owners.
+
+ 
+ 
+
+
+ x 
+
+ 
+
+Undo
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

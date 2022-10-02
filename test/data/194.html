@@ -1,0 +1,1528 @@
+
+
+
+
+
+
+
+
+Документации/BeautifulSoup - Wiki Портала-Python программистов
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Искать:
+
+
+
+
+
+
+
+
+
+ДокументацииBeautifulSoup
+
+
+
+
+
+
+
+
+КнигиДокументацияПакетыПоследниеИзмененияНайтиСтраницуПомощьПоГлавамBeautifulSoup
+
+
+
+Страница
+Неизменяемая страницаКомментарииИнформацияПрикреплённые файлы
+
+
+Другие действия:
+
+Показать разметку
+Вид для печати
+Показать как Docbook
+Очистить кэш страницы
+------------------------
+Проверить правописание
+Похожие страницы
+Карта окрестностей
+------------------------
+Переименовать страницу
+Удалить страницу
+------------------------
+Подписать пользователя
+------------------------
+Очистить от спама
+Вернуть эту версию
+Страницы пакета
+Синхронизировать страницы
+------------------------
+Загрузить
+Записать
+SlideShow
+
+
+
+
+
+
+
+
+Пользователь
+Войти
+
+
+
+
+Beautiful Soup   Beautiful Soup - это парсер для синтаксического разбора файлов HTML/XML, написанный на языке программирования Python, который может преобразовать даже неправильную разметку в дерево синтаксического разбора. Он поддерживает простые и естественные способы навигации, поиска и модификации дерева синтаксического разбора. В большинстве случаев он поможет программисту сэкономить часы и дни работы. Написанный на языке программирования Ruby порт называется Rubyful Soup. Данный документ иллюстрирует основные возможности Beautiful Soup версии 3.0 на примерах. Вы увидите, для чего лучше использовать данную библиотеку, как она работает, как ее использовать, как добиться необходимых вам результатов и что делать, когда она не оправдывает ваших  ожиданий. Содержание
+Быстрый старт
+Синтаксический разбор документа
+Синтаксический разбор HTML
+Синтаксический разбор XML
+Если это не работает
+Beautiful Soup дает тебе Unicode, черт побери
+Печать документа
+Дерево синтаксического разбора
+Атрибуты `Tag`-ов
+Навигация по дереву синтаксического разбора
+`parent`
+`contents`
+`string`
+`nextSibling` и `previousSibling`
+`next` и `previous`
+Итерации над объектом `Tag`
+Используем имена тегов как элементы
+Поиск в дереве синтаксического разбора
+Основной метод поиска: findAll(name, attrs, recursive, text, limit, **kwargs)
+Поиск класса CSS
+Вызов тега аналогично вызову `findall`
+find(name, attrs, recursive, text, **kwargs)
+Что произошло с методом `first`?
+Поиск внутри дерева синтаксического разбора
+findNextSiblings(name, attrs, text, limit, **kwargs) и findNextSibling(name, attrs, text, **kwargs)
+findPreviousSiblings(name, attrs, text, limit, **kwargs) и findPreviousSibling(name, attrs, text, **kwargs)
+findAllNext(name, attrs, text, limit, **kwargs) и findNext(name, attrs, text, **kwargs)
+findAllPrevious(name, attrs, text, limit, **kwargs) и findPrevious(name, attrs, text, **kwargs)
+findParents(name, attrs, limit, **kwargs) и findParent(name, attrs, **kwargs)
+Модификация дерева синтаксического разбора
+Изменение значений атрибутов
+Удаление элементов
+Замена одного элемента на другой
+Добавление другого нового элемента
+Известные проблемы
+Почему Beautiful Soup не может вывести на экран не-ASCII символы, которые я передал ему?
+Beautiful Soup потерял данные, которые я ему передал! Почему? ПОЧЕМУ?????
+Синтаксическое дерево разбора, построенное классом `BeautifulSoup`, меня раздражает!
+Beautiful Soup слишком медленно работает!
+Дополнительные темы
+Генераторы
+Другие встроенные парсеры
+Настраиваем парсер
+Преобразование сущностей
+Очистка от плохих данных с помощью регулярных выражений
+Наслаждаемся `SoupStrainer`-ми
+Улучшаем производительность за счет синтаксического разбора только части документа
+Улучшаем использование памяти при помощи `extract`
+Смотрите также
+Приложения, использующие Beautiful Soup
+Похожие библиотеки
+Заключение 
+Быстрый старт
+Скачать Beautiful Soup можно здесь. Список изменений содержит отличия версии 3.0 от более ранних. Подключить Beautiful Soup к вашему приложению можно с помощью одной из ниже приведенных строк: 
+
+
+from BeautifulSoup import BeautifulSoup          # Для обработки HTML
+from BeautifulSoup import BeautifulStoneSoup     # Для обработки XML
+import BeautifulSoup                             # Для обработки и того и другого
+Следующий код демонстрирует основные возможности Beautiful Soup. Можете скопировать его в сессию Python и запустить. 
+
+from BeautifulSoup import BeautifulSoup
+import re
+
+doc = ['<html><head><title>Page title</title></head>',
+       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
+       '</html>']
+soup = BeautifulSoup(''.join(doc))
+
+print soup.prettify()
+# <html>
+#  <head>
+#   <title>
+#    Page title
+#   </title>
+#  </head>
+#  <body>
+#   <p id="firstpara" align="center">
+#    This is paragraph
+#    <b>
+#     one
+#    </b>
+#    .
+#   </p>
+#   <p id="secondpara" align="blah">
+#    This is paragraph
+#    <b>
+#     two
+#    </b>
+#    .
+#   </p>
+#  </body>
+# </html>
+Продемонстрируем несколько способов навигации по супу: 
+
+soup.contents[0].name
+# u'html'
+
+soup.contents[0].contents[0].name
+# u'head'
+
+head = soup.contents[0].contents[0]
+head.parent.name
+# u'html'
+
+head.next
+# <title>Page title</title>
+
+head.nextSibling.name
+# u'body'
+
+head.nextSibling.contents[0]
+# <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>
+
+head.nextSibling.contents[0].nextSibling
+# <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>
+А вот как искать в супе определенные теги или теги с заданными атрибутами: 
+
+titleTag = soup.html.head.title
+titleTag
+# <title>Page title</title>
+
+titleTag.string
+# u'Page title'
+
+len(soup('p'))
+# 2
+
+soup.findAll('p', align="center")
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>. </p>]
+
+soup.find('p', align="center")
+# <p id="firstpara" align="center">This is paragraph <b>one</b>. </p>
+
+soup('p', align="center")[0]['id']
+# u'firstpara'
+
+soup.find('p', align=re.compile('^b.*'))['id']
+# u'secondpara'
+
+soup.find('p').b.string
+# u'one'
+
+soup('p')[1].b.string
+# u'two'
+Изменять суп также весьма просто: 
+
+titleTag['id'] = 'theTitle'
+titleTag.contents[0].replaceWith("New title")
+soup.html.head
+# <head><title id="theTitle">New title</title></head>
+
+soup.p.extract()
+soup.prettify()
+# <html>
+#  <head>
+#   <title id="theTitle">
+#    New title
+#   </title>
+#  </head>
+#  <body>
+#   <p id="secondpara" align="blah">
+#    This is paragraph
+#    <b>
+#     two
+#    </b>
+#    .
+#   </p>
+#  </body>
+# </html>
+
+soup.p.replaceWith(soup.b)
+# <html>
+#  <head>
+#   <title id="theTitle">
+#    New title
+#   </title>
+#  </head>
+#  <body>
+#   <b>
+#    two
+#   </b>
+#  </body>
+# </html>
+
+soup.body.insert(0, "This page used to have ")
+soup.body.insert(2, " &lt;p&gt; tags!")
+soup.body
+# <body>This page used to have <b>two</b> &lt;p&gt; tags!</body>
+Приведем реальный пример. Скачаем ICC Commercial Crime Services weekly piracy report, произведем его синтаксический разбор с помощью Beautiful Soup и выведем на экран сообщения о случаях пиратства (piracy incidents): 
+
+import urllib2
+from BeautifulSoup import BeautifulSoup
+
+page = urllib2.urlopen("http://www.icc-ccs.org/prc/piracyreport.php")
+soup = BeautifulSoup(page)
+for incident in soup('td', width="90%"):
+    where, linebreak, what = incident.contents[:3]
+    print where.strip()
+    print what.strip()
+    print
+
+Синтаксический разбор документа
+Для работы конструктору Beautiful Soup требуется документ XML или HTML в виде строки (или открытого файлоподобного объекта). Он произведет синтаксический разбор и создаст в памяти структуры данных, соответствующие документу. Если обработать с помощью Beautiful Soup хорошо оформленный документ, то разобранная структура будет выглядеть также как и исходный документ. Но если его разметка будет содержать ошибки, то Beautiful Soup использует эвристические методы для построения наиболее подходящей структуры данных.  
+Синтаксический разбор HTML
+Используйте класс BeautifulSoup для синтаксического разбора документа HTML. Несколько фактов, которые необходимо знать о BeautifulSoup: Некоторые теги могут быть вложенными (<BLOCKQUOTE>), а некоторые - нет (<P>). Таблицы и списки тегов имеют естественный порядок вложенности. Например, теги <TD> появляются только в обрамлении тегов <TR> и никак иначе. Содержимое тега <SCRIPT> не будет участвовать в разборе HTML. Тег <META> может определять кодировку документа. Вот как это работает: 
+
+from BeautifulSoup import BeautifulSoup
+html = "<html><p>Para 1<p>Para 2<blockquote>Quote 1<blockquote>Quote 2"
+soup = BeautifulSoup(html)
+print soup.prettify()
+# <html>
+#  <p>
+#   Para 1
+#  </p>
+#  <p>
+#   Para 2
+#   <blockquote>
+#    Quote 1
+#    <blockquote>
+#     Quote 2
+#    </blockquote>
+#   </blockquote>
+#  </p>
+# </html>
+Обратите внимание на то, что BeautifulSoup вычисляет наиболее вероятные места для закрывающих тегов, даже если они отсутствуют в исходном документе. Хотя приведенный документ HTML является невалидным, с ним все же можно работать. А вот действительно отвратительный документ. Помимо всего прочего он содержит тег <FORM>, который начинается вне тега <TABLE>, но закрывается внутри тега <TABLE>. (Пример такого HTML был найден на веб-сайте одной из ведущих веб-компаний.) 
+
+from BeautifulSoup import BeautifulSoup
+html = """
+<html>
+<form>
+ <table>
+ <td><input name="input1">Row 1 cell 1
+ <tr><td>Row 2 cell 1
+ </form> 
+ <td>Row 2 cell 2<br>This</br> sure is a long cell
+</body> 
+</html>"""
+Beautiful Soup справится с обработкой и такого документа: 
+
+print BeautifulSoup(html).prettify()
+# <html>
+#  <form>
+#   <table>
+#    <td>
+#     <input name="input1" />
+#     Row 1 cell 1
+#    </td>
+#    <tr>
+#     <td>
+#      Row 2 cell 1
+#     </td>
+#    </tr>
+#   </table>
+#  </form>
+#  <td>
+#   Row 2 cell 2
+#   <br />
+#   This 
+#   sure is a long cell
+#  </td>
+# </html>
+Последняя ячейка таблицы находится вне тега <TABLE>; Beautiful Soup решил закрыть тег <TABLE> там, где закрыт тег <FORM>. Автор исходного документа планировал, вероятно, продлить действие тега <FORM> до конца таблицы, но Beautiful Soup не сможет об этом догадаться. Даже в таком необычном случае Beautiful Soup произведет синтаксический разбор и предоставит вам доступ ко всем данным документа.  
+Синтаксический разбор XML
+Класс BeautifulSoup содержит эвристики, полностью аналогичные применяющимся в веб-браузерах, что позволяет делать предположения о замыслах авторов HTML файлов. Но в XML нет фиксированного порядка тегов такие эвристики здесь не пригодятся. Поэтому BeautifulSoup не сможет хорошо работать с XML. Используйте класс BeautifulStoneSoup для синтаксического разбора документов XML. Это основной класс, не требующий знания диалекта XML и имеющий очень простые правила о вложенности тегов: Вот он в действии: 
+
+from BeautifulSoup import BeautifulStoneSoup
+xml = "<doc><tag1>Contents 1<tag2>Contents 2<tag1>Contents 3"
+soup = BeautifulStoneSoup(xml)
+print soup.prettify()
+# <doc>
+#  <tag1>
+#   Contents 1
+#   <tag2>
+#    Contents 2
+#   </tag2>
+#  </tag1>
+#  <tag1>
+#   Contents 3
+#  </tag1>
+# </doc>
+ Одним из общеизвестных недостатков BeautifulStoneSoup является то, что он не знает о самозакрывающихся тегах. В HTML имеется фиксированный набор самозакрывающихся тегов, но в случае с XML все зависит от того, что записано в DTD. Вы можете сообщить BeautifulStoneSoup, что определенные теги являются самозакрывающимися, передав их имена через аргумент конструктора selfClosingTags: 
+
+from BeautifulSoup import BeautifulStoneSoup
+xml = "<tag>Text 1<selfclosing>Text 2"
+print BeautifulStoneSoup(xml).prettify()
+# <tag>
+#  Text 1
+#  <selfclosing>
+#   Text 2
+#  </selfclosing>
+# </tag>
+
+print BeautifulStoneSoup(xml, selfClosingTags=['selfclosing']).prettify()
+# <tag>
+#  Text 1
+#  <selfclosing />
+#  Text 2
+# </tag>
+
+Если это не работает
+Имеется несколько других классов парсеров, эвристики которых отличаются от двух описанных выше. Также вы можете создать подкласс и настроить парсер и задать в нем свои собственные эвристики. 
+Beautiful Soup дает тебе Unicode, черт побери
+Во время синтаксического разбора документа он перекодируется в Unicode. В своих структурах данных Beautiful Soup хранит только строки Unicode. 
+
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("Hello")
+soup.contents[0]
+# u'Hello'
+soup.originalEncoding
+# 'ascii'
+Вот пример с японским документом в кодировке UTF-8: 
+
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("\xe3\x81\x93\xe3\x82\x8c\xe3\x81\xaf")
+soup.contents[0]
+# u'\u3053\u308c\u306f'
+soup.originalEncoding
+# 'utf-8'
+
+str(soup)
+# '\xe3\x81\x93\xe3\x82\x8c\xe3\x81\xaf'
+
+# Note: this bit uses EUC-JP, so it only works if you have cjkcodecs
+# installed, or are running Python 2.4.
+soup.__str__('euc-jp')
+# '\xa4\xb3\xa4\xec\xa4\xcf'
+Beautiful Soup использует класс с именем UnicodeDammit для определения кодировки передаваемых вами документов и перекодировки его в Unicode, не беспокойтесь об этом. Если это также необходимо для других документов (без их синтаксического разбора с помощью Beautiful Soup), то вы можете использовать UnicodeDammit отдельно. Он в значительной мере основан на коде из Universal Feed Parser. Если вы работаете с Python более ранних версий, чем 2.4, то заранее скачайте и установите `cjkcodecs` и `iconvcodec`, которые добавляют в Python поддержку многих кодеков, особенно кодеков CJK. Для лучшего автоопределения кодировки установите также библиотеку `chardet`. Перед перекодировкой в Unicode Beautiful Soup проверяет кодировки в следующем порядке: Кодировка, переданная конструктору супа в параметре fromEncoding. Кодировка, обнаруженная в самом документе: например, в декларации XML или (для документов HTML) в атрибуте http-equiv тега META. Как только Beautiful Soup обнаружит подобное указание о кодировке документа, он повторно приступит к синтаксическому разбору документа с самого начала, но уже применяя найденную кодировку. Избежать этого можно только явным заданием кодировки, которая будет работать: тогда любая найденная в документе кодировка будет игнорироваться. Кодировка, вычисленная по нескольким первым байтам файла. Если кодировка определяется на этом этапе, то она будет либо UTF-*, либо EBCDIC, либо ASCII. Кодировка, вычисленная библиотекой `chardet`, в случае если она была установлена. UTF-8 Windows-1252 Если Beautiful Soup сможет сделать предположение, то почти всегда оно будет верным. Но для документов без декларации или в неизвестной кодировке он не сможет сделать каких-либо предположений. В таком случае – скорее всего, ошибочно, – будет использоваться кодировка Windows-1252. Вот пример в кодировке EUC-JP, когда предположение Beautiful Soup о кодировке будет ошибочным. (Кроме того, поскольку используется кодировка EUC-JP пример будет работать только под Python 2.4 или если установлен cjkcodecs): 
+
+from BeautifulSoup import BeautifulSoup
+euc_jp = '\xa4\xb3\xa4\xec\xa4\xcf'
+
+soup = BeautifulSoup(euc_jp)
+soup.originalEncoding
+# 'windows-1252'
+
+str(soup)
+# '\xc2\xa4\xc2\xb3\xc2\xa4\xc3\xac\xc2\xa4\xc3\x8f'     # Неправильно!
+Но если задать кодировку с помощью fromEncoding, то синтаксический разбор документа будет корректным и его можно будет перекодировать в UTF-8 или обратно – в EUC-JP. 
+
+soup = BeautifulSoup(euc_jp, fromEncoding="euc-jp")
+soup.originalEncoding
+# 'windows-1252'
+
+str(soup)
+# '\xe3\x81\x93\xe3\x82\x8c\xe3\x81\xaf'                 # Правильно!
+
+soup.__str__(self, 'euc-jp') == euc_jp
+# True
+Если обрабатывать с помощью Beautiful Soup документ в кодировке Windows-1252 (или подобных, например, ISO-8859-1 или ISO-8859-2), то Beautiful Soup обнаружит и уничтожит изящные кавычки и другие символы, специфичные для Windows. Чтобы этого избежать Beautiful Soup преобразует эти символы в сущности HTML (BeautifulSoup) или в сущности XML (BeautifulStoneSoup). Чтобы этого избежать можно передать параметр smartQuotesTo=None в конструктор супа: тогда кавычки будут конвертироваться в Unicode также, как и другие символы данной кодировки. Для изменения поведения BeautifulSoup и BeautifulStoneSoup можно передать в параметре smartQuotesTo значения "xml" или "html". 
+
+from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup
+text = "Deploy the \x91SMART QUOTES\x92!"
+
+str(BeautifulSoup(text))
+# 'Deploy the &lsquo;SMART QUOTES&rsquo;!'
+
+str(BeautifulStoneSoup(text))
+# 'Deploy the &#x2018;SMART QUOTES&#x2019;!'
+
+str(BeautifulSoup(text, smartQuotesTo="xml"))
+# 'Deploy the &#x2018;SMART QUOTES&#x2019;!'
+
+BeautifulSoup(text, smartQuotesTo=None).contents[0]
+# u'Deploy the \u2018SMART QUOTES\u2019!'
+
+Печать документа
+Документ Beautiful Soup (или любое их подмножество) можно превратить в строку с помощью функции str или методов prettify или renderContents. Также можно использовать функцию unicode для получения всего документа в виде строки Unicode. Метод prettify добавляет значимые переводы строки и пробелы для придания структуре документа лучшей читабельности. Метод также удаляет текстовые узлы, состоящие только из пробелов, что может изменить смысл XML документа. Функции str и unicode не удаляют текстовые узлы, состоящие только из пробелов, и не добавляют пробелы между узлами. Приведем пример. 
+
+from BeautifulSoup import BeautifulSoup
+doc = "<html><h1>Heading</h1><p>Text"
+soup = BeautifulSoup(doc)
+
+str(soup)
+# '<html><h1>Heading</h1><p>Text</p></html>'
+soup.renderContents()
+# '<html><h1>Heading</h1><p>Text</p></html>'
+soup.__str__()
+# '<html><h1>Heading</h1><p>Text</p></html>'
+unicode(soup)
+# u'<html><h1>Heading</h1><p>Text</p></html>'
+
+soup.prettify()
+# '<html>\n <h1>\n  Heading\n </h1>\n <p>\n  Text\n </p>\n</html>'
+
+print soup.prettify()
+# <html>
+#  <h1>
+#   Heading
+#  </h1>
+#  <p>
+#   Text
+#  </p>
+# </html>
+Обратите внимание, что функции str и renderContents дают различный результат, когда используются для тегов внутри документа. Функция str печатает и теги и их содержимое, а функция renderContents - только содержимое. 
+
+heading = soup.h1
+str(heading)
+# '<h1>Heading</h1>'
+heading.renderContents()
+# 'Heading'
+При вызове функций __str__, prettify или renderContents, вы можете задать кодировку вывода. Кодировкой по умолчанию (используется функцией str) является UTF-8. Вот пример разбора строки ISO-8851-1 с последующим выводом на экран той же строки в других кодировках: 
+
+from BeautifulSoup import BeautifulSoup
+doc = "Sacr\xe9 bleu!"
+soup = BeautifulSoup(doc)
+str(soup)
+# 'Sacr\xc3\xa9 bleu!'                          # UTF-8
+soup.__str__("ISO-8859-1")
+# 'Sacr\xe9 bleu!'
+soup.__str__("UTF-16")
+# '\xff\xfeS\x00a\x00c\x00r\x00\xe9\x00 \x00b\x00l\x00e\x00u\x00!\x00'
+soup.__str__("EUC-JP")
+# 'Sacr\x8f\xab\xb1 bleu!'
+Если в исходном документе в декларации указывалась кодировка, то при обратном преобразовании в строку Beautiful Soup запишет в декларацию новую кодировку. Это означает, что если загрузить документ HTML в BeautifulSoup, а потом распечатать его, то HTML не только будет вычищен, но и прозрачно перекодирован в UTF-8. Пример HTML: 
+
+from BeautifulSoup import BeautifulSoup
+doc = """<html>
+<meta http-equiv="Content-type" content="text/html; charset=ISO-Latin-1" >
+Sacr\xe9 bleu!
+</html>"""
+
+print BeautifulSoup(doc).prettify()
+# <html>
+#  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+#  Sacré bleu!
+# </html>
+Пример XML: 
+
+from BeautifulSoup import BeautifulStoneSoup
+doc = """<?xml version="1.0" encoding="ISO-Latin-1">Sacr\xe9 bleu!"""
+
+print BeautifulStoneSoup(doc).prettify()
+# <?xml version='1.0' encoding='utf-8'>
+# Sacré bleu!
+
+Дерево синтаксического разбора
+До сих пор мы рассматривали загрузку и запись документов. Однако, большую часть времени будет приковывать к себе дерево синтаксического разбора: структуры данных Beautiful Soup, которые создаются по мере синтаксического разбора документа. Объект парсера (экземпляр класса BeautifulSoup или BeautifulStoneSoup) обладает большой глубиной вложенности связанных структур данных, соответствующих структуре документа XML или HTML. Объект парсера состоит из объектов двух других типов: объектов Tag, которые соответствуют тегам, к примеру, тегу <TITLE> и тегу <B>; и объекты NavigableString, соответствующие таким строкам как "Page title" или "This is paragraph". Класс NavigableString имеет несколько подклассов (CData, Comment, Declaration и ProcessingInstruction), которые соответствуют специальным конструкциям в XML. Они работают также как NavigableString-и, за исключением того, что когда приходит время выводить их на экран, они содержат некоторые дополнительные данные. Вот документ с включенным в него комментарием: 
+
+from BeautifulSoup import BeautifulSoup
+import re
+hello = "Hello! <!--I've got to be nice to get what I want.-->"
+commentSoup = BeautifulSoup(hello)
+comment = commentSoup.find(text=re.compile("nice"))
+
+comment.__class__
+# <class 'BeautifulSoup.Comment'>
+comment
+# u"I've got to be nice to get what I want."
+comment.previousSibling
+# u'Hello! '
+
+str(comment)
+# "<!--I've got to be nice to get what I want.-->"
+print commentSoup
+# Hello! <!--I've got to be nice to get what I want.-->
+Итак, давайте более внимательно посмотрим на тот документ, что приводился в начале документации:  
+
+from BeautifulSoup import BeautifulSoup 
+doc = ['<html><head><title>Page title</title></head>',
+       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
+       '</html>']
+soup = BeautifulSoup(''.join(doc))
+
+print soup.prettify()
+# <html>
+#  <head>
+#   <title>
+#    Page title
+#   </title>
+#  </head>
+#  <body>
+#   <p id="firstpara" align="center">
+#    This is paragraph
+#    <b>
+#     one
+#    </b>
+#    .
+#   </p>
+#   <p id="secondpara" align="blah">
+#    This is paragraph
+#    <b>
+#     two
+#    </b>
+#    .
+#   </p>
+#  </body>
+# </html>
+
+Атрибуты `Tag`-ов
+Объекты Tag и NavigableString имеют множество полезных элементов, большая часть которых описывается в разделах Навигация по дереву синтаксического разбора и Поиск внутри дерева синтаксического разбора. Тем не менее, рассмотрим здесь один аспект объектов Tag: атрибуты. Теги SGML имеют атрибуты: например, каждый тег <P> в приведенном выше примере HTML имеет атрибуты "id" и "align". К атрибутам тегов можно обращаться таким же образом, как если бы объект Tag был словарем: 
+
+firstPTag, secondPTag = soup.findAll('p')
+
+firstPTag['id']
+# u'firstPara'
+
+secondPTag['id']
+# u'secondPara'
+Объекты NavigableString не имеют атрибутов; только объекты Tag имеют их.  
+Навигация по дереву синтаксического разбора
+Все объекты Tag содержат элементы, перечисленные ниже (тем не менее, фактическое значение элемента может равняться None). Объекты NavigableString имеют все из них за исключением contents и string. 
+`parent`
+В примере выше, родителем объекта <HEAD> Tag является объект <HTML> Tag. Родителем объекта <HTML> Tag является сам объект парсера BeautifulSoup. Родитель объекта парсера равен None. Передвигаясь по объектам parent, можно перемещаться по дереву синтаксического разбора: 
+
+soup.head.parent.name
+# u'html'
+soup.head.parent.parent.__class__.__name__
+# 'BeautifulSoup'
+soup.parent == None
+# True
+
+`contents`
+С помощью parent вы перемещаетесь вверх по дереву синтаксического разбора. С помощью contents вы перемещаетесь вниз по дереву синтаксического разбора. contents является упорядоченным списком объектов Tag и NavigableString, содержащихся в элементе страницы (page element). Только объект парсера самого высокого уровня и объекты Tag содержат contents. Объекты NavigableString являются простыми строками и не могут содержать подэлементов, поэтому они не содержат contents. В примере выше, элемент contents первого объекта <P> Tag является списком, содержащим объект NavigableString ("This is paragraph "), объекта <B> Tag и еще одного объекта NavigableString ("."). Элемент contents объекта <B> Tag: список, состоящий из одного объекта NavigableString ("one"). 
+
+pTag = soup.p
+pTag.contents
+# [u'This is paragraph ', <b>one</b>, u'.']
+pTag.contents[1].contents
+# [u'one']
+pTag.contents[0].contents
+# AttributeError: 'NavigableString' object has no attribute 'contents'
+
+`string`
+Для вашего удобства сделано так, что в случае, когда тег имеет только один дочерний узел, который является строкой, дочерний узел будет доступен через tag.string точно также как и через tag.contents[0]. В примере выше soup.b.string является объектом NavigableString отображающим Unicode-строку "one". Эта строка содержится в первом объекте <B> Tag дерева синтаксического разбора. 
+
+soup.b.string
+# u'one'
+soup.b.contents[0]
+# u'one'
+Но soup.p.string равен None, поскольку первый объект <P> Tag в дереве синтаксического разбора имеет более одного дочернего элемента. soup.head.string также равен None, хотя объект <HEAD> Tag имеет только один дочерний элемент, поскольку этот дочерний элемент – Tag (объект <TITLE> Tag), а не объект NavigableString. 
+
+soup.p.string == None
+# True
+soup.head.string == None
+# True
+
+`nextSibling` и `previousSibling`
+Эти элементы позволяют пропускать следующий или предыдущий элемент на этом же уровне дерева синтаксического разбора. В представленном выше документе, элемент nextSibling объекта <HEAD> Tag равен объекту <BODY> Tag, поскольку объект <BODY> Tag является следующим вложенным элементом по отношению к объекту <html> Tag. Элемент nextSibling объекта <BODY> Tag равен None, поскольку в нем больше нет вложенных по отношению к объекту <HTML> Tag элементов. 
+
+soup.head.nextSibling.name
+# u'body'
+soup.html.nextSibling == None
+# True
+И наоборот, элемент previousSibling объекта <BODY> Tag равен объекту <HEAD> tag, а элемент previousSibling объекта <HEAD> Tag равен None: 
+
+soup.body.previousSibling.name
+# u'head'
+soup.head.previousSibling == None
+# True
+Несколько примеров: элемент nextSibling первого объекта <P> Tag равен второму объекту <P> Tag. Элемент previousSibling объекта <B> Tag внутри второго объекта <P> Tag равен объекту NavigableString "This is paragraph". Элемент previousSibling данного объекта NavigableString равен None, внутри первого объекта <P> Tag. 
+
+soup.p.nextSibling
+# <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>
+
+secondBTag = soup.findAlll('b')[1]
+secondBTag.previousSibling
+# u'This is paragraph'
+secondBTag.previousSibling.previousSibling == None
+# True
+
+`next` и `previous`
+Данные элементы позволяют передвигаться по элементам документа в том порядке, в котором они были обработаны парсером, а не в порядке появления в дереве. Например, элемент next для объекта <HEAD> Tag равен объекту <TITLE> Tag, а не объекту <BODY> Tag. Это потому, что в исходном документе, тег <TITLE> идет сразу после тега <HEAD>. 
+
+soup.head.next
+# u'title'
+soup.head.nextSibling.name
+# u'body'
+soup.head.previous.name
+# u'html'
+Поскольку элементы next и previous связаны, содержимое элемента contents объекта Tag обновляется до того как элемент nextSibling. Как правило, эти элементы не используют, но иногда это наиболее быстрый способ получить что-либо скрытое в глубине дерева синтаксического разбора. 
+Итерации над объектом `Tag`
+Над элементом contents объекта Tag можно производить итерации, рассматривая его в качестве списка. Это полезное упрощение. Подобным образом можно узнать, сколько дочерних узлов имеет объект Tag, вызвав функцию len(tag) вместо len(tag.contents). В терминах документа выше: 
+
+for i in soup.body:
+    print i
+# <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>
+# <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>
+
+len(soup.body)
+# 2
+len(soup.body.contents)
+# 2
+
+Используем имена тегов как элементы
+Гораздо легче перемещаться по дереву синтаксического разбора, если в качестве имен тегов выступали элементы парсера или объекта Tag. Будем так делать на протяжении следующих примеров. В терминах документа выше, soup.head возвращает нам первый (как и следовало ожидать, единственный) объекта <HEAD> Tag документа: 
+
+soup.head
+# <head><title>Page title</title></head>
+Вообще, вызов mytag.foo возвратит первого потомка mytag, чем, как ни странно, будет объект <FOO> Tag. Если каких-либо объектов <FOO> Tag внутри mytag нет, то mytag.foo возвратит None. Вы можете использовать это для очень быстрого обхода дерева синтаксического разбора: 
+
+soup.head.title
+# <title>Page title</title>
+
+soup.body.p.b.string
+# u'one'
+Также это можно использовать для быстрого перехода к определенной части дерева синтаксического разбора. Например, если вас не беспокоит отсутствие тегов <TITLE> на предусмотренных для них месте, вы можете просто использовать soup.title для получения названия документа HTML. Вам не нужно использовать soup.head.title: 
+
+soup.title.string
+# u'Page title'
+soup.p перейдет к первому тегу <P> внутри документа, где бы тот ни был. soup.table.tr.td перейдет к первому столбцу первой строки первой же таблицы документа. Фактически эти элементы – алиасы для метода first, описываемого ниже. Я упоминаю их здесь потому, что алиасы делают очень легким увеличение масштаба интересующей вас части хорошо знакомого дерева синтаксического разбора. Альтернативная форма этого стиля позволяет обращаться к первому тегу <FOO> как .fooTag вместо .foo. Например, soup.table.tr.td можно также отобразить как soup.tableTag.trTag.tdTag или даже soup.tableTag.tr.tdTag. Это полезно если вы предпочитаете быть более осведомленным о том, что делаете или если вы разбираете XML, в котором имена тегов конфликтуют с именами методов и элементов Beautiful Soup. 
+
+from BeautifulSoup import BeautifulStoneSoup
+xml = '<person name="Bob"><parent rel="mother" name="Alice">'
+xmlSoup = BeautifulStoneSoup(xml)
+
+xmlSoup.person.parent                      # A Beautiful Soup member
+# <person name="Bob"><parent rel="mother" name="Alice"></parent></person>
+xmlSoup.person.parentTag                   # A tag name
+# <parent rel="mother" name="Alice"></parent>
+Если вы присмотритесь к именам тегов, то увидите что они не являются корректными идентификаторами Python (как hyphenated-name), вам нужно использовать first.  
+Поиск в дереве синтаксического разбора
+Beautiful Soup предоставляет множество методов для обхода дерева синтаксического разбора, отбирая по заданным критериям объекты Tag и NavigableString.  Для определения критериев отбора объектов Beautiful Soup есть несколько способов. Продемонстрируем доскональное исследование наиболее общего из всех методов поиска Beautiful Soup, findAll. Как и раньше, показывать будем на следующем документе: 
+
+from BeautifulSoup import BeautifulSoup
+doc = ['<html><head><title>Page title</title></head>',
+       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
+       '</html>']
+soup = BeautifulSoup(''.join(doc))
+print soup.prettify()
+# <html>
+#  <head>
+#   <title>
+#    Page title
+#   </title>
+#  </head>
+#  <body>
+#   <p id="firstpara" align="center">
+#    This is paragraph
+#    <b>
+#     one
+#    </b>
+#    .
+#   </p>
+#   <p id="secondpara" align="blah">
+#    This is paragraph
+#    <b>
+#     two
+#    </b>
+#    .
+#   </p>
+#  </body>
+# </html>
+Между прочим, оба описываемых в этом разделе метода (findAll и find) доступны только для объектов Tag и объектов парсера самого высокого уровня, но не для объектов NavigableString. Методы, описываемые в разделе Поиск в дереве синтаксического разбора, доступны и для объектов NavigableString. 
+Основной метод поиска: findAll(name, attrs, recursive, text, limit, **kwargs)
+Метод обхода дерева findAll начинает с заданной точки и ищет все объекты Tag и NavigableString, соответствующие заданным критериям. Сигнатура метода findall следующая: 
+
+findAll(name=None, attrs={}, recursive=True, text=None, limit=None, **kwargs)'''
+
+ Эти аргументы появляются снова и снова повсюду в Beautiful Soup API. Наиболее важными являются аргументы name и именованные аргументы.  Аргумент name ограничивает набор имен тегов. Имеется несколько способов ограничить имена и все они появляются снова и снова повсюду в Beautiful Soup API. Самый простой способ – передать имя тега. Приведем код, который ищет все объекты <B> Tag в документе: 
+
+soup.findAll('b')
+# [<b>one</b>, <b>two</b>]
+Также можно передать регулярное выражение. Код, который ищет все теги, имена которых начинаются на английскую букву "B": 
+
+import re
+tagsStartingWithB = soup.findAll(re.compile('^b'))
+[tag.name for tag in tagsStartingWithB]
+# [u'body', u'b', u'b']
+Можно передать список или словарь. Эти два вызова ищут все теги <TITLE> и <P>. Принцип работы у них одинаков, но второй вызов отработает быстрее: 
+
+soup.findAll(['title', 'p'])
+# [<title>Page title</title>, 
+#  <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>, 
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+soup.findAll({'title' : True, 'p' : True})
+# [<title>Page title</title>, 
+#  <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>, 
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+Можно передать специальное значение True, которому соответствуют все теги с любыми именами. 
+
+allTags = soup.findAll(True)
+[tag.name for tag in allTags]
+[u'html', u'head', u'title', u'body', u'p', u'b', u'p', u'b']
+Это не выглядит полезным, но True очень полезно, когда нужно ограничить значения атрибутов.  Можно передать вызываемый объект, который принимает объект Tag как единственный аргумент и возвращает логическое значение. Каждый объект Tag, который находит findAll, будет передан в этот объект и если его вызов возвращает True, то необходимый тег найден. Вот код, который ищет теги с двумя и только двумя атрибутами: 
+
+soup.findAll(lambda tag: len(tag.attrs) == 2)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>, 
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+Данный код ищет теги, имена которых состоят из одной букву и которые не имеют атрибутов: 
+
+soup.findAll(lambda tag: len(tag.name) == 1 and not tag.attrs)
+# [<b>one</b>, <b>two</b>]
+ Аргументы ключевых слов (keyword arguments) налагают ограничения на атрибуты тега. Вот простой пример поиска всех тегов, атрибут "align" которых имеет значение "center": 
+
+soup.findAll(align="center")
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>]
+Как и в случае с аргументом name вы можете передать именованный аргумент различными видами объектов для наложения разных ограничений на соответствующие атрибуты. Можно передать строку, как показано выше, чтобы ограничить значение атрибута единственным значением. Можно также передать регулярное выражение, список, хэш, специальные значения True или None, или вызываемый объект, который получает значение атрибута в качестве аргумента (обратите внимание на то, что значение может быть и None). Несколько примеров: 
+
+soup.findAll(id=re.compile("para$"))
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+soup.findAll(align=["center", "blah"])
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+soup.findAll(align=lambda(value): value and len(value) < 5)
+# [<p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+Специальные значения True и None особо интересны. Значению True соответствует тег, заданный атрибут которого имеет любое значение, а None соответствует тег, у которого заданный атрибут не содержит значения. Несколько примеров: 
+
+soup.findAll(align=True)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+[tag.name for tag in soup.findAll(align=None)]
+# [u'html', u'head', u'title', u'body', u'b', u'b']
+Если необходимо наложить сложные или взаимосвязанные ограничения на атрибуты тегов, передавайте вызываемый объект для name, как показано выше, и работайте с объектом Tag.  Здесь вы должны обратить внимание на одну проблему. Что делать, если в вашем документе есть тег, который определяет атрибут с именем name? Поскольку методы поиска Beautiful Soup всегда определяют аргумент name, вы не можете использовать именованный аргумент с именем name. В качестве именованного аргумента также нельзя использовать зарезервированные слова Python, такие как for. Beautiful Soup предоставляет специальный аргумент с именем attrs, который можно использовать в таких ситуациях. attrs представляет собой словарь, который работает также как именованные аргументы: 
+
+soup.findAll(id=re.compile("para$"))
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+soup.findAll(attrs={'id' : re.compile("para$")})
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+Можно использовать attrs если необходимо наложить ограничения на атрибуты, имена которых совпадают с зарезервированными словами Python такими, как class, for или import; или атрибуты, имена которых являются неименованными аргументами методов поиска Beautiful Soup: name, recursive, limit, text или сам attrs. 
+
+from BeautifulSoup import BeautifulStoneSoup
+xml = '<person name="Bob"><parent rel="mother" name="Alice">'
+xmlSoup = BeautifulStoneSoup(xml)
+
+xmlSoup.findAll(name="Alice")
+# []
+
+xmlSoup.findAll(attrs={"name" : "Alice"})
+# [parent rel="mother" name="Alice"></parent>]
+
+Поиск класса CSS
+Аргумент attrs был бы приятным средством, если бы его не портила одна вещь: CSS. Очень полезно находить теги, которые принадлежат определенному классу CSS, но имя атрибута CSS, class, также является зарезервированным словом Python. Искать класс CSS можно с помощью soup.find("tagName", { "class" : "cssClass" }), но это требует слишком большого объема кода для столь простой операции. Вместо этого можно передать строку для attrs взамен словаря. Строка будет использована для ограничения класса CSS. 
+
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("""Bob's <b>Bold</b> Barbeque Sauce now available in 
+                        <b class="hickory">Hickory</b> and <b class="lime">Lime</a>""")
+
+soup.find("b", { "class" : "lime" })
+# <b class="lime">Lime</b>
+
+soup.find("b", "hickory")
+# <b class="hickory">Hickory</b>
+ text – аргумент, позволяющий находить вместо объектов NavigableString объекты Tag. Его значением может быть строка, регулярное выражение, список или словарь, True или None, или вызываемый объект, который получает объект NavigableString в качестве аргумента: 
+
+soup.findAll(text="one")
+# [u'one']
+soup.findAll(text=u'one')
+# [u'one']
+
+soup.findAll(text=["one", "two"])
+# [u'one', u'two']
+
+soup.findAll(text=re.compile("paragraph"))
+# [u'This is paragraph ', u'This is paragraph ']
+
+soup.findAll(text=True)
+# [u'Page title', u'This is paragraph ', u'one', u'.', u'This is paragraph ', 
+#  u'two', u'.']
+
+soup.findAll(text=lambda(x): len(x) < 12)
+# [u'Page title', u'one', u'.', u'two', u'.']
+Если вы используете text, то любые значения передаются в name и именованные аргументы игнорируются.  recursive – логический аргумент (по умолчанию равен True), который сообщает Beautiful Soup о том, нужно ли обходить все поддерево или искать лишь среди непосредственных потомков объекта Tag или объекта парсера. Вот в чем различие: 
+
+[tag.name for tag in soup.html.findAll()]
+# [u'head', u'title', u'body', u'p', u'b', u'p', u'b']
+
+[tag.name for tag in soup.html.findAll(recursive=False)]
+# [u'head', u'body']
+Когда аргумент recursive ложен, ищутся только непосредственные потомки тега <HTML>. Если вы знаете, что нужно найти, то с помощью этого способа можно сэкономить время.  Установка аргумента limit позволяет останавливать поиск после того, как будет найдено заданное число совпадений. Если в документе тысячи таблиц, а нужно только четыре, то передайте в аргументе limit значение 4 и сэкономьте время. По умолчанию, ограничения нет. 
+
+soup.findAll('p', limit=1)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>]
+
+soup.findAll('p', limit=100)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>, 
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+Вызов тега аналогично вызову `findall`
+Небольшое упрощение. Если вызвать объекта парсера или объект Tag как функцию, то можно передать ему все аргументы метода findall и вызывать также как и findall. В терминах документа выше: 
+
+soup(text=lambda(x): len(x) < 12)
+# [u'Page title', u'one', u'.', u'two', u'.']
+
+soup.body('p', limit=1)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>]
+
+find(name, attrs, recursive, text, **kwargs)
+Теперь давайте взглянем на другие методы поиска. Все они получают примерно те же аргументы, что и findAll. Метод find почти в точности совпадает с findAll, за исключением того, что он ищет первое вхождение искомого объекта, а не все. Это похоже на установку для результирующего множества limit равным 1 и затем извлечения единственного результата из массива. В терминах документа выше: 
+
+soup.findAll('p', limit=1)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>]
+
+soup.find('p', limit=1)
+# <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>
+
+soup.find('nosuchtag', limit=1) == None
+# True
+В общем, когда взглянете на метод поиска с множественными именами (такой, как findAll или findNextSiblings), этот метод получает аргумент limit и возвращает список результатов. Когда взгляните на метод поиска без множественных имен (такой, как find или findNextSibling), вы знаете что метод не получает limit и возвращает единственный результат. 
+Что произошло с методом `first`?
+В предыдущих версиях Beautiful Soup имелись такие методы как first, fetch и fetchPrevious. Эти методы по-прежнему есть, но использовать их нежелательно и в будущем они могут быть убраны. Общий эффект этих имен очень сбивал с толку. Новые имена присвоены единообразно: как упоминалось выше, если имя метода является множественным или ссылается на All, то он возвращает множественные объекты. В противном случае он возвращает единственный объект.  
+Поиск внутри дерева синтаксического разбора
+Методы описанные выше – findAll и find, – стартуют с определенной точки в дереве синтаксического разбора и движутся по нему вниз. Они рекурсивно производят итерацию по элементу contents объектов до тех пор, пока не достигнут конца документа. Это означает, что вызывать эти методы для объектов NavigableString не получится, поскольку в них нет элемента contents: они всегда являются листьями дерева синтаксического разбора. Но спуск по дереву - не единственный способ итерации по документу. Не так давно в Навигации по дереву синтаксического разбора я продемонстрировал много других способов: parent, nextSibling и т.д. Каждый из этих методов итерации имеют два соответствующих метода: один из них работает аналогично findAll, а другой – аналогично find. И поскольку объекты NavigableString поддерживают эти операции и эти методы, то эти методы можно вызывать для них также как и для объектов Tag и основного объекта парсера. Почему это полезно? Иногда вы не сможете применить методы findAll или find, чтобы получить желаемый объект Tag или NavigableString. Например, рассмотрим такой HTML: 
+
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup('''<ul>
+ <li>An unrelated list
+</ul>
+
+<h1>Heading</h1>
+<p>This is <b>the list you want</b>:</p>
+<ul><li>The data you want</ul>''')
+Для навигации по тегу <LI>, содержащим необходимые данные, существуют несколько способов. Наиболее очевидный: 
+
+soup('li', limit=2)[1]
+# <li>The data you want</li>
+В равной степени очевидно, что это будет не самым стабильным способом получения этого тега <LI>. Если эта страница скачивается (scraping) единожды это не имеет значения, но если ее предполагается скачивать неоднократно в течение значительного периода времени, такие соображения становятся существенными. Если в несущественный список (irrelevant list) будет вставлен тег <LI>, то вместо искомого тега будет получен этот ненужный тег и работа скрипта прервется или же он выдаст ошибочные данные. 
+
+soup('ul', limit=2)[1].li
+# <li>The data you want</li>
+Несколько лучше, поскольку теперь учитываются несущественные изменения в списке. Но если выше в документ будет вставлен другой ненужный список, то будет получен первый тег <LI> из этого списка вместо того, который вам нужен. Более надежным способом указания необходимого тега ul будет служить указание на его место в структуре документа. Когда вы смотрите на этот фрагмент HTML, вы думаете о нужном списке примерно так: 'тег <UL>, который идет сразу после тега <H1>'. Проблема состоит в том, что этот тег не содержится внутри тега <H1>; так уж получилось, что он идет после него. Довольно просто перейти к тегу <H1>, но нет способа перейти с этого места к тегу <UL> с помощью first и fetch, поскольку эти методы проверят только элемент contents тега <H1>. Необходимо переместиться к тегу <UL> с помощью элементов next или nextSibling: 
+
+s = soup.h1
+while getattr(s, 'name', None) != 'ul':
+    s = s.nextSibling
+s.li
+# <li>The data you want</li>
+Или, если вы считаете это более стабильным: 
+
+s = soup.find(text='Heading')
+while getattr(s, 'name', None) != 'ul':
+    s = s.next
+s.li
+# <li>The data you want</li>
+Но для достижения нужной вам цели это слишком сложно. Методы из этого раздела предоставляют полезные упрощения. Ими можно воспользоваться, когда возникает желание написать цикл while над одним из элементов перемещения. Получив начальную точку где-нибудь в дереве, они позволяют перемещаться по дереву в том же направлении и отслеживают объекты Tag или NavigableString, соответствующие заданным критериям. Вместо первого цикла в примере кода выше можно написать: 
+
+soup.h1.findNextSibling('ul').li
+# <li>The data you want</li>
+Вместо второго цикла можно написать так: 
+
+soup.find(text='Heading').findNext('ul').li
+# <li>The data you want</li>
+Циклы заменены вызовами findNextSibling и findNext. В оставшейся части раздела приведена справочная информация для всех методов такого рода. С другой стороны, каждый метод имеет два варианта: один возвращает список аналогично findAll и другой - возвращающий одно значение также как find.  И напоследок, примера ради, давайте загрузим документ в уже знакомый нам суп: 
+
+from BeautifulSoup import BeautifulSoup
+doc = ['<html><head><title>Page title</title></head>',
+       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
+       '</html>']
+soup = BeautifulSoup(''.join(doc))
+print soup.prettify()
+# <html>
+#  <head>
+#   <title>
+#    Page title
+#   </title>
+#  </head>
+#  <body>
+#   <p id="firstpara" align="center">
+#    This is paragraph
+#    <b>
+#     one
+#    </b>
+#    .
+#   </p>
+#   <p id="secondpara" align="blah">
+#    This is paragraph
+#    <b>
+#     two
+#    </b>
+#    .
+#   </p>
+#  </body>
+# </html>
+
+findNextSiblings(name, attrs, text, limit, **kwargs) и findNextSibling(name, attrs, text, **kwargs)
+Эти методы часто следуют за элементом nextSibling объектов, собирая объекты Tag или NavigableText, соответствующие заданным критериям. В терминах документа выше: 
+
+paraText = soup.find(text='This is paragraph ')
+paraText.findNextSiblings('b')
+# [<b>one</b>]
+
+paraText.findNextSibling(text = lambda(text): len(text) == 1)
+# u'.'
+
+findPreviousSiblings(name, attrs, text, limit, **kwargs) и findPreviousSibling(name, attrs, text, **kwargs)
+Эти методы часто следуют за элементом previousSibling объектов, собирая объекты Tag или NavigableText, соответствующие заданным критериям. В терминах документа выше: 
+
+paraText = soup.find(text='.')
+paraText.findPreviousSiblings('b')
+# [<b>one</b>]
+
+paraText.findPreviousSibling(text = True)
+# u'This is paragraph '
+
+findAllNext(name, attrs, text, limit, **kwargs) и findNext(name, attrs, text, **kwargs)
+Эти методы часто следуют за элементом Next объектов, собирая объекты Tag или NavigableText, соответствующие заданным критериям. В терминах документа выше: 
+
+pTag = soup.find('p')
+pTag.findAllNext(text=True)
+# [u'This is paragraph ', u'one', u'.', u'This is paragraph ', u'two', u'.']
+
+pTag.findNext('p')
+# <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>
+
+pTag.findNext('b')
+# <b>one</b>
+
+findAllPrevious(name, attrs, text, limit, **kwargs) и findPrevious(name, attrs, text, **kwargs)
+Эти методы часто следуют за элементом previous объектов, собирая объекты Tag или NavigableText, соответствующие заданным критериям. В терминах документа выше: 
+
+lastPTag = soup('p')[-1]
+lastPTag.findAllPrevious(text=True)
+# [u'.', u'one', u'This is paragraph ', u'Page title']
+# Note the reverse order!
+
+lastPTag.findPrevious('p')
+# <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>
+
+lastPTag.findPrevious('b')
+# <b>one</b>
+
+findParents(name, attrs, limit, **kwargs) и findParent(name, attrs, **kwargs)
+Эти методы часто следуют за элементом parent объектов, собирая объекты Tag или NavigableText, соответствующие заданным критериям. Они не принимают аргумент text, поскольку не может быть объектов, предком которых был бы объект NavigableString. В терминах документа выше: 
+
+bTag = soup.find('b')
+
+[tag.name for tag in bTag.findParents()]
+# [u'p', u'body', u'html', '[document]']
+# NOTE: "u'[document]'" means that that the parser object itself matched.
+
+bTag.findParent('body').name
+# u'body'
+
+Модификация дерева синтаксического разбора
+Теперь вам известно как разыскать что-либо в дереве синтаксического разбора. Но, возможно, вы захотите изменить это что-либо и записать обратно. Можно просто вырезать элемент из contents родительского элемента, но в документе останутся ссылки на извлеченный фрагмент. Beautiful Soup предлагает несколько методов, позволяющих изменить дерево синтаксического разбора во время разбора и сохраняющих при этом внутреннюю согласованность данных. 
+Изменение значений атрибутов
+Модифицировать значения атрибутов объекта Tag можно так же, как если бы он был словарем. 
+
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("<b id="2">Argh!</b>")
+print soup
+# <b id="2">Argh!</b>
+b = soup.b
+
+b['id'] = 10
+print soup
+# <b id="10">Argh!</b>
+
+b['id'] = "ten"
+print soup
+# <b id="ten">Argh!</b>
+
+b['id'] = 'one "million"'
+print soup
+# <b id='one "million"'>Argh!</b>
+Так же можно удалять значения атрибутов и добавлять новые: 
+
+del(b['id'])
+print soup
+# <b>Argh!</b>
+
+b['class'] = "extra bold and brassy!"
+print soup
+# <b class="extra bold and brassy!">Argh!</b>
+
+Удаление элементов
+Если имеется ссылка на элемент, то удалить его из дерева можно с помощью метода extract. Приведем код, который удалит все комментарии из документа: 
+
+from BeautifulSoup import BeautifulSoup, Comment
+soup = BeautifulSoup("""1<!--The loneliest number-->
+                        <a>2<!--Can be as bad as one--><b>3""")
+comments = soup.findAll(text=lambda text:isinstance(text, Comment))
+[comment.extract() for comment in comments]
+print soup
+# 1
+# <a>2<b>3</b></a>
+Код, который удалит из документа все поддерево целиком: 
+
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("<a1></a1><a><b>Amazing content<c><d></a><a2></a2>")
+soup.a1.nextSibling
+# <a><b>Amazing content<c><d></d></c></b></a>
+soup.a2.previousSibling
+# <a><b>Amazing content<c><d></d></c></b></a>
+
+subtree = soup.a
+subtree.extract()
+
+print soup
+# <a1></a1><a2></a2>
+soup.a1.nextSibling
+# <a2></a2>
+soup.a2.previousSibling
+# <a1></a1>
+Метод extract разъединяет синтаксическое дерево разбора на два несвязанных дерева. Элементы навигации изменяются таким образом, что все выглядит так, будто деревья никогда не были одним целым: 
+
+soup.a1.nextSibling
+# <a2></a2>
+soup.a2.previousSibling
+# <a1></a1>
+subtree.previousSibling == None
+# True
+subtree.parent == None
+# True
+
+Замена одного элемента на другой
+Метод replaceWith извлекает один страничный элемент (page element) и заменяет его другим. Новый элемент может быть объектом Tag (возможно, с целым деревом синтаксического разбора внутри) или NavigableString. Если передавать в метод replaceWith простую старую строку, он поместит ее в объект NavigableString. Элементы навигации изменятся таким образом, как будто документ прошел синтаксический разбор с самого начала. Простой пример: 
+
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("<b>Argh!</b>")
+soup.find(text="Argh!").replaceWith("Hooray!")
+print soup
+# <b>Hooray!</b>
+
+newText = soup.find(text="Hooray!")
+newText.previous
+# <b>Hooray!</b>
+newText.previous.next
+# u'Hooray!'
+newText.parent
+# <b>Hooray!</b>
+soup.b.contents
+# [u'Hooray!']
+Вот более сложный пример, в котором один тег замещается другим: 
+
+from BeautifulSoup import BeautifulSoup, Tag
+soup = BeautifulSoup("<b>Argh!<a>Foo</a></b><i>Blah!</i>")
+tag = Tag(soup, "newTag", [("id", 1)])
+tag.insert(0, "Hooray!")
+soup.a.replaceWith(tag)
+print soup
+# <b>Argh!<newTag id="1">Hooray!</newTag></b><i>Blah!</i>
+Можно даже вырезать элемент из одного места документа и вставить в другое: 
+
+from BeautifulSoup import BeautifulSoup
+text = "<html>There's <b>no</b> business like <b>show</b> business</html>"
+soup = BeautifulSoup(text)
+
+no, show = soup.findAll('b')
+show.replaceWith(no)
+print soup
+# <html>There's  business like <b>no</b> business</html>
+
+Добавление другого нового элемента
+Класс Tag и классы парсеров поддерживают метод insert. Он работает также как метод insert обычного списка Python: получает индекс элемента contents тега и вставляет в эту позицию новый элемент. Это было продемонстрировано в предыдущем разделе, когда мы заменяли тег в документе другим новым тегом. Можно использовать insert для построения полного дерева синтаксического разбора с нуля: 
+
+from BeautifulSoup import BeautifulSoup, Tag, NavigableString
+soup = BeautifulSoup()
+tag1 = Tag(soup, "mytag")
+tag2 = Tag(soup, "myOtherTag")
+tag3 = Tag(soup, "myThirdTag")
+soup.insert(0, tag1)
+tag1.insert(0, tag2)
+tag1.insert(1, tag3)
+print soup
+# <mytag><myOtherTag></myOtherTag><myThirdTag></myThirdTag></mytag>
+
+text = NavigableString("Hello!")
+tag3.insert(0, text)
+print soup
+# <mytag><myOtherTag></myOtherTag><myThirdTag>Hello!</myThirdTag></mytag>
+В дереве синтаксического разбора элемент может встретиться только в одном месте. Если применить insert к элементу, который уже соединен с объектом супа, он будет отсоединен (с помощью extract) перед тем, как будет подсоединен где-либо. В данном примере я попытался вставить NavigableString во вторую часть супа, но во второй раз он не вставился. Он переместился: 
+
+tag2.insert(0, text)
+print soup
+# <mytag><myOtherTag>Hello!</myOtherTag><myThirdTag></myThirdTag></mytag>
+Это произойдет даже если элемент до этого принадлежал принципиально другому объекту супа. У элемента может быть только один parent, только один nextSibling и т.д., так что в данный момент времени он может находиться только в одном месте. 
+Известные проблемы
+В этом разделе описываются общие проблемы, с которыми сталкиваются при работе с Beautiful Soup. 
+Почему Beautiful Soup не может вывести на экран не-ASCII символы, которые я передал ему?
+Если вы получаете ошибки примерно такого содержания: "'ascii' codec can't encode character 'x' in position y: ordinal not in range(128)", это значит, что проблема вероятно в установленном Python, а не в Beautiful Soup. Попробуйте вывести на экран не-ASCII символы без использования Beautiful Soup и вы столкнетесь с той же проблемой. Например, попробуйте запустить такой код: 
+
+latin1word = 'Sacr\xe9 bleu!'
+unicodeword = unicode(latin1word, 'latin-1')
+print unicodeword
+Если он сработает нормально, а при использовании Beautiful Soup все равно выдается сообщение об ошибке – значит ошибка в Beautiful Soup. Однако же если код не работает – проблема с установленным Python. Python выполняет код безопасно и не посылает не-ASCII символы на терминал. Для изменения такого поведения есть два способа. Легкий способ – переназначить стандартный вывод в конвертер, который не боится отправлять символы ISO-Latin-1 или UTF-8 на терминал. 
+
+import codecs
+import sys
+streamWriter = codecs.lookup('utf-8')[-1]
+sys.stdout = streamWriter(sys.stdout)
+codecs.lookup возвращает количество ограничивающих методов и других объектов, связанных с кодеком. В последней строке объект StreamWriter реализует обертку вокруг потока вывода. Более сложный способ – в каталоге, где установлен Python, создать файл sitecustomize.py, который установит кодировкой по умолчанию ISO-Latin-1 или UTF-8. В этом случае все ваши программы на Python будут использовать эту кодировку для стандартного вывода, не требуя ничего менять в каждой программе. В моем случае имеется файл /usr/lib/python/sitecustomize.py, который выглядит так: 
+
+import sys
+sys.setdefaultencoding("utf-8")
+За дополнительной информацией о поддержке Unicode в Python смотрите Unicode for Programmers или End to End Unicode Web Applications in Python. Также будут очень полезны Рецепт 1.20 и 1.21 Поваренной книги Python. Помните, что даже если ваш дисплей ограничен ASCII, вы можете использовать Beautiful Soup для синтаксического разбора, обработки и записи документов в UTF-8 и других кодировках. Просто некоторые строки не получится распечатать с помощью print. 
+Beautiful Soup потерял данные, которые я ему передал! Почему? ПОЧЕМУ?????
+Beautiful Soup может обрабатывать плохо структурированный SGML, но иногда он теряет данные когда получает нечто, совершенно не похожее на SGML. Это не особенно близко к плохо структурированной разметке, но если у вас в планах построить поисковый агент или что-нибудь вроде этого, то вы наверняка столкнетесь с этим. Единственным решением является рассматриваемая далее очистка данных с помощью регулярного выражения. Вот несколько примеров, которые выявили я и пользователи Beautiful Soup: Beautiful Soup интерпретирует плохо оформленные определения XML как данные. Однако он теряет хорошо оформленные определения XML, которые не существуют: 
+
+from BeautifulSoup import BeautifulSoup
+BeautifulSoup("< ! FOO @=>")
+# < ! FOO @=>
+BeautifulSoup("<b><!FOO>!</b>")
+# <b>!</b>
+Если документ начинается с декларации и не завершает ее, Beautiful Soup предполагает, что оставшаяся часть документа является частью декларации. Если документ заканчивается посередине декларации, Beautiful Soup игнорирует декларацию полностью. Пара примеров: 
+
+from BeautifulSoup import BeautifulSoup
+
+BeautifulSoup("foo<!bar") 
+# foo 
+
+soup = BeautifulSoup("<html>foo<!bar</html>") 
+print soup.prettify()
+# <html>
+#  foo<!bar</html>
+# </html>
+Имеется пара способов исправить это; один из них детально рассмотрен здесь. Beautiful Soup также игнорирует ссылки на сущности, которые не завершены до конца документа: 
+
+BeautifulSoup("&lt;foo&gt")
+# &lt;foo
+Я никогда не видел такого в реальных веб-страницах, но, наверное, где-нибудь такое встречается. Плохо сформированный комментарий заставит Beautiful Soup проигнорировать оставшийся фрагмент документа. Это раскрывается в примере Очистка от плохих данных с помощью регулярных выражений. 
+Синтаксическое дерево разбора, построенное классом `BeautifulSoup`, меня раздражает!
+Чтобы получить синтаксический разбор вашей разметки другим способом, загляните в раздел Другие встроенные парсеры или же Создание собственного парсера. 
+Beautiful Soup слишком медленно работает!
+Beautiful Soup никогда не будет столь же быстр как ElementTree или специально разработанный подкласс SGMLParser. ElementTree написан на Си, а с помощью SGMLParser можно написать собственный мини-Beautiful Soup, который будет делать то, что вам необходимо. Суть Beautiful Soup состоит в экономии времени работы программиста, а не процессора. Это говорит о том, что достаточно сильно ускорить Beautiful Soup можно подвергнув синтаксическому разбору только нужную часть документа, а также вы можете убрать ненужные объекты с помощью `extract` или `decompose`. 
+Дополнительные темы
+Все это необходимо для стандартного использования Beautiful Soup. Но HTML и XML сложны и в реальной ситуации могут слишком сложны. Поэтому Beautiful Soup содержит несколько дополнительных трюков для исправления собственных проблем. 
+Генераторы
+Методы поиска, описываемые выше, управляются с помощью методов генераторов. Вы сами можете использовать эти методы: они называются nextGenerator, previousGenerator, nextSiblingGenerator, previousSiblingGenerator и parentGenerator. Объекты Tag и парсера также имеют в наличии методы childGenerator и recursiveChildGenerator. Простой пример, в котором при итерациях по документу HTML удаляются все теги и оставшиеся строки объединяются в одну. 
+
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("""<div>You <i>bet</i>
+<a href="http://www.crummy.com/software/BeautifulSoup/">BeautifulSoup</a>
+rocks!</div>""")
+
+''.join([e for e in soup.recursiveChildGenerator() 
+         if isinstance(e,unicode)])
+# u'You bet\nBeautifulSoup\nrocks!'
+Конечно, вам действительно не нужен генератор только для поиска текста внутри тега. Этот код делает то же самое что и findAll(text=True). 
+
+''.join(soup.findAll(text=True))
+# u'You bet\nBeautifulSoup\nrocks!'
+Вот более сложный пример, в котором используется recursiveChildGenerator для итераций по элементам документа, выводя их на экран по мере нахождения. 
+
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("1<a>2<b>3")
+g = soup.recursiveChildGenerator()
+while True:
+    try:
+        print g.next()
+    except StopIteration:
+        break
+# 1
+# <a>2<b>3</b></a>
+# 2
+# <b>3</b>
+# 3
+ 
+Другие встроенные парсеры
+Помимо `BeautifulSoup` и `BeautifulStoneSoup` в составе Beautiful Soup имеются еще три класса парсеров: MinimalSoup – подкласс BeautifulSoup. Он обладает знанием большинства фактов о HTML таких, как какие из тегов самозакрывающиеся, особое поведение тега <SCRIPT>, возможности указания кодировки в теге <META> и т.д. Но он совсем не имеет вложенных эвристик. Поэтому он не знает, что теги <LI> всегда вложены в теги <UL> и никак иначе. Он полезен для синтаксического разбора патологически плохой разметки и для наследования. ICantBelieveItsBeautifulSoup – также подкласс BeautifulSoup. Он содержит эвристики HTML, которые почти соответствуют стандарту HTML, но игнорирует реальное использование HTML. Например, он проверят вложенность тегов <B>, но в реальном мире такая вложенность тегов <B> почти всегда означает, что автор документа забыл закрыть первый тег <B>. Когда вы столкнетесь с чем-нибудь, где используется вложенность тегов <B>, вы можете использовать ICantBelieveItsBeautifulSoup. BeautifulSOAP – подкласс BeautifulStoneSoup. Он полезен при синтаксическом разборе таких документов как сообщения SOAP, которые используют подэлементы, вместо использования атрибутов родительского элемента. Вот пример: 
+
+from BeautifulSoup import BeautifulStoneSoup, BeautifulSOAP
+xml = "<doc><tag>subelement</tag></doc>"
+print BeautifulStoneSoup(xml)
+# <doc><tag>subelement</tag></doc>
+print BeautifulSOAP(xml)
+<doc tag="subelement"><tag>subelement</tag></doc>
+С помощью BeautifulSOAP можно получить доступ сразу к содержимому тега <TAG> без спуска по дереву к тегу.  
+Настраиваем парсер
+Когда встроенные классы парсеров не делают то, что нужно, тогда необходимо заняться настройкой. Обычно это означает настройку списков вложенности и самозакрываемости тегов. Список самозакрывающихся тегов можно настроить передав в конструктор супа аргумент `selfClosingTags`. Для настройки же списков вложенности тегов придется использовать производный класс. Наиболее полезные классы для создания производных – MinimalSoup (для HTML) и BeautifulStoneSoup (для XML). Я покажу, как перегрузить RESET_NESTING_TAGS и NESTABLE_TAGS в подклассах. Это наиболее сложная часть Beautiful Soup и я не смогу разъяснить здесь ее всю, но кое-что я все же покажу и смогу улучшить с помощью обратной связи. Когда Beautiful Soup разбирает документ, он сохраняет открытые теги в стеке. Всякий раз, когда встречается новый открывающий тег, он помещает его на вершину стека. Но до этого он может закрыть некоторые из открытых тегов и удалить их из стека. Какие теги он закроет – зависит от вида найденного тега и от вида тегов в стеке. Лучшим способом объяснить все это будет пример. Предположим, что стек выглядит таким образом ['html', 'p', 'b'] и Beautiful Soup встретился тег <P>. Если просто поместить еще один 'p' в стек, то это будет означать, что второй тег <P> находится внутри первого тега <P>, не говоря уже о теге <B>. Но теги <P> функционируют по-другому Вы не сможете вставить один тег <P> в другой тег <P>. Тег <P> вообще «не вкладываемый». Поэтому когда Beautiful Soup встречает тег <P>, он закрывает и извлекает из стека все теги и их содержимое ранее встреченного тега такого же типа. Это поведение по умолчанию, и BeautifulStoneSoup обращается так с каждым тегом. Вот что получится, если тег не упомянут ни в NESTABLE_TAGS, ни в RESET_NESTING_TAGS. Если тег указан в RESET_NESTING_TAGS, но не указан в NESTABLE_TAGS, поведение будет таким же, как и в случае тега. 
+
+from BeautifulSoup import BeautifulSoup
+BeautifulSoup.RESET_NESTING_TAGS['p'] == None
+# True
+BeautifulSoup.NESTABLE_TAGS.has_key('p')
+# False
+
+print BeautifulSoup("<html><p>Para<b>one<p>Para two")
+# <html><p>Para<b>one</b></p><p>Para two</p></html>
+#                      ^---^--Второй тег <p> предполагает закрытие этих двух тегов
+Давайте предположим, что стек выглядит следующим образом ['html', 'span', 'b'] и Beautiful Soup встретил тег <SPAN>. Теперь теги <SPAN> могут содержать другие теги <SPAN> без ограничений, так что при встрече тега <SPAN> теперь не нужно убирать со стека предыдущий тег такого же типа. Все это представлено отображением имени тега на пустой список в NESTABLE_TAGS. Этот тип тегов не должен указываться в RESET_NESTING_TAGS: не существует ситуаций, когда при встрече тега <SPAN> придется удалять со стека какие-либо теги. 
+
+from BeautifulSoup import BeautifulSoup
+BeautifulSoup.NESTABLE_TAGS['span']
+# []
+BeautifulSoup.RESET_NESTING_TAGS.has_key('span')
+# False
+
+print BeautifulSoup("<html><span>Span<b>one<span>Span two")
+# <html><span>Span<b>one<span>Span two</span></b></span></html>
+Третий пример: предположим, что стек выглядит так ['ol','li','ul']: т.е. мы получим упорядоченный список, первый элемент которого содержит неупорядоченный список. Теперь предположим, что Beautiful Soup встретил тег <LI>. Это не приведет к удалению со стека первого тега <LI>, т.к. новый тег <LI> является часть неупорядоченного подсписка. С тегом <LI> внутри другого тега <LI> все в порядке до тех пор, пока встречается теги <UL> или <OL>. 
+
+from BeautifulSoup import BeautifulSoup
+print BeautifulSoup("<ol><li>1<ul><li>A").prettify()
+# <ol>
+#  <li>
+#   1
+#   <ul>
+#    <li>
+#     A
+#    </li>
+#   </ul>
+#  </li>
+# </ol>
+Но если не встретится <UL> или <OL>, то один тег <LI> не может быть внутри другого: 
+
+print BeautifulSoup("<ol><li>1<li>A").prettify()
+# <ol>
+#  <li>
+#   1
+#  </li>
+#  <li>
+#   A
+#  </li>
+# </ol>
+Сообщим Beautiful Soup о том, чтобы он трактовал теги <LI> поместив "li" в RESET_NESTING_TAGS, и передавая "li" в элемент NESTABLE_TAGS, чтобы показать список тегов, в которые он может быть вложен. 
+
+BeautifulSoup.RESET_NESTING_TAGS.has_key('li')
+# True
+BeautifulSoup.NESTABLE_TAGS['li']
+# ['ul', 'ol']
+Таким же образом мы обрабатываем вложенность тегов таблиц: 
+
+BeautifulSoup.NESTABLE_TAGS['td']
+# ['tr']
+BeautifulSoup.NESTABLE_TAGS['tr']
+# ['table', 'tbody', 'tfoot', 'thead']
+BeautifulSoup.NESTABLE_TAGS['tbody']
+# ['table']
+BeautifulSoup.NESTABLE_TAGS['thead']
+# ['table']
+BeautifulSoup.NESTABLE_TAGS['tfoot']
+# ['table']
+BeautifulSoup.NESTABLE_TAGS['table']
+# []
+Это означает, что теги <TD> могут быть вложены внутри тегов <TR>. Теги <TR> могут быть вложены внутри тегов <TABLE>, <TBODY>, <TFOOT> и <THEAD>. Теги <TBODY>, <TFOOT> и <THEAD> могут быть вложены в теги <TABLE> и теги <TABLE>, в свою очередь, могут быть вложены в другие теги <TABLE>. Если вы освоили таблицы HTML, то эти правила будут вам понятны. Еще один пример. Предположим, что стек выглядит так ['html', 'p', 'table'] и Beautiful Soup встретил тег <P>. На первый взгляд это выглядит почти так же как в примере со стеком вида ['html', 'p', 'b'], когда Beautiful Soup встретил тег <P>. В данном примере, мы закрыли теги <B> и <P>, поскольку один параграф не может быть внутри другого. За исключением того... что вы можете иметь параграф, содержащий таблицу, и в этой таблице содержится параграф. Т.е. правильным будет не закрывать какие-либо из этих тегов. Beautiful Soup поступит правильно: 
+
+from BeautifulSoup import BeautifulSoup
+print BeautifulSoup("<p>Para 1<b><p>Para 2")
+# <p>
+#  Para 1
+#  <b>
+#  </b>
+# </p>
+# <p>
+#  Para 2
+# </p>
+
+print BeautifulSoup("<p>Para 1<table><p>Para 2").prettify()
+# <p>
+#  Para 1
+#  <table>
+#   <p>
+#    Para 2
+#   </p>
+#  </table>
+# </p>
+В чем же разница? Разница заключается в том, что тег <TABLE> содержится в RESET_NESTING_TAGS, а тег <B> - нет. Тег, содержащийся в RESET_NESTING_TAGS, не сможет покинуть стек так же легко как не содержащийся там тег. Итак, будем надеяться, вы поняли идею. Вот NESTABLE_TAGS для класса BeautifulSoup. Соотнесите его с тем, что вы знаете о HTML и вы сможете создать свой собственный NESTABLE_TAGS для необычных документов HTML, которые не подчиняются нормальным правилам, и для других диалектов XML, имеющих различные правила вложенности. 
+
+from BeautifulSoup import BeautifulSoup
+nestKeys = BeautifulSoup.NESTABLE_TAGS.keys()
+nestKeys.sort()
+for key in nestKeys:
+    print "%s: %s" % (key, BeautifulSoup.NESTABLE_TAGS[key])
+# bdo: []
+# blockquote: []
+# center: []
+# dd: ['dl']
+# del: []
+# div: []
+# dl: []
+# dt: ['dl']
+# fieldset: []
+# font: []
+# ins: []
+# li: ['ul', 'ol']
+# object: []
+# ol: []
+# q: []
+# span: []
+# sub: []
+# sup: []
+# table: []
+# tbody: ['table']
+# td: ['tr']
+# tfoot: ['table']
+# th: ['tr']
+# thead: ['table']
+# tr: ['table', 'tbody', 'tfoot', 'thead']
+# ul: []
+А вот RESET_NESTING_TAGS класса BeautifulSoup. Важны только ключи: фактически RESET_NESTING_TAGS является списком, помещенным в виде словаря в целях организации быстрого случайного доступа. 
+
+from BeautifulSoup import BeautifulSoup
+resetKeys = BeautifulSoup.RESET_NESTING_TAGS.keys()
+resetKeys.sort()
+resetKeys
+# ['address', 'blockquote', 'dd', 'del', 'div', 'dl', 'dt', 'fieldset', 
+#  'form', 'ins', 'li', 'noscript', 'ol', 'p', 'pre', 'table', 'tbody',
+#  'td', 'tfoot', 'th', 'thead', 'tr', 'ul']
+В любом случае получив подкласс, вы можете точно также заменить SELF_CLOSING_TAGS пока вы в нем. Это словарь, который отображает имена самозакрывающихся тегов в какие-либо значения (аналогично RESET_NESTING_TAGS, он фактически является списком в виде словаря). К тому же, вам не захочется передавать этот список в конструктор (аналогично selfClosingTags) каждый раз, когда создаете экземпляр своего подкласса. 
+Преобразование сущностей
+Когда идет синтаксический разбор документа вы можете преобразовать HTML или XML ссылки на сущности в соответствующие символы Unicode. Данный код преобразует HTML сущность "é" в символ Unicode ЛАТИНСКАЯ МАЛЕНЬКАЯ БУКВА E С АКУТОМ и числовую сущность "e" в символ Unicode ЛАТИНСКУЮ МАЛЕНЬКУЮ БУКВУ E. 
+
+from BeautifulSoup import BeautifulStoneSoup
+BeautifulStoneSoup("Sacr&eacute; bl&#101;u!", 
+                   convertEntities=BeautifulStoneSoup.HTML_ENTITIES).contents[0]
+# u'Sacr\xe9 bleu!'
+Это если вы используете HTML_ENTITIES (который является только строкой "html"). Если используется XML_ENTITIES (или строка "xml"), то только числовые сущности и пять XML сущностей (""", "'", ">", "<", and "&") будут конвертированы. Если используется ALL_ENTITIES (или список ["xml", "html"]), то оба вида сущностей будут конвертированы. Последний случай необходим, поскольку ' - сущность XML, а не HTML. 
+
+BeautifulStoneSoup("Sacr&eacute; bl&#101;u!", 
+                   convertEntities=BeautifulStoneSoup.XML_ENTITIES)
+# Sacr&eacute; bleu!
+
+from BeautifulSoup import BeautifulStoneSoup
+BeautifulStoneSoup("Il a dit, &lt;&lt;Sacr&eacute; bl&#101;u!&gt;&gt;", 
+                   convertEntities=BeautifulStoneSoup.XML_ENTITIES)
+# Il a dit, <<Sacr&eacute; bleu!>>
+Если вы сообщите Beautiful Soup о необходимости конвертировать XML- или HTML-сущности в соответствующие символы Unicode, то символы Windows-1252 (такие как изящные кавычки Microsoft) также будут трансформированы в символы Unicode. Это произойдет даже если сообщить Beautiful Soup о конвертировании этих символов в сущности. 
+
+from BeautifulSoup import BeautifulStoneSoup
+smartQuotesAndEntities = "Il a dit, \x8BSacr&eacute; bl&#101;u!\x9b"
+
+BeautifulStoneSoup(smartQuotesAndEntities, smartQuotesTo="html").contents[0]
+# u'Il a dit, &lsaquo;Sacr&eacute; bl&#101;u!&rsaquo;'
+
+BeautifulStoneSoup(smartQuotesAndEntities, convertEntities="html", 
+                   smartQuotesTo="html").contents[0]
+# u'Il a dit, \u2039Sacr\xe9 bleu!\u203a'
+
+BeautifulStoneSoup(smartQuotesAndEntities, convertEntities="xml", 
+                   smartQuotesTo="xml").contents[0]
+# u'Il a dit, \u2039Sacr&eacute; bleu!\u203a'
+Пока вы заняты преобразованием всех имеющихся сущностей в символы Unicode, создавать новые HTML/XML сущности не имеет смысла.  
+Очистка от плохих данных с помощью регулярных выражений
+Beautiful Soup прекрасно подходит для обработки плохой разметки, когда под "плохой разметкой" понимается неверное расположение тегов. Но иногда разметка настолько деформирована, что базовый парсер не может ее обработать. Поэтому Beautiful Soup применяет к исходному документу регулярные выражения прежде, чем попытается произвести его синтаксический разбор. По умолчанию Beautiful Soup использует регулярные выражения и функции замены для выполнения поиска и замены в исходных документах. Он находит самозакрывающиеся теги, такие как <BR/>, и изменяет их на такие <BR />. Он находит декларации, содержащие внешние пробелы, такие как <! --Comment-->, и удаляет из них пробелы: <!--Comment-->. Если имеется плохая разметка, для исправления которой требуются другие методы, вы можете передать свой список кортежей вида (regular expression, replacement function) в конструктор супа как аргумент markupMassage. Давайте рассмотрим пример: страница имеет деформированный комментарий. Базовый парсер SGML не справился и пропустил комментарий со всем, что было после него: 
+
+from BeautifulSoup import BeautifulSoup
+badString = "Foo<!-This comment is malformed.-->Bar<br/>Baz"
+BeautifulSoup(badString)
+# Foo
+Давайте исправим это с помощью регулярных выражений и функции: 
+
+import re
+myMassage = [(re.compile('<!-([^-])'), lambda match: '<!--' + match.group(1))]
+BeautifulSoup(badString, markupMassage=myMassage)
+# Foo<!--This comment is malformed.-->Bar
+Ой, мы к тому же пропустили тег <BR>. Наш аргумент markupMassage поменял манипуляцию парсера по умолчанию, так что функция поиска и замены по умолчанию не выполнялась. Парсер сделал это, пропустив комментарий, но деформированный самозакрывающийся тег вывел его из строя. Давайте добавим свою функцию манипулирования данными в список умолчаний, а затем выполним все функции. 
+
+import copy
+myNewMassage = copy.copy(BeautifulSoup.MARKUP_MASSAGE)
+myNewMassage.extend(myMassage)
+BeautifulSoup(badString, markupMassage=myNewMassage)
+# Foo<!--This comment is malformed.-->Bar<br />Baz
+Теперь мы получили все. Если вы уверены в том, что разметка не нуждается в применении регулярных выражений, вы можете ускорить время запуска передав значение False в аргументе markupMassage.  
+Наслаждаемся `SoupStrainer`-ми
+Припомните, что все поисковые методы получают больше или меньше вот таких аргументов. За кулисами, ваши аргументы поисковых методов преобразуются в объект SoupStrainer. Если вызвать один из методов, возвращающих список (например, findAll), объект SoupStrainer станет доступным как свойство source результирующего списка. 
+
+from BeautifulSoup import BeautifulStoneSoup
+xml = '<person name="Bob"><parent rel="mother" name="Alice">'
+xmlSoup = BeautifulStoneSoup(xml)
+results = xmlSoup.findAll(rel='mother')
+
+results.source
+# <BeautifulSoup.SoupStrainer instance at 0xb7e0158c>
+str(results.source)
+# "None|{'rel': 'mother'}"
+Конструктор SoupStrainer получает большую часть тех же аргументов, что и find: `name`, `attrs`, `text` и `**kwargs`. Можно передать SoupStrainer как аргумент name в любой поисковый метод: 
+
+xmlSoup.findAll(results.source) == results
+# True
+
+customStrainer = BeautifulSoup.SoupStrainer(rel='mother')
+xmlSoup.findAll(customStrainer) == results
+#  True
+Не велика важность, не правда ли? Можно передать аргументы в метод и другими способами. Но с другой стороны SoupStrainer можно передать в конструктор супа для ограничения фрагмента документа, который фактически будет подвернут синтаксическому разбору. Это рассматривается в следующем разделе:  
+Улучшаем производительность за счет синтаксического разбора только части документа
+Beautiful Soup преобразует каждый элемент документа в объект Python и присоединяет его к группе других объектов Python. Если вам необходимо лишь подмножество документа, то это крайне медленно. Но `SoupStrainer` можно передать в качестве аргумента parseOnlyThese в конструктор супа. Beautiful Soup проверяет каждый элемент – не является ли он SoupStrainer, и только если является преобразует в объект Tag или NavigableText, и добавляет в дерево. Если элемент добавлен в дерево, то он имеет потомков – даже если они не являются SoupStrainer. Это позволяет разбирать только фрагментов документа, которые содержит нужную вам информацию. Вот значительно реорганизованный документ: 
+
+doc = '''Bob reports <a href="http://www.bob.com/">success</a>
+with his plasma breeding <a
+href="http://www.bob.com/plasma">experiments</a>. <i>Don't get any on
+us, Bob!</i>
+
+<br><br>Ever hear of annular fusion? The folks at <a
+href="http://www.boogabooga.net/">BoogaBooga</a> sure seem obsessed
+with it. Secret project, or <b>WEB MADNESS?</b> You decide!'''
+Имеется несколько разных способов синтаксического разбора документа в супе в зависимости от того, какие части необходимы. Все они работают быстрее и используют меньше памяти, нежели синтаксический разбор всего документа и используют SoupStrainer для выделения необходимых вам частей. 
+
+from BeautifulSoup import BeautifulSoup, SoupStrainer
+import re
+
+links = SoupStrainer('a')
+[tag for tag in BeautifulSoup(doc, parseOnlyThese=links)]
+# [<a href="http://www.bob.com/">success</a>, 
+#  <a href="http://www.bob.com/plasma">experiments</a>, 
+#  <a href="http://www.boogabooga.net/">BoogaBooga</a>]
+
+linksToBob = SoupStrainer('a', href=re.compile('bob.com/'))
+[tag for tag in BeautifulSoup(doc, parseOnlyThese=linksToBob)]
+# [<a href="http://www.bob.com/">success</a>, 
+#  <a href="http://www.bob.com/plasma">experiments</a>]
+
+mentionsOfBob = SoupStrainer(text=re.compile("Bob"))
+[text for text in BeautifulSoup(doc, parseOnlyThese=mentionsOfBob)]
+# [u'Bob reports ', u"Don't get any on\nus, Bob!"]
+
+allCaps = SoupStrainer(text=lambda(t):t.upper()==t)
+[text for text in BeautifulSoup(doc, parseOnlyThese=allCaps)]
+# [u'. ', u'\n', u'WEB MADNESS?']
+Между передачей SoupStrainer в метод поиска и его передачей в конструктор супа имеется одно существенное отличие. Припомним, что аргумент name может принимать значение функции с объектом Tag в качестве аргумента. Для аргумента name SoupStrainer-а это сделать нельзя, поскольку SoupStrainer используется для решения: будет или нет вообще создан объект Tag. В аргумент name SoupStrainer-а можно передать функцию, но не объект Tag: можно передать только имя тега и таблицу аргументов. 
+
+shortWithNoAttrs = SoupStrainer(lambda name, attrs: \
+                                len(name) == 1 and not attrs)
+[tag for tag in BeautifulSoup(doc, parseOnlyThese=shortWithNoAttrs)]
+# [<i>Don't get any on us, Bob!</i>, 
+#  <b>WEB MADNESS?</b>]
+ 
+Улучшаем использование памяти при помощи `extract`
+Когда Beautiful Soup разбирает документ, то он загружает в память большие, сильно связанные структуры данных. Можно решить, что если необходимо найти строку в этой структуре данных, то достаточно просто вытащить строку и оставить остальное для уборки мусора. Все несколько сложнее. Эта строка является объектом NavigableString. Который имеет элемент parent, указывающий на объект Tag, который в свою очередь указывает на другие объекты Tag и так далее. Поэтому для того, чтобы иметь в распоряжении любую часть дерева, необходимо всю ее хранить в памяти. Метод extract разрывает эти связи. Если вызвать extract для искомой строки, то она будет оторвана от остального дерева синтаксического разбора. После этого остальное дерево может выйти за пределы видимости и будет удалено из памяти при сборке мусора до тех пор, пока вы используете строку для чего-нибудь еще. Если вам необходим небольшой фрагмент дерева, вы можете вызывать extract для самого верхнего объекта Tag и позволить убрать из памяти остальное дерево при сборке мусора. И наоборот. Если имеется большой фрагмент документа, не нужный вам, то можно вызвать extract для его извлечения из дерева, а затем удалить из памяти с помощью уборки мусора, удерживая в то же время контроль над (меньшим) деревом. Если extract не устраивает вас, можете попробовать Tag.decompose. Она более медленная чем extract, но более совершенная. Она рекурсивно разбирает Tag и его содержимое, отсоединяя каждую часть дерева ото всех других частей. Если вы обнаружите, что заняты удалением больших фрагментов дерева, то вы можете сэкономить время, если сразу исключите из разбора часть дерева. 
+Смотрите также
+
+Приложения, использующие Beautiful Soup
+Многие реальные приложения используют Beautiful Soup. Здесь приведены общедоступные приложения, которые я знаю: Scrape 'N' Feed разработан для работы с Beautiful Soup, чтобы создавать RSS потоки для сайтов, которые их не имеют. htmlatex использует Beautiful Soup для поиска выражений LaTeX и формирования их графического представления. chmtopdf конвертирует CHM-файлы в PDF формат. Кто я чтобы спорить с этим? Duncan Gough в Fotopic backup использует Beautiful Soup для скачивания (scrape) веб-сайта Fotopic. Iñigo Serna в googlenews.py использует Beautiful Soup для скачивания (scrape) Google News (см. функции parse_entry и parse_category). Сайт Weather Office Screen Scraper использует Beautiful Soup для скачивания (scrape) Государственного метеорологического сайта Канады (Canadian government's weather office site). News Clues использует Beautiful Soup для синтаксического разбора RSS потоков. BlinkFlash использует Beautiful Soup для автоматизации форм подписки на онлайновые сервисы. Программа linky использует Beautiful Soup для поиска ссылок и изображений на странице, которые нужно проверить. Matt Croydon заставил работать Beautiful Soup версии 1.x на своем смартфоне Nokia на платформе Series 60. C.R. Sandeep, используя Beautiful Soup, написал работающий на платформе Series 60 в реальном времени конвертер валют, но он не хочет показать нам как он это сделал. Небольшой скрипт с jacobian.org для исправления метаданных в музыкальных файлах, скачанных с сайта allofmp3.com. Сайт Python Community Server использует Beautiful Soup в своем детекторе спама. 
+Похожие библиотеки
+Я нашел несколько других парсеров на разных языках программирования, которые могут работать с поврежденной разметкой, обходить дерево или делать еще что-нибудь сверх того, что может ваш стандартный парсер. Я портировал Beautiful Soup на Ruby. Результат называется Rubyful Soup. Hpricot платит за использование Rubyful Soup. ElementTree - быстрый парсер поврежденных файлов XML на Python. Мне он понравился. Tag Soup - XML/HTML парсер, написанный на Java, который переписывает поврежденный HTML файл в виде, доступном для синтаксического разбора HTML. HtmlPrag - библиотека языка программирования Scheme для синтаксического разбора поврежденных HTML. xmltramp - отличная реализация парсера файлов XML/XHTML, сравнимая со ‘стандартными’. Как и большинство парсеров он позволяет обходить дерево разбора, но использовать его проще. pullparser включает в себя метод обхода дерева разбора (tree-traversal method). Mike Foord не понравилось, как Beautiful Soup изменяет HTML когда записывает его обратно, и он написал HTML Scraper. Основываясь на HTMLParser, он способен обрабатывать поврежденный HTML. Может быть, после выхода Beautiful Soup 3.0 он устареет, но в этом я не уверен. Ka-Ping Yee в своем скрипте scrape.py сочетает скачивание с открытием URL. 
+Заключение
+Вот и все! Наслаждайтесь! Я написал Beautiful Soup чтобы сэкономить вам время. Однажды воспользовавшись им вы будете способны в течение всего нескольких минут отстоять в споре выходные данные плохо спроектированных веб-сайтов. Присылайте мне по электропочте свои комментарии, описания возникающих при работе проблем или просто сообщите мне о вашем проекте с применением Beautiful Soup. Перевод: Сёмка Александр Документации/BeautifulSoup  (последним исправлял пользователь AleksandrSemka 2010-06-13 14:46:21)
+
+
+
+
+MoinMoin PoweredPython PoweredGPL licensedValid HTML 4.01
+
+
+
+
