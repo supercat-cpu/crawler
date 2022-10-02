@@ -1,0 +1,2177 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Continuous Integration and Continuous Delivery (CI/CD) Fundamentals | GitHub Resources
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    Why GitHub?
+                    
+
+
+
+
+
+                          Features
+                        
+
+
+
+                                Mobile
+                                →
+
+
+
+
+                                Actions
+                                →
+
+
+
+
+                                Codespaces
+                                →
+
+
+
+
+                                Packages
+                                →
+
+
+
+
+                                Security
+                                →
+
+
+
+
+                                Code review
+                                →
+
+
+
+
+                                Project management
+                                →
+
+
+
+
+                                Integrations
+                                →
+
+
+
+
+
+                            GitHub Sponsors
+                            →
+
+
+
+
+                            Customer stories
+                            →
+
+
+
+
+
+
+
+                    Team
+                  
+
+
+
+                    Enterprise
+                  
+
+
+
+
+                    Explore
+                    
+
+
+
+
+
+
+                            Explore GitHub
+                            →
+
+
+
+
+                              Learn and contribute
+                            
+
+
+
+                                    Topics
+                                    →
+
+
+
+
+                                    Collections
+                                    →
+
+
+
+
+                                    Trending
+                                    →
+
+
+
+
+                                    Learning Lab
+                                    →
+
+
+
+
+                                    Open source guides
+                                    →
+
+
+
+
+
+
+                              Connect with others
+                            
+
+
+
+                                    The ReadME Project
+                                    →
+
+
+
+
+                                    Events
+                                    →
+
+
+
+
+                                    Community forum
+                                    →
+
+
+
+
+                                    GitHub Education
+                                    →
+
+
+
+
+                                    GitHub Stars program
+                                    →
+
+
+
+
+
+
+
+
+
+                    Marketplace
+                  
+
+
+
+
+                    Pricing
+                    
+
+
+
+
+
+                          Plans
+                        
+
+
+
+                                Compare plans
+                                →
+
+
+
+
+                                Contact Sales
+                                →
+
+
+
+
+
+                            Education
+                            →
+
+
+
+
+
+
+
+
+Start a free trial
+
+
+Contact sales
+
+
+Sign in
+Sign up
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Jump to
+        
+
+Overview
+Continuous delivery vs. deployment
+CI/CD benefits
+Tools and workflows
+Best practices
+Examples
+
+
+
+
+        
+          Request a demo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          CI/CD explained
+        
+
+
+
+
+
+
+
+
+CI/CD automates your builds, testing, and deployment so you can ship code changes faster and more reliably.
+
+
+
+
+
+Automation is a core principle for achieving DevOps success and CI/CD is a critical component. CI/CD comprises of continuous integration and continuous delivery or continuous deployment. Put together, they form a “CI/CD pipeline”—a series of automated workflows that help DevOps teams cut down on manual tasks:
+  
+
+      Continuous integration (CI) automatically builds, tests, and integrates code changes within a shared repository; then
+    
+
+      Continuous delivery (CD) automatically delivers code changes to production-ready environments for approval; or
+    
+
+      Continuous deployment (CD) automatically deploys code changes to customers directly.
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A CI/CD pipeline
+
+
+
+
+
+
+
+Continuous delivery vs. continuous deployment
+
+
+
+
+
+
+
+
+
+
+
+
+When someone says CI/CD, the “CD” they’re referring to is usually continuous delivery, not continuous deployment. What’s the difference? In a CI/CD pipeline that uses continuous delivery, automation pauses when developers push to production. A human—your operations, security, or compliance team—still needs to manually sign off before final release, adding more delays. On the other hand, continuous deployment automates the entire release process. Code changes are deployed to customers as soon as they pass all the required tests.
+Continuous deployment is the ultimate example of DevOps automation. That doesn’t mean it’s the only way to do CI/CD, or the “right” way. Since continuous deployment relies on rigorous testing tools and a mature testing culture, most software teams start with continuous delivery and integrate more automated testing over time.
+
+
+
+
+
+
+
+          Why CI/CD?
+        
+
+
+The short answer: Speed. The State of DevOps report found organizations that have “mastered” CI/CD deploy 208 times more often and have a lead time that is 106 times faster than the rest. While faster development is the most well-known benefit of CI/CD, a continuous integration and continuous delivery pipeline enables much more.
+
+
+            Learn more about the benefits of CI/CD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Development velocity
+    
+
+      
+        Ongoing feedback allows developers to commit smaller changes more often, versus waiting for one release.
+      
+    
+
+
+
+
+
+
+
+
+      Stability and reliability
+    
+
+      
+        Automated, continuous testing ensures that codebases remain stable and release-ready at any time.
+      
+    
+
+
+
+
+
+
+
+
+      Business growth
+    
+
+      
+        Freed up from manual tasks, organizations can focus resources on innovation, customer satisfaction, and paying down technical debt.
+      
+    
+
+
+
+
+    The mindset we carry is that we always want to automate ourselves into a better job. We want to make sure that the task we’re doing manually today becomes mostly automated.
+  
+Andrew Mulholland // Director of Engineering
+
+
+
+
+
+
+
+
+
+
+          Building your CI/CD toolkit
+        
+
+
+Teams make CI/CD part of their development workflow with a combination of automated process, steps, and tools.
+
+
+
+
+
+
+
+
+
+      Version control
+    
+
+      
+        CI begins in shared repositories, where teams collaborate on code using version control systems (VCS) like Git. A VCS keeps track of code changes and makes them easy to revert if something breaks. It also enables configuration as code, which allows teams to manage testing, infrastructure, and more as versioned artifacts.
+      
+    
+
+
+        Version control stack
+      
+Shared coding environments, version control
+
+
+            Learn more about version control
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Builds
+    
+
+      
+        CI build tools automatically package up files and components into release artifacts and run tests for quality, performance, and other requirements. After clearing required checks, CD tools send builds off to the operations team for further testing and staging.
+      
+    
+
+
+        Continuous integration stack
+      
+General automation, build tools, package managers, testing and code coverage tools
+
+
+            Learn more about CI testing
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Reviews and approvals
+    
+
+      
+        Treating code review as a best practice improves code quality, encourages collaboration, and helps even the most experienced developers make better commits. In a CI/CD workflow, teams review and approve code in pull requests or leverage integrated development environments for pair programming.
+      
+    
+
+
+        Code review stack
+      
+Collaborative coding, code review tools, automated reminders, pull requests
+
+
+            Learn more about code review
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Environments
+    
+
+      
+        CI/CD tests and deploys code in environments, from where developers build code to where operations teams make applications publicly available. Environments often have their own specific variables and protection rules to meet security and compliance requirements.
+      
+    
+
+
+        Protected environments stack
+      
+Environments for testing, staging, and production, required reviewers and branch protection rules
+
+
+            Learn more about protected environments
+
+
+
+
+
+
+
+
+
+
+
+          Example CI/CD workflow
+        
+
+
+
+
+
+CI/CD doesn’t have to be complicated, or mean adding a host of tools on top of your current workflow. At mabl, developers deploy to production about 80 times a week using only two CI/CD integrations: The mabl testing suite and GitHub Actions. Here’s how it works. ✨
+
+
+
+
+
+
+
+Developers open pull requests to trigger initial builds and unit tests
+Approved commits are deployed to a preview environment
+Custom-built GitHub Actions install the mabl CLI and run headless tests
+GitHub Apps provide live check results within pull requests
+Approved commits are merged to the main branch for additional tests or deployed to production
+
+
+
+
+          See more CI/CD workflow examples
+
+
+
+
+
+
+
+
+
+
+
+
+          What makes CI/CD successful
+        
+
+
+You’ll find different tools and integrations everywhere you look, but effective CI/CD workflows all share the same markers of success.
+
+
+
+
+
+
+
+
+
+      Automation
+    
+
+      
+        CI/CD can be done manually—but that’s not the goal. A good CI/CD workflow automates builds, testing, and deployment so you have more time for code, not more tasks to do.
+      
+    
+
+
+
+
+
+
+
+
+      Transparency
+    
+
+      
+        If a build fails, developers need to be able to quickly assess what went wrong and why. Logs, visual workflow builders, and deeply integrated tooling make it easier for developers to troubleshoot, understand complex workflows, and share their status with the larger team.
+      
+    
+
+
+
+
+
+
+
+
+      Speed
+    
+
+      
+        CI/CD contributes to your overall DevOps performance, particularly speed. DevOps experts gauge speed using two DORA metrics: Lead time for changes (how quickly commits are made to code in production) and deployment frequency (how often you commit code).
+      
+    
+
+
+
+
+
+
+
+
+      Resilience
+    
+
+      
+        When used with other approaches like test coverage, observability tooling, and feature flags, CI/CD makes software more resistant to errors. DORA measures this stability by tracking mean time to resolution (how quickly incidents are resolved) and change failure rate (the number of software rollbacks).
+      
+    
+
+
+
+
+
+
+
+
+      Security
+    
+
+Automation includes security. With DevSecOps gaining traction, a future-proof CI/CD pipeline has checks in place for code and permissions, and provides a virtual paper trail for auditing failures, security breaches, non-compliance events.
+      
+    
+
+
+
+
+
+
+          What can you do with CI/CD?
+        
+
+
+See how DevOps teams put continuous automation into practice.
+
+
+
+
+
+
+
+
+
+
+Migrating from internal servers to cloud-based CI/CD.
+
+
+          Explore Blue Yonder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Improving deployment time and developer productivity.
+
+
+          Explore Plaid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Breaking down silos with shared tooling and automation.
+
+
+          Explore 3M
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Making feature releases stress- and hands-free.
+
+
+          Explore Bolt
+
+
+
+
+
+
+
+
+
+
+
+
+
+          Start building your CI/CD workflow
+        
+
+
+Whether you’re ready to dive in or still have questions, we’ve got you covered.
+
+
+
+
+
+
+
+Explore best practices
+
+Check out guides, how-to’s, and tips for shipping better software, faster.
+
+
+            Learn more
+
+
+
+
+
+
+
+
+
+
+
+
+Get a GitHub demo
+
+See how world-class CI/CD, automation, and security can support your workflow.
+
+
+            Request a demo
+
+
+
+
+
+
+
+
+
+
+
+
+Ask the experts
+
+Build a custom strategy for your business goals in a 1:1 session with GitHub product leaders.
+
+
+            Schedule a virtual briefing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                Name
+              
+
+
+
+Your full name is required.
+
+
+
+
+
+
+                  Work email
+                
+
+
+
+A valid email address is required.
+
+
+
+
+
+                  Phone number (optional)
+                
+
+
+
+A phone number is required.
+
+
+
+
+
+
+                Country
+              
+
+
+
+
+  
+  Please select
+  
+
+
+  United States
+
+
+  Canada
+
+
+  India
+
+
+  Netherlands
+
+
+  Australia
+
+
+  South Africa
+
+
+  France
+
+
+  Germany
+
+
+  Singapore
+
+
+  Sweden
+
+
+  Brazil
+
+
+  United Kingdom
+
+
+  --------------
+
+
+  Afghanistan
+
+
+  Åland Islands
+
+
+  Albania
+
+
+  Algeria
+
+
+  American Samoa
+
+
+  Andorra
+
+
+  Angola
+
+
+  Anguilla
+
+
+  Antarctica
+
+
+  Antigua and Barbuda
+
+
+  Argentina
+
+
+  Armenia
+
+
+  Aruba
+
+
+  Australia
+
+
+  Austria
+
+
+  Azerbaijan
+
+
+  Bahamas
+
+
+  Bahrain
+
+
+  Bangladesh
+
+
+  Barbados
+
+
+  Belarus
+
+
+  Belgium
+
+
+  Belize
+
+
+  Benin
+
+
+  Bermuda
+
+
+  Bhutan
+
+
+  Bolivia
+
+
+  Bosnia and Herzegovina
+
+
+  Botswana
+
+
+  Bouvet Island
+
+
+  Brazil
+
+
+  Brit/Indian Ocean Terr.
+
+
+  Brunei Darussalam
+
+
+  Bulgaria
+
+
+  Burkina Faso
+
+
+  Burundi
+
+
+  Cambodia
+
+
+  Cameroon
+
+
+  Canada
+
+
+  Cape Verde
+
+
+  Cayman Islands
+
+
+  Central African Republic
+
+
+  Chad
+
+
+  Chile
+
+
+  China
+
+
+  Christmas Island
+
+
+  Cocos (Keeling) Islands
+
+
+  Colombia
+
+
+  Comoros
+
+
+  Congo
+
+
+  Congo, The Dem. Republic Of
+
+
+  Cook Islands
+
+
+  Costa Rica
+
+
+  Côte d'Ivoire
+
+
+  Croatia
+
+
+  Cuba
+
+
+  Cyprus
+
+
+  Czech Republic
+
+
+  Denmark
+
+
+  Djibouti
+
+
+  Dominica
+
+
+  Dominican Republic
+
+
+  Ecuador
+
+
+  Egypt
+
+
+  El Salvador
+
+
+  Equatorial Guinea
+
+
+  Eritrea
+
+
+  Estonia
+
+
+  Ethiopia
+
+
+  Falkland Islands
+
+
+  Faroe Islands
+
+
+  Fiji
+
+
+  Finland
+
+
+  France
+
+
+  French Guiana
+
+
+  French Polynesia
+
+
+  French Southern Terr.
+
+
+  Gabon
+
+
+  Gambia
+
+
+  Georgia
+
+
+  Germany
+
+
+  Ghana
+
+
+  Gibraltar
+
+
+  United Kingdom
+
+
+  Greece
+
+
+  Greenland
+
+
+  Grenada
+
+
+  Guadeloupe
+
+
+  Guam
+
+
+  Guatemala
+
+
+  Guinea
+
+
+  Guinea-Bissau
+
+
+  Guyana
+
+
+  Haiti
+
+
+  Heard/McDonald Isls.
+
+
+  Honduras
+
+
+  Hong Kong
+
+
+  Hungary
+
+
+  Iceland
+
+
+  India
+
+
+  Indonesia
+
+
+  Iran
+
+
+  Iraq
+
+
+  Ireland
+
+
+  Israel
+
+
+  Italy
+
+
+  Jamaica
+
+
+  Japan
+
+
+  Jordan
+
+
+  Kazakhstan
+
+
+  Kenya
+
+
+  Kiribati
+
+
+  Korea (North)
+
+
+  Korea (South)
+
+
+  Kuwait
+
+
+  Kyrgyzstan
+
+
+  Laos
+
+
+  Latvia
+
+
+  Lebanon
+
+
+  Lesotho
+
+
+  Liberia
+
+
+  Libya
+
+
+  Liechtenstein
+
+
+  Lithuania
+
+
+  Luxembourg
+
+
+  Macau
+
+
+  Macedonia
+
+
+  Madagascar
+
+
+  Malawi
+
+
+  Malaysia
+
+
+  Maldives
+
+
+  Mali
+
+
+  Malta
+
+
+  Marshall Islands
+
+
+  Martinique
+
+
+  Mauritania
+
+
+  Mauritius
+
+
+  Mayotte
+
+
+  Mexico
+
+
+  Micronesia
+
+
+  Moldova
+
+
+  Monaco
+
+
+  Mongolia
+
+
+  Montserrat
+
+
+  Morocco
+
+
+  Mozambique
+
+
+  Myanmar
+
+
+  N. Mariana Isls.
+
+
+  Namibia
+
+
+  Nauru
+
+
+  Nepal
+
+
+  Netherlands
+
+
+  Netherlands Antilles
+
+
+  New Caledonia
+
+
+  New Zealand
+
+
+  Nicaragua
+
+
+  Niger
+
+
+  Nigeria
+
+
+  Niue
+
+
+  Norfolk Island
+
+
+  Norway
+
+
+  Oman
+
+
+  Pakistan
+
+
+  Palau
+
+
+  Palestinian Territory, Occupied
+
+
+  Panama
+
+
+  Papua New Guinea
+
+
+  Paraguay
+
+
+  Peru
+
+
+  Philippines
+
+
+  Pitcairn
+
+
+  Poland
+
+
+  Portugal
+
+
+  Puerto Rico
+
+
+  Qatar
+
+
+  Reunion
+
+
+  Romania
+
+
+  Russian Federation
+
+
+  Rwanda
+
+
+  Saint Kitts and Nevis
+
+
+  Saint Lucia
+
+
+  Samoa
+
+
+  San Marino
+
+
+  Sao Tome/Principe
+
+
+  Saudi Arabia
+
+
+  Senegal
+
+
+  Serbia and Montenegro
+
+
+  Seychelles
+
+
+  Sierra Leone
+
+
+  Singapore
+
+
+  Slovak Republic
+
+
+  Slovenia
+
+
+  Solomon Islands
+
+
+  Somalia
+
+
+  South Africa
+
+
+  Spain
+
+
+  Sri Lanka
+
+
+  St. Helena
+
+
+  St. Pierre and Miquelon
+
+
+  St. Vincent and Grenadines
+
+
+  Sudan
+
+
+  Suriname
+
+
+  Svalbard/Jan Mayen Isls.
+
+
+  Swaziland
+
+
+  Sweden
+
+
+  Switzerland
+
+
+  Syria
+
+
+  Taiwan
+
+
+  Tajikistan
+
+
+  Tanzania
+
+
+  Thailand
+
+
+  Timor-Leste
+
+
+  Togo
+
+
+  Tokelau
+
+
+  Tonga
+
+
+  Trinidad and Tobago
+
+
+  Tunisia
+
+
+  Turkey
+
+
+  Turkmenistan
+
+
+  Turks/Caicos Isls.
+
+
+  Tuvalu
+
+
+  Uganda
+
+
+  Ukraine
+
+
+  United Arab Emirates
+
+
+  United States
+
+
+  US Minor Outlying Is.
+
+
+  Uruguay
+
+
+  Uzbekistan
+
+
+  Vanuatu
+
+
+  Vatican City
+
+
+  Venezuela
+
+
+  Viet Nam
+
+
+  Virgin Islands (British)
+
+
+  Virgin Islands (U.S.)
+
+
+  Wallis/Futuna Isls.
+
+
+  Western Sahara
+
+
+  Yemen
+
+
+  Zambia
+
+
+  Zimbabwe
+
+
+A country is required.
+
+
+
+
+
+                State/Province
+              
+
+
+
+
+  Please select
+
+
+  Alaska
+
+
+  Alabama
+
+
+  Arkansas
+
+
+  American Samoa
+
+
+  Arizona
+
+
+  California
+
+
+  Colorado
+
+
+  Connecticut
+
+
+  D.C.
+
+
+  Delaware
+
+
+  Florida
+
+
+  Micronesia
+
+
+  Georgia
+
+
+  Guam
+
+
+  Hawaii
+
+
+  Iowa
+
+
+  Idaho
+
+
+  Illinois
+
+
+  Indiana
+
+
+  Kansas
+
+
+  Kentucky
+
+
+  Louisiana
+
+
+  Massachusetts
+
+
+  Maryland
+
+
+  Maine
+
+
+  Marshall Islands
+
+
+  Michigan
+
+
+  Minnesota
+
+
+  Missouri
+
+
+  Marianas
+
+
+  Mississippi
+
+
+  Montana
+
+
+  North Carolina
+
+
+  North Dakota
+
+
+  Nebraska
+
+
+  New Hampshire
+
+
+  New Jersey
+
+
+  New Mexico
+
+
+  Nevada
+
+
+  New York
+
+
+  Ohio
+
+
+  Oklahoma
+
+
+  Oregon
+
+
+  Pennsylvania
+
+
+  Puerto Rico
+
+
+  Palau
+
+
+  Rhode Island
+
+
+  South Carolina
+
+
+  South Dakota
+
+
+  Tennessee
+
+
+  Texas
+
+
+  Utah
+
+
+  Virginia
+
+
+  Virgin Islands
+
+
+  Vermont
+
+
+  Washington
+
+
+  Wisconsin
+
+
+  West Virginia
+
+
+  Wyoming
+
+
+  Military Americas
+
+
+  Military Europe/ME/Canada
+
+
+  Military Pacific
+
+
+  Alberta
+
+
+  Manitoba
+
+
+  British Columbia
+
+
+  New Brunswick
+
+
+  Newfoundland and Labrador
+
+
+  Nova Scotia
+
+
+  Northwest Territories
+
+
+  Nunavut
+
+
+  Ontario
+
+
+  Prince Edward Island
+
+
+  Quebec
+
+
+  Saskatchewan
+
+
+  Yukon Territory
+
+
+A state/province is required.
+
+
+
+
+
+    Yes, I would like to be emailed with the latest news and happenings, products, and special offers from GitHub. If you change your mind, you can unsubscribe at any time.  GitHub Privacy Statement
+
+
+
+
+
+
+
+            Request a demo
+          
+Free Trial
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            Product
+          
+
+
+Features
+
+
+Security
+
+
+Team
+
+
+Enterprise
+
+
+Customer stories
+
+
+The ReadME Project
+
+
+Pricing
+
+
+Resources
+
+
+Roadmap
+
+
+
+
+
+            Platform
+          
+
+
+Developer API
+
+
+Partners
+
+
+Atom
+
+
+Electron
+
+
+GitHub Desktop
+
+
+
+
+
+            Support
+          
+
+
+Docs
+
+
+Community Forum
+
+
+Professional Services
+
+
+Learning Lab
+
+
+Status
+
+
+Contact GitHub
+
+
+
+
+
+            Company
+          
+
+
+About
+
+
+Blog
+
+
+Careers
+
+
+Press
+
+
+Social Impact
+
+
+Shop
+
+
+
+
+
+
+
+
+
+
+
+GitHub on Twitter
+
+
+
+
+
+GitHub on Facebook
+
+
+
+
+
+GitHub on YouTube
+
+
+
+
+
+GitHub on LinkedIn
+
+
+
+
+
+GitHub’s organization on GitHub
+
+
+
+
+© 2021 GitHub, Inc.
+
+Terms
+
+
+Privacy
+
+
+
+
+
+
+
+
+
+
+
+          © 2022 GitHub, Inc.
+        
+
+Terms
+
+
+Privacy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

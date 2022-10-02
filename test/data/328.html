@@ -1,0 +1,374 @@
+
+
+RELAX NG home page
+
+
+
+RELAX NG home page
+Last updated: 2014-02-25
+Contents
+
+Introduction
+Documents
+
+Tutorials
+Specifications
+Books
+Other documents
+
+
+Mailing lists
+Software
+
+Validators
+Conversion tools
+Code generators
+XML Editors
+Other software
+
+
+Schemas
+Test suites
+Other RELAX NG pages
+
+
+Introduction
+RELAX NG is a schema language for XML.  The key features of RELAX
+NG are that it:
+
+is simple
+is easy to learn
+has both an XML syntax and a compact non-XML syntax
+does not change the information set of an XML document
+supports XML namespaces
+treats attributes uniformly with elements so far as possible
+has unrestricted support for unordered content
+has unrestricted support for mixed content
+has a solid theoretical basis
+can partner with a separate datatyping language (such W3C XML Schema Datatypes)
+
+The RELAX NG specifications have been developed within OASIS by the RELAX NG
+Technical Committeee.  RELAX NG is also an
+International Standard (ISO/IEC 19757-2).
+It is Part 2 of ISO/IEC 19757 DSDL (Document Schema Definition Languages),
+which is maintained by ISO/IEC
+JTC1/SC34/WG1.
+RELAX NG was based on TREX designed by James
+Clark and RELAX Core designed by 
+MURATA Makoto.
+ project for extending RELAX NG has started 
+in ISO/IEC JTC1/SC34/WG1.  RELAX NG Version 2 is likely to become a new part of ISO/IEC 19757, while RELAX NG Version 1 continues to exist
+as Part 2 of ISO/IEC 19757.
+Documents
+Tutorials
+RELAX NG Tutorial (errata), OASIS
+Committee Specification, 3 December 2001. Tutorial for RELAX NG using
+the XML syntax. More recent, but not officially approved Working Draft, 26 March 2003 also
+available
+RELAX NG Compact Syntax
+Tutorial, OASIS Working Draft, 26 March 2003. Tutorial for RELAX
+NG using the compact syntax, not assuming prior knowledge of XML
+syntax.
+Specifications
+RELAX NG Specification (errata), OASIS
+Committee Specification, 3 December 2001. Definitive specification
+for RELAX NG using the XML syntax.
+ISO/IEC
+19757-2:2003 Document Schema Definition Language (DSDL) -- Part 2:
+Regular-grammar-based validation -- RELAX NG.  ISO version of
+RELAX NG Specification; the technical content of this is identical to
+the OASIS Committee Specification, but there are editorial changes to
+satisfy ISO rules.
+RELAX NG Compact Syntax, OASIS
+Committee Specification, 21 November 2002. Definitive specification
+for the compact syntax in terms of the XML syntax.
+ISO/IEC 19757-2:Amd1 
+Document Schema Definition Language (DSDL) -- Part 2: Regular-grammar-based validation -- RELAX NG -- Amendment 1: Compact Syntax. 
+ISO version of the RELAX NG Compact Syntax; RELAX NG Compact Syntax; the technical content of this is identical to the OASIS Committee Specification, but there are editorial changes to satisfy ISO rules.
+ISO/IEC 19757-2:2008 Document Schema Definition Language (DSDL) -- Part 2:
+Regular-grammar-based validation -- RELAX NG.  The second edition is created by consolidating the first edition and Amd1:2006 and then fixing some bugs.
+RELAX NG DTD
+Compatibility, OASIS Committee Specification, 3 December
+2001. Defines annotations and datatypes that support some of the
+features from XML 1.0 DTDs not supported directly by RELAX NG.
+Guidelines for using W3C XML Schema
+Datatypes with RELAX NG, OASIS Committee Specification, 7
+September 2001.
+Books
+RELAX NG is a book written by Eric van der Vlist.  It is freely available on the Web.
+Other documents
+XML Matters: Kicking back with RELAX NG, Part
+1, Part
+2, Part
+3, David Mertz, IBM developerWorks.  Series of articles
+introducing RELAX NG.
+Relax
+NG, Compared, Eric van der Vlist, XML.com. Article comparing RELAX
+NG and W3C XML Schema.
+RELAX NG's
+Compact Syntax, Michael Fitzgerald, XML.com. Article introducing
+RELAX NG using the compact syntax.
+XML and the
+IETF: Making the case for RELAX NG, Michael Smith, xmlhack.
+Reports on arguments advanced as to why RELAX NG is preferable to W3C
+XML Schema, in the context of IETF discussions on XML.
+The
+Design of RELAX NG, James Clark. Paper discussing the thinking
+behind the design of RELAX NG.
+ZVON RELAX
+Reference, Jiri Jirat. On-line reference guide to RELAX NG.
+Notes on
+implementing RELAX NG, James Clark.  Provides some information on
+how to implement a RELAX NG validator.
+Mailing lists
+The rng-users
+mailing list is for anything related to the use of RELAX NG.  The precursor is relaxng-user.  
+Questions
+from new users are welcome.
+The emacs-nxml-mode mailing list is for nxml-mode.
+Software
+Validators
+Jing,
+RELAX NG validator.  Supports both XML and compact syntaxes.  Can be
+used as a library for validation with any SAX2 parser.  Implemented in
+Java. Written by James Clark.  Open source (BSD license).
+RNV Relax NG Compact Syntax validator in ANSI C (under BSD license)
+Libxml2, the XML C library
+for Gnome. Recent versions of libxml2 (at least 2.5.5) support RELAX
+NG validation. Only the XML syntax is supported. Libxml2 is included
+in most modern Linux distributions. Implemented in C.  Written by
+Daniel Veillard. Open source (MIT license).
+MSV,
+Sun Multi-Schema XML Validator. Validates RELAX NG. Supports XML
+syntax only. Also supports other schema languages including W3C XML
+Schema.  Can be used as a library for validation and for accessing the
+schema.  Implemented in Java. Written by Kohsuke KAWAGUCHI. Open
+source (BSD license).
+Bali, RELAX
+NG validator compiler. Reads a RELAX NG schema and produces a
+validator that can validate documents with the given schema.  Compiler
+uses MSV and is implemented in Java.  Generated validator can be in
+Java, C++ for Win32 (using MSXML4) or C#. Written by Kohsuke
+KAWAGUCHI. Open source (BSD license).
+Tenuto, RELAX
+NG validator for .NET.  Implemented in C#.  Open source (BSD
+license).
+VBRELAXNG,
+ActiveX DLL for validating RELAX NG.  RELAX NG Workshop sample client
+application also available.  Uses MSXML4.  Implemented in Visual
+Basic.  Written by YONEKURA Koji. Freely downloadable.
+XVIF, XML
+Validation Interoperability Framework.  Proof of concept
+implementation of the idea of embedding XML processing pipelines in a
+grammar.  Includes a partial implementation of RELAX NG.  Implemented
+in Python. Written By Eric van der Vlist.  Open source (MPL).
+RelaxngValidatingReader,
+.NET XmlReader that validates using RELAX NG.  Implemented in
+C#. Included in Mono.  Written
+by Atsushi Enomoto. Open source (public domain).
+
+On-line validator.   It
+supports both RELAX NG Compact and XML syntax. 
+ManekiNeko,
+Xerces parser configuration that supports RELAX NG validation.  Puts
+an XNI wrapper around Jing. Implemented in Java.  Written by Andy
+Clark. Open source (Apache-style license).
+Sun
+MSV Schematron add-on, allows a document to be validated against a
+RELAX NG grammar and also against Schematron
+constraints embedded as annotations in the RELAX NG.  Uses MSV.
+Implemented in Java. Written by Kohsuke KAWAGUCHI. Open source (BSD
+license).
+Topologi XML Judge
+, a Windows application for validating an XML document
+against a variety of schema languages, including RELAX NG. Uses
+VBRELAXNG.
+Yggdrasill/EsTerra RELAX NG validator (in Japanese)
+Conversion tools
+Trang,
+multi-format schema converter based on RELAX NG. Trang supports the
+following languages: RELAX NG (both XML and compact syntax), XML 1.0
+DTDs, W3C XML Schema.  A schema written in any of the supported schema
+languages can be converted into any of the other supported schema
+languages, except that W3C XML Schema is supported for output only,
+not for input.  Trang can also infer a schema from one or more example
+XML documents. Trang aims to produce human-understandable schemas; it
+tries to preserve all aspects of the input schema that may be
+significant to a human reader, including the definitions, the way the
+schema is divided into files, annotations and comments.  Uses Jing.
+Implemented in Java. Written by James Clark. Open source (BSD
+license).
+Sun
+RELAX NG Converter. The Sun RELAX NG Converter is a tool to
+convert schemas written in various schema languages to their
+equivalent in RELAX NG. It supports schemas written in XML DTD, RELAX
+Core, RELAX namespace, TREX, W3C XML Schema, and RELAX NG itself.  It
+does aims only to produce a RELAX NG schema that is equivalent to the
+input schema in the sense that it validates the same documents as the
+input schema; it does not aim to preserve information that is not
+significant for validation such as the use of definitions.  Based on
+MSV.  Implemented in Java. Written by Kohsuke KAWAGUCHI. Open source
+(BSD license).
+XSD to RelaxNG.   web-based converter from W3C XML Schema to RELAX NG.  The user 
+types a WXS schema in this web form, and 
+gets a RELAX NG schema with the convert button.  The conversion is done by an XSLT stylesheet.
+InstanceToSchema, a
+tool to generate a RELAX NG schema from XML instances.  Implemented in
+Java.  Written by Didier Demany. Open source (BSD license).
+rng2srng, a
+tool to convert RELAX NG (XML or compact syntax) into the simple
+syntax.  The simple syntax is a minimal subset of the XML syntax
+defined by the RELAX NG specification, into which any RELAX NG schema
+can be transformed.  Uses Jing. Implemented in Java. Written by
+Kohsuke KAWAGUCHI. Open source (BSD license).
+NekoDTD,
+DTD to instance converter. Uses the Xerces Native Interface (XNI) to
+convert DTD into an XML document, which can then be converted into
+other formats. Includes XSLT stylesheets to convert XML output format
+into RELAX NG. Implemented in Java. Written by Andy Clark. Open source
+(Apache-style license).
+RNG to RNC Converter.
+Contains XSLT stylesheets for converting RELAX NG schemas
+in the XML syntax to the compact syntax. The stylesheets can output
+either a plain text result, or a hyperlinked HTML document.
+Written by David Rosenborg. Open source (BSD license).
+rnc2rng,
+converter from RELAX NG Compact Syntax to RELAX NG XML Syntax.
+Implemented in Python. Originally written by David Mertz, now maintained
+by Dirkjan Ochtman. Open Source (public domain).
+Simplification of RelaxNG schemas.  A web-based simplifier of RELAX NG schemas.  It is based on an XSLT stylesheet written by Eric van der Vlist.
+Code generators
+Relaxer, schema compiler.  Can
+generate a collection of Java classes from a RELAX NG schema along
+with code to create instances of those classes from XML and
+vice-versa. Provides many other features useful for processing data
+described by a RELAX NG schema.  Uses MSV.  Implemented in
+Java. Written by ASAMI Tomoharu. Open source (GPL for compiler, BSD
+license for generated code, LGPL for runtime libraries).
+RelaxNGCC, RELAX NG
+Compiler Compiler. Tool for generating Java source code from a given
+RELAX NG grammar. By embedding code fragments in the grammar like yacc
+or JavaCC, you can take appropriate actions while parsing valid XML
+documents against the grammar. Uses MSV. Implemented in Java. Written
+by Daisuke OKAJIMA and Kohsuke KAWAGUCHI. Open source (GPL for
+compiler, public domain for generated code).
+XML editors
+Stylus Studio now supports RELAX NG!
+Firedocs is a browser based wysiwyg-xml-editor  
+that has schema-driven auto-complete and uses Jing for validation.  
+Licence: ASL 2.0
+xmloperator, an XML
+editor, suitable for editing data oriented documents.  Allows any
+RELAX NG schema to be used to guide editing. Implemented in Java.
+Written by Didier Demany. Open source (BSD license).
+Topologi
+Collaborative Markup Editor, XML editor including support for
+RELAX NG. Commercial.
+<oXygen/> XML editor.
+Provides validation and completion using RELAX NG.  Supports both XML
+and compact syntaxes. Multiplatform, implemented in
+Java. Commercial.
+XMLBlueprint XML Editor 
+Provides validation and completion using RELAX NG.  Commercial.
+XMLBuddy Pro 
+Provides validation and completion using RELAX NG.  Commertical.
+RNGEdit (in Japanese)
+
+Other software
+nXML mode.
+nXML mode is an addon for GNU Emacs, which makes GNU Emacs into a powerful XML editor.
+RNC Emacs Mode.
+A small emacs mode for editing RELAX NG schemas in the compact
+syntax. Written by David Rosenborg. Open source (BSD license).
+RNC SAX Parser.  SAX2
+parser for the RELAX NG Compact syntax. It will parse a compact syntax
+schema and send events to a content handler as if it was reading a
+RELAX NG schema in the XML syntax. Implemented in Java. Written by
+David Rosenborg. Open source (BSD license).
+RNC
+Vim syntax definition.  It allows the Vim editor to do syntax highlighting for
+RELAX NG compact syntax schemas.  Written by Hans Fugal. Open source.
+RELAX NG datatype
+interface.  Interface between RELAX NG validators and datatype
+libraries. Java, .NET and COM versions available.  Written by James
+Clark and Kohsuke KAWAGUCHI. Open source (BSD license).
+Sun
+XML datatypes library. Implementaton of the datatypes of XML
+Schema Part 2. Supports the RELAX NG datatype interface.  Used by MSV.
+Implemented in Java. Written by Kohsuke KAWAGUCHI. Open source (BSD
+license).
+Sun
+XML Instance Generator. Tool to generate valid and invalid
+instances from schemas. It can be used for generating test cases for
+XML applications that need to conform to a particular schema. Uses
+MSV.  Implemented in Java. Written by Kohsuke KAWAGUCHI. Freely
+downloadable, but not open source.
+RelaxMeter, a
+tool to check whether a RELAX NG grammar is ambiguous.  Uses
+MSV. Implemented in Java. Written by Kohsuke KAWAGUCHI. Open source
+(MIT license).
+Schema simplifier in XSLT. An XSLT stylesheet to perform the
+RELAX NG syntax simplification described in the RELAX NG
+specification.  Written by Eric van der Vlist.
+incelim.
+This set of XSLT stylesheets take a Relax NG grammar in XML syntax, expand all includes and externalRefs, and optionally replace references to text, empty, or notAllowed with the patterns. The result is a 'compiled' schema convenient for distribution.  Written by David Tolpin.
+RELAX NG Object Model.  RNGOM is an open-source Java library for parsing RELAX NG grammars.  It is based on Jing, but exposes schemas to programmers.  Written by Kohsuke Kawaguchi.  
+Schema to web form.   A web-based interface for transforming a RELAX NG schema into an XHTML form.
+Schemas
+New!XSLT 3.0
+Citation Style Language (CSL) uses RELAX NG schemas.
+
+Atom Syndication Format
+Google Data API (Calendar List Feed Schema, for example)
+Adobe InDesign IDML
+Open Publication Structure(OPS), IDPF
+Open Packaging Format
+(OPF), IDPF
+
+Open Container Format (OCF), IDPF
+RELAX NG 1.0, from the RELAX NG
+Specification, with errata applied.
+TEI P5
+
+DocBook,
+Norman Walsh.
+XHTML,
+James Clark.
+XSLT 1.0,
+James Clark.
+SMBmeta 0.1 on RELAX-NG, Yutaka Furubayashi
+P3P 1.0 on RELAX-NG, Yutaka Furubayashi
+MathML 2.0 on RELAX-NG, Yutaka Furubayashi
+SVG 1.1 on RELAX-NG, Yutaka Furubayashi
+W3C XML
+Schema, Jeni Tennison.  An update by Peter A. Bigot.
+VoiceXML,
+Kohsuke KAWAGUCHI.
+XML-DSig,
+Joseph Reagle.
+XENC,
+Joseph Reagle.
+RDF,
+James Clark, David Beckett.
+IBTWSH,
+John Cowan.
+ODF  RELAX NG schemas for ODF 1.0 and ODF 1.1 are available.
+OOXML  Ecma-376 2nd edition Parts 1, 2, and 4 includes non-normative RELAX NG schemas.
+Test suites
+Test
+suite, James Clark.  Unofficial test suite using the XML syntax.
+Other RELAX NG pages
+OASIS
+RELAX NG TC home page
+Robin Cover's
+RELAX NG page
+James Clark's
+RELAX NG page
+Kohsuke KAWAGUCHI's RELAX
+NG page
+Yutaka
+Furubayashi's RELAX NG page
+
+This web page is maintained by MURATA Makoto.
+
+

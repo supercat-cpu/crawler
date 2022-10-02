@@ -1,0 +1,521 @@
+
+
+
+
+Factory Method パターン - Wikipedia
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+コンテンツにスキップ
+
+
+
+
+
+サイドバーの切り替え
+
+
+
+
+
+
+
+
+
+
+
+
+検索
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+アカウント作成
+
+
+
+
+
+個人用ツール
+
+
+ アカウント作成
+ ログイン
+
+
+		ログアウトした編集者のページ もっと詳しく
+
+
+トーク投稿記録
+
+
+
+
+
+
+
+
+
+
+案内
+
+
+メインページコミュニティ・ポータル最近の出来事新しいページ最近の更新おまかせ表示練習用ページアップロード (ウィキメディア・コモンズ)
+
+
+
+
+ヘルプ
+
+
+ヘルプ井戸端お知らせバグの報告寄付ウィキペディアに関するお問い合わせ
+
+
+
+
+ツール
+
+
+リンク元関連ページの更新状況ファイルをアップロード特別ページこの版への固定リンクページ情報このページを引用ウィキデータ項目
+
+
+
+
+印刷/書き出し
+
+
+ブックの新規作成PDF 形式でダウンロード印刷用バージョン
+
+
+
+
+他のプロジェクト
+
+
+コモンズ
+
+
+
+
+言語
+
+このWikipediaでは言語間リンクがページの先頭にある記事タイトルの向かい側に設置されています。ページの先頭をご覧ください。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				目次
+				サイドバーに移動
+非表示
+
+
+
+
+
+ページ先頭
+
+
+
+
+
+1クラス図
+
+
+
+
+
+
+
+2利用例
+
+
+
+
+
+
+
+3関係するパターン
+
+
+
+
+
+
+
+4Abstract Factory パターンとの違い
+
+
+
+
+
+
+
+5関連項目
+
+
+
+
+
+
+
+6参考文献
+
+
+
+
+
+
+
+
+
+
+
+
+
+						目次の表示・非表示を切り替え
+					
+Factory Method パターン
+
+
+
+27の言語版
+
+
+العربيةБългарскиCatalàDeutschEnglishEspañolفارسیFrançaisGalegoעבריתMagyarՀայերենInterlinguaItaliano한국어മലയാളംNederlandsPolskiPortuguêsРусскийСрпски / srpskiSvenskaไทยУкраїнськаTiếng Việt中文粵語
+リンクを編集
+
+
+
+
+
+
+
+
+ページノート
+
+
+
+
+
+日本語
+
+
+
+
+
+
+
+
+
+閲覧編集履歴表示
+
+
+
+
+
+その他
+
+
+閲覧編集履歴表示
+
+
+
+
+
+
+
+
+
+出典: フリー百科事典『ウィキペディア（Wikipedia）』
+
+Factory Method パターン（ファクトリメソッド・パターン）[1]とは、GoF (Gang of Four; 四人組)によって定義されたデザインパターンの1つである。 Factory Method パターンは、他のクラスのコンストラクタをサブクラスで上書き可能な自分のメソッドに置き換えることで、
+アプリケーションに特化したオブジェクトの生成をサブクラスに追い出し、クラスの再利用性を高めることを目的とする。
+Virtual Constructor パターンとも呼ばれる[1]。
+
+
+クラス図[編集]
+Factory Method パターンのクラス図は以下の通りである。
+
+
+ここで、anOperationはfactoryMethodを呼び出し、Productのサブクラスのインスタンスを得て、利用する。factoryMethodのようなメソッドはfactory methodと呼ばれる。
+factoryMethodは、デフォルトの動作を含んだ具象メソッドである場合もある。パラメータを取り、それによって生成するクラスを変えることもある。ConcreteCreatorごとの操作手段を
+Productとして他のクラスに提供するようなケースでは、factoryMethodをpublicとして公開する。[1]。しかし、factoryMethodは上書きされることが前提であるため、privateにはしない。
+
+利用例[編集]
+例として、Java でリストの要素をさまざまな順で表示するプログラムを考える。このソースコードは J2SE 1.5 以降のバージョンで動作する。
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+// Creatorに相当する
+abstract class ListPrinter {
+    // anOperationに相当する
+    public void printList(List<String> list) {
+        Comparator<String> comparator = createComparator();
+        list = new ArrayList<String>(list);
+
+        Collections.sort(list, comparator);
+
+        for (String item : list) {
+            System.out.println(item);
+        }
+    }
+
+    // factoryMethodに相当する
+    protected abstract Comparator<String> createComparator();
+}
+
+// ConcreteCreatorに相当する
+class DictionaryOrderListPrinter extends ListPrinter {
+    @Override
+    protected Comparator<String> createComparator() {
+        return new DictionaryOrderComparator();
+    }
+}
+
+// java.util.ComparatorがProductに相当する
+
+// ConcreteProductに相当する
+class DictionaryOrderComparator implements Comparator<String> {
+    @Override
+    public int compare(String str1, String str2) {
+        return str1.compareTo(str2);
+    }
+}
+
+// ConcreteCreatorに相当する
+class LengthOrderListPrinter extends ListPrinter {
+    @Override
+    protected Comparator<String> createComparator() {
+        return new LengthOrderComparator();
+    }
+}
+
+// ConcreteProductに相当する
+class LengthOrderComparator implements Comparator<String> {
+    public int compare(String str1, String str2) {
+        return str1.length() - str2.length();
+    }
+}
+
+// メインクラス
+public class FactoryMethodSample {
+    public static void main(String args[]) {
+        List<String> list = Arrays.asList("いちご", "もも", "いちじく");
+
+        System.out.println("五十音順で表示:");
+        new DictionaryOrderListPrinter().printList(list);
+
+        System.out.println();
+
+        System.out.println("長さ順で表示:");
+        new LengthOrderListPrinter().printList(list);
+    }
+}
+
+このプログラムは、以下の結果を出力する。
+
+五十音順で表示:
+いちご
+いちじく
+もも
+
+長さ順で表示:
+もも
+いちご
+いちじく
+
+前半ではリストを五十音順で表示し、後半ではリストを文字列の長さ順に表示している。
+リストを並び変えて表示するListPrinter#printListメソッドでは、並び変えに使うComparatorを生成する際にnew演算子を使って直接生成するのではなく、抽象メソッドcreateComparatorを使ってサブクラスに生成を委ねる。
+
+関係するパターン[編集]
+factory methodは普通template method (Template Method パターンを参照)であるanOperationから呼ばれる。ただし、factory methodをpublicにして他のクラスからも呼ぶ場合もある[1]。
+Abstract Factory パターンのAbstractFactoryクラスはfactory methodを持ち、それを個々のサブクラスが上書きして生成するProductを変える手法が一般的である。しかし、Prototype パターンを使い、prototypeとなるオブジェクトの変更により生成するProductを変える手法もある[1]。
+
+Abstract Factory パターンとの違い[編集]
+『オブジェクト指向における再利用のためのデザインパターン』においてはFactory Method パターンは「クラスパターン」に分類されている。一方Abstract Factory パターンは「オブジェクトパターン」に分類されている。
+Factory Method パターンは親クラスであるCreatorクラスが子クラスであるConcreteCreatorクラスにオブジェクトの生成を委ねるという、CreatorクラスとConcreteCreatorクラスとの関連である。一方でAbstract Factory パターンは、ClientのインスタンスがConcreteFactoryのインスタンスにオブジェクトの生成を委ねるという、オブジェクト同士の関連である。
+
+関連項目[編集]
+Template Method パターン
+Abstract Factory パターン
+デザインパターン
+参考文献[編集]
+
+^ a b c d e エリック・ガンマ、ラルフ・ジョンソン、リチャード・ヘルム、ジョン・ブリシディース（著）、グラディ・ブーチ（まえがき）、本位田真一、吉田和樹（監訳）、『オブジェクト指向における再利用のためのデザインパターン』、ソフトバンクパブリッシング、1995。ISBN 978-4-7973-1112-9.
+
+
+表話編歴デザインパターンGoFによる23種のパターン
+生成に関するパターン
+Abstract factory
+Builder
+Factory method
+Prototype
+Singleton
+構造に関するパターン
+Adapter
+Bridge
+Composite
+Decorator
+Facade
+Flyweight
+Proxy
+振る舞いに関するパターン
+Chain of responsibility
+Command
+Interpreter
+Iterator
+Mediator
+Memento
+Observer
+State
+Strategy
+Template method
+Visitor
+
+並行性に関するパターン
+Active object（英語版）
+Balking（英語版）
+Double-checked locking（英語版）
+Event-based asynchronous（英語版）
+Guarded suspension（英語版）
+Join（英語版）
+ロック
+モニタ
+Proactor（英語版）
+Reactor
+Readers–writer lock（英語版）
+Scheduler（英語版）
+Thread pool（英語版）
+スレッド局所記憶
+アーキテクチャに関するパターン
+Front Controller（英語版）
+Interceptor（英語版）
+MVC
+MVVM
+多層アーキテクチャ
+Specification（英語版）
+出版-購読型モデル
+Naked objects（英語版）
+Service Locator（英語版）
+Active Record
+Identity map（英語版）
+Data Access Object
+Data Transfer Object
+その他のパターン
+依存性の注入 (DI)
+遅延読み込み
+モックオブジェクト
+Null object（英語版）
+Object pool（英語版）
+Servant（英語版）
+Type tunnel（英語版）
+関連する人々
+ギャング・オブ・フォー
+エーリヒ・ガンマ
+リチャード・ヘルム
+ラルフ・ジョンソン
+ジョン・ブリシディース
+クリストファー・アレグザンダー
+グラディ・ブーチ
+ケント・ベック
+ウォード・カニンガム
+マーティン・ファウラー
+ロバート・セシル・マーティン（英語版）
+ジム・コプリエン（英語版）
+ダグラス・C. シュミット（英語版）
+リンダ・ライジング（英語版）
+関連項目
+アナリシスパターン
+アンチパターン
+
+一覧
+カテゴリ
+コモンズ
+
+
+
+
+「https://ja.wikipedia.org/w/index.php?title=Factory_Method_パターン&oldid=50758513」から取得
+カテゴリ: デザインパターン (ソフトウェア)隠しカテゴリ: ISBNマジックリンクを使用しているページ
+
+
+
+
+
+
+ 最終更新 2014年2月19日 (水) 15:49 （日時は個人設定で未設定ならばUTC）。
+テキストはクリエイティブ・コモンズ 表示-継承ライセンスの下で利用可能です。追加の条件が適用される場合があります。詳細は利用規約を参照してください。
+
+
+プライバシー・ポリシー
+ウィキペディアについて
+免責事項
+モバイルビュー
+開発者
+統計
+Cookieに関する声明
+
+
+
+
+
+
+
+
+
+
+
+
+
