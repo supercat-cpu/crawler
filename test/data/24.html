@@ -1,0 +1,1399 @@
+
+
+
+Canonical XML Version 2.0
+
+
+
+
+
+
+Canonical XML Version 2.0
+W3C Working Group Note 11 April 2013
+
+This version:
+http://www.w3.org/TR/2013/NOTE-xml-c14n2-20130411/
+Latest published version:
+http://www.w3.org/TR/xml-c14n2/
+Latest editor's draft:
+http://www.w3.org/2008/xmlsec/Drafts/c14n-20/
+Previous version:
+http://www.w3.org/TR/2012/CR-xml-c14n2-20120124/
+Latest recommendation:
+http://www.w3.org/TR/xml-c14n2
+Editors:
+John Boyer, IBM (formerly PureEdge Solutions Inc.) (Version 1.0)
+Glenn Marcy, IBM (Version 1.1)
+Pratik Datta, Oracle
+Frederick Hirsch, Nokia
+
+
+Copyright © 
+        2013
+        
+        W3C® 
+        (MIT,
+        ERCIM,
+        Keio, Beihang), All Rights Reserved.
+        W3C liability,
+        trademark and
+        document use rules apply.
+      
+
+
+Abstract
+
+          This informative W3C Working Group Note describes 
+          Canonical XML Version 2.0, a canonicalization algorithm
+          for XML Signature 2.0. It addresses issues around
+          performance, streaming, hardware implementation, robustness, minimizing attack surface, 
+          determining what is signed and more. 
+        
+Any XML document is part of a set of XML documents that
+        are logically equivalent within an application context,  
+        but which vary in physical representation based on
+        syntactic changes permitted by XML 1.0 [XML10] and  
+        Namespaces in XML 1.0 [XML-NAMES]. This specification
+        describes a method for generating a physical
+        representation, 
+        the canonical form, of an XML document that accounts for the permissible changes. Except for limitations regarding 
+        a few unusual cases, if two documents have the same canonical form, then the two documents are logically equivalent 
+        within the given application context. Note that two documents may have differing canonical forms yet still be 
+        equivalent in a given context based on application-specific equivalence rules for which no generalized XML 
+        specification could account.
+        
+Canonical XML Version 2.0 is applicable to XML 1.0. It is not defined for XML 1.1. 
+Status of This Document
+
+This section describes the status of this document at the time of its publication. Other
+          documents may supersede this document. A list of current W3C publications and the latest revision
+          of this technical report can be found in the W3C technical reports
+          index at http://www.w3.org/TR/.
+
+The XML Security Working Group has agreed 
+        not to progress this Canonical XML 2.0 
+        specification further as a Recommendation track document, electing
+        to publish it as an informative Working Group Note.  The Working Group has not performed interop testing on the
+        material in this document but has produced a test cases document [C14N2-TestCases]. 
+Other than publishing as a W3C Working Group Note, the only changes
+        since the last publication have been to update the abstract to
+        clarify the status and to  update the references (diff).
+
+          This document was published by the XML Security Working Group as a Working Group Note.
+          
+          
+          If you wish to make comments regarding this document, please send them to 
+          public-xmlsec@w3.org 
+          (subscribe,
+          archives).
+          
+          
+          
+          
+        All comments are welcome.
+        
+        
+          
+            Publication as a Working Group Note does not imply endorsement by the W3C Membership.
+            This is a draft document and may be updated, replaced or obsoleted by other documents at 
+            any time. It is inappropriate to cite this document as other than work in progress.
+          
+
+          
+            This document was produced by a group operating under the 
+            5 February 2004 W3C Patent Policy.
+          
+          
+          
+            
+              W3C maintains a public list of any patent disclosures 
+            
+            made in connection with the deliverables of the group; that page also includes instructions for 
+            disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains
+            Essential Claim(s) must disclose the
+            information in accordance with section
+            6 of the W3C Patent Policy.
+          
+          
+        
+Table of Contents1. Introduction1.1 Terminology1.2 Applications1.3 Limitations1.4 Requirements for 2.01.4.1 Performance1.4.2 Streaming1.4.3 Robustness1.4.4 Portability1.4.5 Simplicity1.5 Test Cases for Canonical XML 2.02. Canonical XML 2.02.1 Data Model2.2 Parameters2.3 Processing Model2.4 The Need for Exclusive XML Canonicalization2.4.1  A Simple Example2.4.2 General Problems with re-Enveloping2.5 Namespace Processing2.5.1 Namespace concepts2.5.2 Namespace Prefix Rewriting2.5.3 Namespace processing algorithm2.5.4 Example of exclusive canonicalization with prefix rewriting2.5.4.1 With PrefixRewrite="none"2.5.4.2 With PrefixRewrite="sequential"2.6 Attribute processing3. Use of Canonical XML 2.0 in XML Security3.1 Use of Canonical XML 2.0 in XML Signature 2.03.2 Use of Canonical XML 2.0 in XML Encryption 1.14. Pseudocode4.1 canonicalize()4.2 canonicalizeSubtree()4.3 processNode()4.4 processDocument()4.5 processElement()4.6 processText()4.7 processPI()4.8 processComment()4.9 addNamespaces()4.10 processNamespaces()5. Output rules6. Processing model for Streaming XML parsersA. ReferencesA.1 Normative referencesA.2 Informative references
+
+1. Introduction
+
+1.1 Terminology
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", 
+          "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 [RFC2119].
+          
+See [XML-NAMES] for the definition of QName.
+
+document subset
+A document subset is a portion of an XML document 
+            that may not include all of the nodes in the document.
+canonical form
+The canonical form of an XML document is physical representation of the document 
+            produced by the method described in this specification
+canonical XML
+The term canonical XML refers to XML that is in canonical form. The XML canonicalization 
+            method is the algorithm defined by this specification that generates the canonical form of a given XML document 
+            or document subset. The term XML canonicalization refers to the process of applying the XML canonicalization 
+            method to an XML document or document subset.
+            
+subtree
+Subtree refers to one XML element node, and all that it contains. In XPath terminology it is an element 
+            node and all its descendant nodes.
+DOM
+DOM or Document Object Model is a model of representing an XML document in tree 
+            structure. The W3C DOM standard [DOM-LEVEL-2-CORE] is one such DOM, but this specification does not require this particular
+            set of DOM APIs; any similar model can be used as long as it has a tree representation of the XML document,
+            whose root is a document node, and the document node's descendants are element nodes,
+            attribute nodes, text nodes etc. 
+DOM parser
+An software module that reads an XML document and constructs a DOM tree. 
+Stream parser
+A software module that reads an XML document and
+            constructs a stream of XML events like "beginElement", "text",
+            "endElement". StAX [XML-PARSER-STAX] is an example of a stream parser. 
+
+
+
+1.2 Applications
+Since the XML 1.0 Recommendation [XML10] and the Namespaces in XML 1.0 Recommendation [XML-NAMES] define
+          multiple  
+          syntactic methods for expressing the same information, XML applications tend to take liberties with changes that 
+          have no impact on the information content of the document. XML canonicalization is designed to be useful to 
+          applications that require the ability to test whether the information content of a document or document subset 
+          has been changed. This is done by comparing the canonical form of the original document before application 
+          processing with the canonical form of the document result of the application processing.
+          
+For example, a digital signature over the canonical form of an XML document or document subset would allow 
+          the signature digest calculations to be oblivious to changes in the original document's physical representation, 
+          provided that the changes are defined to be logically equivalent by the XML 1.0 or Namespaces in XML 1.0. 
+          During signature generation, the digest is computed over the canonical form of the document. The document is 
+          then transferred to the relying party, which validates the signature by reading the document and computing 
+          a digest of the canonical form of the received document. The equivalence of the digests computed by the 
+          signing and relying parties (and hence the equivalence of the canonical forms over which they were computed) 
+          ensures that the information content of the document has not been altered since it was signed.
+          
+Note: Although not stated as a requirement on implementations, nor formally proved to be the case, 
+          it is the intent of this specification that if the text generated by canonicalizing a document according 
+          to this specification is itself parsed and canonicalized according to this specification, the text generated
+          by the second canonicalization will be the same as that generated by the first canonicalization.
+          
+
+
+1.3 Limitations
+Two XML documents may have differing information content that is
+          nonetheless logically equivalent within a given application context. Although
+          two XML documents are equivalent (aside from limitations given in this section) 
+          if their canonical forms are identical, it is not a goal of this work to establish 
+          a method such that two XML documents are equivalent if and only if their 
+          canonical forms are identical. Such a method is unachievable, in part due to 
+          application-specific rules such as those governing unimportant whitespace and 
+          equivalent data (e.g. <color>black</color> versus 
+          <color>rgb(0,0,0)</color>). There are also equivalencies
+          established by other W3C Recommendations and Working Drafts. Accounting for
+          these additional equivalence rules is beyond the scope of this work. They can
+          be applied by the application or become the subject of future
+          specifications.
+The canonical form of an XML document may not be completely operational 
+          within the application context, though the circumstances under which this 
+          occurs are unusual. This problem may be of concern in certain applications 
+          since the canonical form of a document and the canonical form of the
+          canonical form of the document are equivalent. For example, in a digital 
+          signature application, it cannot be established whether the operational
+          original document or the non-operational canonical form was signed
+          because the canonical form can be substituted for the original document 
+          without changing the digest calculation. However, the security risk only 
+          occurs in the unusual circumstances described below, which can all be 
+          resolved or at least detected prior to digital signature generation.
+The difficulties arise due to the loss of the following information not
+          available in the data model:
+
+base URI, especially in content derived from the replacement text of
+            external general parsed entity references
+notations and external unparsed entity references
+attribute types in the document type declaration
+
+In the first case, note that a document containing a relative URI [URI]
+          is only operational when accessed from a specific URI
+          that provides the proper base URI. In addition, if the document contains
+          external general parsed entity references to content containing relative URIs,
+          then the relative URIs will not be operational in the canonical form, which
+          replaces the entity reference with internal content (thereby implicitly
+          changing the default base URI of that content). Both of these problems can
+          typically be solved by adding support for the xml:base attribute
+          [XMLBASE] to the application, then adding appropriate
+          xml:base attributes to document element and all top-level
+          elements in external entities. In addition, applications often have an
+          opportunity to resolve relative URIs prior to the need for a canonical form.
+          For example, in a digital signature application, a document is often retrieved
+          and processed prior to signature generation. The processing SHOULD create a
+          new document in which relative URIs have been converted to absolute URIs, 
+          thereby mitigating any security risk for the new document.
+In the second case, the loss of external unparsed entity references and the
+          notations that bind them to applications means that canonical forms cannot
+          properly distinguish among XML documents that incorporate unparsed data via
+          this mechanism. This is an unusual case precisely because most XML processors
+          currently discard the document type declaration, which discards the notation,
+          the entity's binding to a URI, and the attribute type that binds the attribute
+          value to an entity name. For documents that must be subjected to more than one
+          XML processor, the XML design typically indicates a reference to unparsed data
+          using a URI in the attribute value.
+In the third case, the loss of attribute types can affect the canonical
+          form in different ways depending on the type. Attributes of type ID cease to
+          be ID attributes. Hence, any XPath expressions that refer to the canonical
+          form using the id() function cease to operate. The attribute
+          types ENTITY and ENTITIES are not part of this case; they are covered in the
+          second case above. Attributes of enumerated type and of type ID, IDREF,
+          IDREFS, NMTOKEN, NMTOKENS, and NOTATION fail to be appropriately constrained
+          during future attempts to change the attribute value if the canonical form
+          replaces the original document during application processing. Applications can
+          avoid the difficulties of this case by ensuring that an appropriate document
+          type declaration is prepended prior to using the canonical form in further XML
+          processing. This is likely to be an easy task since attribute lists are
+          usually acquired from a standard external DTD subset, and any entity and
+          notation declarations not also in the external DTD subset are typically
+          constructed from application configuration information and added to the
+          internal DTD subset.
+
+
+1.4 Requirements for 2.0
+ Canonical XML 2.0 solves many of the major
+          issues that have been identified by implementers 
+          with Canonical XML 1.0 [XML-C14N]
+          and 1.1 [XML-C14N11].
+
+1.4.1 Performance
+A major factor in performance issues noted in XML Signature is often   
+            Canonical XML 1.1 processing. Canonicalization will be slow if the   
+            implementation uses the Canonical XML 1.1 specification as a formula
+            without any attempt at   
+            optimization. This specification rectifies this problem by  
+            incorporating lessons learned from implementation into the  
+            specification. 
+            Most mature canonicalization implementations
+            solve the performance problem 
+            by inspecting the signature first, to see if it
+            can be canonicalized using a simple tree walk
+            algorithm  
+            whose performance is similar to regular XML
+            serialization. If not they fall back to the
+            expensive nodeset-based 
+            algorithm. 
+The use cases that cannot be addressed by the
+            simple tree walk algorithm are mostly edge cases.
+            This specification restricts the input to the
+            canonicalization algorithm so that
+            implementations can always 
+            use the simple tree walk algorithm. 
+C14N 1.x uses an "XPath 1.0 Nodeset" to
+            describe a document subset.
+            This is the root
+            cause of the performance 
+            problem and
+            can be solved by
+            not using a nodeset.  This version of the specification does not use a  
+            nodeset,  visits each node exactly once, and only visits the nodes  
+            that are being canonicalized.
+            
+
+
+1.4.2 Streaming
+A streaming implementation is required to be 
+            able to process very large documents without 
+            holding them all in 
+            memory; it should be able to process documents one chunk at a time.
+            
+
+
+1.4.3 Robustness
+Whitespace handling was a common cause of
+            signature breakage. XML libraries allow one to
+            "pretty print" 
+            an XML document, and most people wrongly assume
+            that the white space introduced by pretty printing
+            will be 
+            removed by canonicalization but that is not the
+            case. This specification adds three techniques to  
+            improve robustness:
+            
+
+Optionally remove leading and trailing
+              whitespace from text nodes, 
+Allow for QNames  
+              in content, particularly in the xsi:type attribute,
+Optionally rewrite prefixes 
+
+
+
+1.4.4 Portability
+            It should be possible to canonicalize a subdocument 
+            in such a way, that the signature 
+            doesn't break when the subdocument moved into a completely different
+            XML document. This is  the goal of 
+            Exclusive canonicalization [XML-EXC-C14N] that mostly satisfies this
+            requirement except for the  case of namespace 
+            prefixes embedded in content. This specification builds on exclusive
+            canonicalization and solves the problem 
+            of namespaces in content. 
+          
+
+1.4.5 Simplicity
+C14N 1.x algorithms are complex and depend on a
+            full  XPath library. This increases the work required for 
+            scripting languages to use XML Signatures. This
+            specification addresses this issue by not using
+            the complex nodeset 
+            model, and therefore not relying completely on XPath. 
+            
+
+
+
+1.5 Test Cases for Canonical XML 2.0
+            Test cases for Canonical XML 2.0 are documented in "Test
+            Cases for Canonical XML 2.0" [C14N2-TestCases]. 
+          
+
+
+2. Canonical XML 2.0
+
+2.1 Data Model
+The input to the canonicalization algorithm
+          consists of an XML document subset, and set of
+          options. The XML document 
+          subset can be expressed in two ways, with a DOM model or a
+          Stream model. 
+In the DOM model the XML subset is expressed as: 
+          
+Inclusion List: Either the document Node D or a list of one or more element nodes E1, E2, ... En. 
+            (If out of this  list, one element node Ei is a descendant of another Ej, then that element node Ei is ignored.)
+Exclusion List (optional): A list of zero or more element nodes E1, E2, ... Em and a list of zero or more attribute 
+            nodes A1, A2,
+            ... AM. These attribute nodes should
+            not be namespace declaration or attributes in the xml
+            namespace.  
+ 
+          The XML subset consists of all the nodes in the Inclusion list and their descendant, minus all the nodes that are in the Exclusion list and their descendants.
+          
+The element nodes in the Inclusion list are also referred as apex nodes.
+         
+            Note: This input model is a very limited form of the generic XPath Nodeset that was the input model for Canonical 
+            XML 1.x. It is designed to be simple and allow for a high performance algorithm, while still supporting the most essential use 
+            cases. Specifically: 
+            
+This model does not 
+              support re-inclusion; i.e. all the exclusions are applied after all the inclusions. It is effectively a simplified form of the 
+              XPath Filter 2 model [XMLDSIG-XPATH-FILTER2] with one intersect followed by one optional subtract operation.
+              Re-inclusion complicates the canonicalization algorithm, especially in the areas of namespace and xml attribute inheritance.
+              
+Exclusion is limited to complete subtrees and attribute nodes.
+              Other kinds of nodes (text, comment, PI) cannot be excluded.
+              
+Attribute exclusion is also limited, such that namespace declaration and attributes from the xml namespace cannot be excluded.
+Some examples of subsets that were were permitted in the Canonical XML 1.x, but not in this new version:
+              
+ A subset consisting of a single attribute all by itself. 
+ A subset consisting of an attribute without its owner element.
+ A subset consisting of a text node all by itself.
+ A subset consisting of a text node without its parent node.
+ A subset consisting of an element without some of its text node children. 
+
+
+
+Note: Canonical XML 2.0, unlike earlier versions, does not support direct
+          input of an octet stream. The transformation of such a stream into the input
+          model required by this specification is application-specific and should be
+          defined in specifications that reference or make use of this one.
+          
+
+
+2.2 Parameters
+Instead of separate algorithms for each variant of canonicalization, this specification takes the
+          approach of a single algorithm subject to a variety of parameters that change its behavior to address specific use cases.
+The following is a list of the logical parameters supported by this 
+          algorithm. The actual serialization that expresses the parameters in 
+          use may be defined as appropriate to specific applications of this 
+          specification (e.g., the <ds:CanonicalizationMethod> element in [XMLDSIG-CORE2]).
+
+NameValuesDescriptionDefault
+
+IgnoreCommentstrue or false
+whether to ignore comments during canonicalization
+true
+TrimTextNodestrue or false
+whether to trim (i.e. remove leading and trailing whitespaces) all text nodes when canonicalizing.
+              Adjacent text nodes must be coalesced prior to trimming. If an element has an xml:space="preserve"
+              attribute, then text node descendants of that element are not trimmed regardless of the value of this parameter.
+              
+true
+PrefixRewritenone, sequential
+with none, prefixes are left unchanged, with sequential, prefixes are changed to "n0", "n1", "n2" ...
+              except the special prefixes "xml" and "xmlns" which are left unchanged.
+              
+none
+QNameAwarean enumeration of qualified element names, element names that contain XPath 1.0 expressions,
+              qualified attribute names, 
+              and unqualified attribute names (identified by name, and parent qualified name)
+set of nodes whose entire content must be processed as QName-valued for the 
+              purposes of canonicalization, including prefix rewriting and recognition of prefix "visible utilization"
+empty set
+
+
+
+          All of these parameters MUST be implemented.
+        
+
+          Note: Before Canonical XML 2.0, there were two separate canonicalization algorithms - Inclusive Canonicalization [XML-C14N11] 
+          and Exclusive Canonicalization [XML-EXC-C14N]. The major differences between these two algorithms is the treatment of namespace 
+          declarations and inherited attributes in xml: namespace.
+          Earlier draft versions of Canonical XML 2.0 had combined Inclusive and Exclusive  
+          into a single algorithm, with parameters to control how namespaces and inherited xml: attributes were treated. 
+          Effectively one could set these parameters to make Canonical XML 2.0 emulate either C14n 1.0 or C14N 1.1 or Exc C14n 1.0. 
+          But in the current version of Canonical XML 2.0, Inclusive canonicalization has been removed completely.
+          
+
+          Exclusive canonicalization has been far more popular than inclusive, because of
+          its "portability" property. I.e. if a subdocument is signed with exclusive canonicalization, and then this subdocument is moved off 
+          to a different XML context, the signature on that subdocument still remains valid.  Inclusive canonicalization doesn't have this
+          portability property, however inclusive canonicalization has an advantage over exclusive canonicalization 1.0, when it comes to QNames in content.
+          Exclusive canonicalization 1.0 only emits namespaces declarations that it considers are visibly utilized, so if there is QName embedded in text node
+          or an attribute node, it doesn't recognize it.  For example in this attribute xsi:type="xsd:string", the "xsd" prefix is embedded 
+          in the content, and so Exclusive canonicalization 1.0 will not consider the "xsd" prefix to be visibly utilized and hence not emit the 
+          xsd namespace declaration. Not emitting the declaration, makes it susceptible to certain wrapping attacks. Exclusive canonicalization 1.0 offers
+          the "InclusiveNamespace" mechanism to deal with these kinds of prefixes. Any prefixes mentioned in this list will be treated inclusively, i.e. their
+          namespace declarations will be emitted even if they are not used.
+          
+
+          Canonical XML 2.0 overcomes the shortcomings of Exclusive Canonicalization 1.0, with the QNameAware parameter. This parameter can be 
+          used to list element or attribute nodes that are expected to have QNames. Canonical XML 2.0 will scan for prefixes in these elements and attributes
+          and consider them to be visibly utilized too. With the introduction of this parameter, there is really no need for Inclusive canonicalization any 
+          more, so it has been completely removed from Canonical XML 2.0.
+          
+
+          Note: The algorithm for prefix scanning doesn't cover all kinds of prefix embedding. For example if a text node's value is a space separate list of 
+          QNames, this algorithm will not detect the prefixes of these QNames. It will only detect two kinds of embedding, a) when the entire text node or 
+          attribute is a QName, and b) when a text node is an XPath expression containing prefixes.
+          
+
+          Inclusive canonicalization also preserves the values xml: attributes in context. I.e. it looks at the ancestors of the 
+          subdocument to be signed, and collects the value of any inheritable xml attributes, 
+          specifically xml:lang, xml:space and xml:base, from these ancestor elements and emits them at the root of 
+          the subdocument.  Exclusive canonicalization does not do this as it this violates the portability requirement. Likewise, Canonical XML 2.0 ignores 
+          these attributes as well.
+        
+
+
+2.3 Processing Model
+The basic canonicalization process consists of traversing the tree
+        and outputting octets for each node.
+
+Input: The XML subset consisting of an Inclusion list and an Exclusion list.
+        
+Processing
+
+Sort inclusion list by document order: If inclusion list only has the document node D there is nothing to sort. Otherwise remove all element nodes Ei that are descendants of some other element node in the inclusion list. Then sort the remaining element nodes E1, E2, ...En   by document order.
+Canonicalize each subtree For each element
+          node Ei or document node D in
+          the sorted list, do a depth first traversal to visit all the
+          descendant nodes in the Ei subtree, and
+          canonicalize each one of them.  While traversing, if the current
+          node is an element and that element is in the exclusion list, prune
+          the traversal, i.e. skip over that element and all its
+          descendants.
+
+
+          During traversal of each subtree, generate the canonicalized text depending on the node type as follows:
+        
+
+Root Node- Ignore the byte order mark, XML declaration, nor anything from within the document type declaration. Traverse through the children.
+          
+
+Element Nodes- The canonicalized result is an open angle bracket (<), the element QName, 
+          the result of processing the namespaces, 
+          the result of processing the attributes,
+          a close angle bracket (>), traverse the child nodes of the element, an open angle bracket (<), 
+          a forward slash (/), the element QName, and a close angle bracket (>). 
+          If parameter PrefixRewrite is sequential, the QNames will be written with the changed prefixes.
+          
+
+Attribute Nodes- a space, the node's QName, an
+          equals sign, an open quotation mark  
+          (double quote), the modified string value, and a close
+          quotation mark (double quote).  
+          The string value of the node is modified by replacing all
+          ampersands (&)  
+          with &amp;, all open angle brackets
+          (<) with &lt;,  
+          all quotation mark characters with &quot;, and
+          the whitespace characters  
+          #x9, #xA, and #xD,
+          with character references.  
+          The character references are written in uppercase
+          hexadecimal with no leading zeroes  
+          (for example, #xD is represented by the
+          character reference &#xD;).  
+          
+            If parameter PrefixRewrite is sequential, and the attribute name has a namespace prefix, the 
+            prefix is changed to the rewritten prefix. 
+            Also with prefix rewriting enabled, the attribute content is treated specially if the attribute is 
+            among those enumerated for the QNameAware parameter. If so, the QName value of the 
+            attribute is rewritten with the new prefix.
+          
+
+Namespace Nodes- Take the ordered list of
+          namespace nodes resulting from namespace processing,
+          and process each of the namespace node N in the
+          same way as an attribute node. 
+          
+
+Text Nodes- the string value, except all
+          ampersands are replaced by &amp;,  
+          all open angle brackets (<) are replaced by
+          &lt;, all closing  
+          angle brackets (>) are replaced by
+          &gt;, and all #xD  
+          characters are replaced by &#xD;.
+          
+          If parameter TrimTextNodes is true and there is no xml:space="preserve" 
+          declaration in context, trim the leading and trailing whitespace. E.g. trim <A>   <B/> 
+          to <A><B/>
+          and trim <A>  this is text  </A> to <A>this is text</A>. Whitespace
+          is as defined in [XML10] i.e. it consists of one or more space (#x20) characters, carriage returns, line feeds, or tabs.
+            Note: The DOM parser might have split up a long text node into multiple adjacent text nodes,
+          some of which may be empty. Be aware when trimming whitespace in such cases; the net result 
+          should be equivalent to doing so as if the adjacent text nodes were concatenated.
+          
+
+            If parameter PrefixRewrite is sequential, and if the parent element node is among those enumerated for the QNameAware 
+            parameter, then the QName value of the text node is rewritten with the new prefix.
+          
+
+Processing Instruction (PI) Nodes- The opening PI
+          symbol (<?), the  
+          PI target name of the node, a leading space and the string value if it is not empty, and the 
+          closing PI symbol (?>). If the string value is empty, then the leading space 
+          is not added. Also, a trailing #xA is rendered after the closing PI symbol for 
+          PI children of the root node with a lesser document order than the document element, and a 
+          leading #xA is rendered before the opening PI symbol of PI children of the 
+          root node with a greater document order than the document element.
+          
+
+Comment Nodes- Nothing if generating canonical XML without comments. For canonical 
+          XML with comments, generate the opening comment symbol (<!--), the string value 
+          of the node, and the closing comment symbol (-->). Also, a trailing #xA 
+          is rendered after the closing comment symbol for comment children of the root node with a 
+          lesser document order than the document element, and a leading #xA is rendered 
+          before the opening comment symbol of comment children of the root node with a greater document order 
+          than the document element. (Comment children of the root node represent comments outside of the 
+          top-level document element and outside of the document type declaration).
+
+Note although some XML models such as DOM don't distinguish namespace declarations from attributes, Canonicalization needs to treat them separately. In this document, attribute nodes that are actually namespace declarations are referred as "namespace nodes", other attributes are called "attribute nodes".
+
+
+2.4 The Need for Exclusive XML Canonicalization
+In some cases, particularly for signed XML in protocol applications, there
+      is a need to canonicalize a subdocument in such a way that it is
+      substantially independent of its XML context. This is because, in protocol
+      applications, it is common to envelope XML in various layers of message or
+      transport elements, to strip off such enveloping, and to construct new
+      protocol messages, parts of which were extracted from different messages
+      previously received. If the pieces of XML in question are signed, they need
+      to be canonicalized in a way such that these operations do not break the
+      signature but the signature still provides as much security as can be
+      practically obtained.
+
+2.4.1  A Simple Example
+As a simple example of the type of problem that changes in XML context can
+        cause for signatures, consider the following document:
+Example 1<n1:elem1 xmlns:n1="http://b.example">
+     content
+     </n1:elem1>
+this is then enveloped in another document:
+Example 2<n0:pdu xmlns:n0="http://a.example">
+     <n1:elem1 xmlns:n1="http://b.example">
+     content
+     </n1:elem1>
+     </n0:pdu>
+The first document above is in canonical form. But assume that document is
+        enveloped as in the second case. The subdocument with elem1 as
+        its apex node can be extracted from this second case with an XPath expression
+        such as:
+Example 3/descendant::n1:elem1
+The result of performing inclusive canonicalization to the resulting xml subset is
+        the following (except for line wrapping to fit this document):
+Example 4<n1:elem1 xmlns:n0="http://a.example"
+     xmlns:n1="http://b.example">
+     content
+     </n1:elem1>
+Note that the n0 namespace has been included by inclusive canonicalization
+        because it includes namespace context. This change would break a
+        signature over elem1 based on the first version.
+
+
+2.4.2 General Problems with re-Enveloping
+As a more complete example of the changes in canonical form that can occur
+        when the enveloping context of a document subset is changed, consider the
+        following document:
+Example 5<n0:local xmlns:n0="foo:bar" xmlns:n3="ftp://example.org">
+     <n1:elem2 xmlns:n1="http://example.net">
+     <n3:stuff xmlns:n3="ftp://example.org"/>
+     </n1:elem2>
+     </n0:local>
+And the following which has been produced by changing the enveloping of
+        elem2:
+Example 6<n2:pdu xmlns:n1="http://example.com" xmlns:n2="http://foo.example">
+     <n1:elem2 xmlns:n1="http://example.net">
+     <n3:stuff xmlns:n3="ftp://example.org"/>
+     </n1:elem2>
+     </n2:pdu>
+Assume an xml subset produced from each case by applying the following
+        XPath expression:
+Example 7/descendant::n1:elem2
+Applying inclusive canonicalization to the xml subset produced from the first document
+        yields the following serialization:
+Example 8<n1:elem2 xmlns:n0="foo:bar" xmlns:n3="ftp://example.org" 
+xmlns:n1="http://example.net">
+<n3:stuff></n3:stuff>
+        </n1:elem2>
+However, although elem2 is represented by the same octet
+        sequence in both pieces of external XML above, the Canonical XML version of
+        elem2 from the second case would be as follows:
+Example 9<n1:elem2 xmlns:n1="http://example.net" xmlns:n2="http://foo.example">
+<n3:stuff xmlns:n3="ftp://example.org"></n3:stuff>
+        </n1:elem2>
+Note that the change in context has resulted in lots of changes in the
+        subdocument as serialized by the inclusive canonicalization. In the first example, n0 had
+        been included from the context and the presence of an identical
+        n3 namespace declaration in the context had elevated that
+        declaration to the apex of the canonicalized form. In the second example,
+
+        n0 has gone away but n2 has appeared,
+        n3 is no longer elevated. But not all context
+        changes have effect. In the second example, the presence of the n1 prefix namespace declaration
+        have no effect because of existing declarations at the elem2
+
+        node.
+On the other hand, using Exclusive canonicalization  the physical form of elem2 as extracted by the XPath
+        expression above is as follows:
+Example 10<n1:elem2 xmlns:n1="http://example.net">
+     <n3:stuff xmlns:n3="ftp://example.org"></n3:stuff>
+     </n1:elem2>
+in both cases.
+
+
+
+2.5 Namespace Processing
+As part of the canonicalization process, while traversing the subtree, use the following algorithm to look at all the namespace declarations in an element, and decide which ones to output.
+
+2.5.1 Namespace concepts
+The following concepts are used in Namespace processing: 
+
+Explicit and Implicit namespace declarations
+In DOM, there is no special node for namespace
+          declarations, they are just present as regular attribute nodes. An "explicit" namespace declaration is an attribute node whose prefix is "xmlns" and whose localName is the prefix being declared. 
+DOM also allows declaring a namespace "implicitly", i.e. if a new DOM element or attribute is constructed
+          using the createElementNS and createAttributeNS methods, then DOM adds a namespace declaration 
+          automatically when serializing the document.
+
+Special namespaces
+The "xml" and "xmlns" prefixes are reserved and have special behavior. See [XML-NAMES].  
+          
+Apex nodes
+An apex node is an element node in a document subset having no element node ancestor in the document subset.
+Default namespace
+The default namespace is declared by xmlns="...". To make the algorithm simpler this will be treated 
+          as a namespace declaration whose prefix value is "" i.e. an empty string.
+Visibility utilized
+This concept is required for exclusive canonicalization. An element E in the document subset visibly utilizes  a namespace declaration, i.e. a namespace prefix P and bound value V, if
+          any of the following conditions are true:
+          
+The element E itself has a qualified name that uses the prefix P. 
+            (Note if an element does not have a prefix, that means it visibly utilizes the default namespace.)
+            
+OR The element E is among those enumerated for the QNameAware parameter, 
+            and the QName value of the element uses the prefix P (or, lacking a prefix, 
+            it visibly utilizes the default namespace)
+            
+OR The element E is among those enumerated for the QNameAware parameter, 
+            and it listed as an XPathElement. This value of the element is to be interpreted as 
+            an XPath 1.0 expression and any prefixes used in this XPath expression are considered to be visibility utilized.
+            
+OR An attribute A of that element has a qualified name that uses the prefix 
+            P, and that attribute is not in the exclusion list. (Note: unlike elements, if an 
+            attribute doesn't have a prefix, that means it is a locally scoped attribute. It does NOT mean that
+            the attribute visibly utilizes the default namespace.)
+            
+OR An attribute A of that element is among those enumerated for the QNameAware parameter, 
+            and the QName value of the attribute uses the prefix P (or, lacking a prefix, 
+            it visibly utilizes the default namespace)
+            
+
+
+
+
+
+2.5.2 Namespace Prefix Rewriting
+
+When the parameter PrefixRewrite="sequential" is set, all the prefixes except 
+"xml" are rewritten to new prefixes. In the canonicalized output there is a one to one 
+mapping between namespace URIs and rewritten prefixes. E.g. if in the input document fragment,
+a particular prefix is declared to many different namespace URIs at different parts of the document, 
+during canonicalization this prefix will get rewritten to different prefixes, one rewritten prefix for each different
+namespace URI. Similarly if in the input document, many prefixes are declared to the same namespace URI,
+all of these prefixes will be canonicalized to the same rewritten prefix.
+
+The prefixes are rewritten to "n0", "n1", "n2", ... etc. 
+
+Prefixes are considered for rewriting only when they are visibly utilized, not when they are declared.
+Once a namespace URI has been assigned a prefix, it always gets that prefix everywhere in the document. 
+Elements nodes are visited in document order.
+At each element node, all the visibly utilized prefixes are considered. The namespace URIs for these
+visibly utilized prefixes are sorted by lexical order, duplicates namespace URIs are removed, 
+those namespace URIs that have already been assigned prefixes are removed, and then the remaining namespace URIs
+are assigned prefixes sequentially. 
+
+   
+Prefix Rewriting also consider QNames in content, and during canonicalization the prefixes in these QNames
+are also rewritten. 
+
+Note: with Prefix Rewriting, the canonicalized output will never have a default namespace, 
+as that is also rewritten into a "nN" style prefix. 
+ 
+
+
+2.5.3 Namespace processing algorithm
+Initialization: For sequential prefix rewriting maintain a counter N. 
+This counter should be set to 0 at the beginning of the canonicalization. 
+Also maintain a map of namespace URI to rewritten prefixes, this map should be initialized to empty.
+
+The following steps need to be executed at every Element node E.
+        
+
+Step 1: Create a list of visibly utilized prefixes.
+          
+If E itself has a qualified name that
+            uses the prefix P, then P  
+            is visibly utilized. Note if E does not have
+            a prefix, that means it visibly utilizes the default
+            namespace. 
+            
+If an attribute A of that element
+            E has a qualified name that uses the prefix  
+            P, and that attribute is not in the exclusion
+            list. Note: unlike elements, if an  
+            attribute doesn't have a prefix, that means it is a
+            locally scoped attribute. It does NOT mean that 
+            the attribute visibly utilizes the default namespace. 
+            
+If there is a QNameAware parameter, check
+            whether the E or its attributes is enumerated
+            in it as follows: 
+            
+If there is an Element subchild, whose
+              Name and NS attributes match
+              E's localname and namespace  
+              respectively, then E is expected to have a
+              single text node child containing a QName. Extract the
+              prefix from this 
+              QName, and consider this prefix as visibly utilized. 
+              
+If there is a QualifiedAttr subchild,
+              whose Name and NS attributes
+              match one of E's qualified attribute's 
+              localname and namespace respectively, then that
+              attribute is expected to contain a QName. Extract this
+              prefix from the QName and consider this 
+              prefix as visibly utilized. 
+If there is a UnqualifiedAttr
+              subchild, whose Name  attribute match one
+              of E's unqualified attribute's name, 
+              and its ParentName and
+              ParentNS attributes match E's
+              localname and namespace  
+              respectively, then that attribute is expected to contain
+              a QName. Extract this prefix from the QName and consider
+              this 
+              prefix as visibly utilized. 
+If there is a XPathElement subchild,
+              whose Name and NS attributes
+              match E's localname and namespace  
+              respectively, then E is expected to have a
+              single text node child containing a XPath 1.0
+              expression. Extract the prefixes from this 
+              XPath by using the following algorithm. All of these
+              extracted prefixes should be considered as visibly
+              utilized. 
+              
+Search for single colons : in the
+                XPath expression, but do not consider single colons
+                inside quoted strings.  
+                Double colons are used for axes, e.g. in
+                self::node()  , "self:" is not a prefix,
+                but an axis name.
+The prefix will be present just before the single
+                colon. Go backwards from the colon, skip whitespace,
+                and extract the prefix, by collecting 
+                characters till the first non NCName
+                match. e.g. in /soap  :  Body, extract
+                the "soap".  
+                The NCName production is defined in
+                [XML-NAMES]. 
+ 
+              This can be evaluated using perl style regular
+              expressions as follows. Note the regular expressions  
+              here are provided as an example only, they are not
+              normative. 
+              
+ First remove all single quoted and double
+                quoted strings from the XPath, because 
+                prefixes cannot be present there. i.e. do a substitute
+                of s/"[^"]*"//g
+                and s/'[^']*'//g. Removing
+                the quoted string  
+                eliminates false positives in the next step.
+In the resultant string search for single colons
+                and get the word just before colon, i.e search for
+                match for 
+                m/([\w-_.]+)?\s*:(?!:)/   
+                Note prefixes follow the NCName production,
+                i.e. consists  of  alphanumeric or hyphen or underscore
+                or dot,  
+                but cannot start with digit, hyphen or dot. . In an
+                NCName, the allowed alphanumeric characters are not just 
+                Ascii, but any Unicode alphanumeric characters.  
+                However the regular expression provided here is a very
+                simplified form of NCName production. 
+                
+
+
+
+                If PrefixRewrite parameter is set to
+                sequential each of the prefixes found in
+                the above steps would need to be replaced 
+                by the a new prefix. For efficiency, consider
+                combining this searching for prefixes step with the
+                subsequent replacing prefixes step. 
+              
+
+
+Create a list containing the namespace declarations for these visibly utilized prefixes. Remove the "xml" prefix from the this list if present.
+ Note: Canonical XML 2.0 never emits the declaration for the xml
+ or xmlns prefixes. As mentioned in [XML-NAMES] a valid XML document should never have the declaration for xmlns, so Canonical 
+ XML 2.0 should never encounter this declaration.  Also a valid XML document can optionally declare the xml prefix , but if present 
+ it must be bound to http://www.w3.org/XML/1998/namespace. Canonical XML 2.0 should ignore this declaration.
+
+
+Step 2: If the PrefixRewrite="sequential" parameter is set , then compute new prefixes for all the namespaces declarations 
+in the list from Step 1, as follows:
+  
+Ignore the prefix value in the namespace declaration, and only take the namespace URI.  Put all these namespace URIs in a list. 
+Sort this list of namespace URIs by lexicographic(ascending) order.
+Remove duplicates from this list.
+Create a list of rewritten namespace declarations as follows. 
+   Iterate through the namespace URI list - if a namespace URI has already been assigned a prefix, use that. Otherwise 
+   assign a new prefix value "nN" to each prefix, and then increment the value of counter N.  
+   The counter should be set to 0 in the beginning of the canonicalization. 
+   (E.g. if the value of this counter was 5 when the traversal reached this element, and this element had 3 prefixes to be output, 
+   then use the prefixes "n5", "n6", "n7" and set the counter to 8 after that). 
+
+
+
+Step 3: Filter the list to remove prefixes that have already been output.
+
+
+Take list of visibly utilized prefix declarations from Step 1, or if Prefix Rewriting is enabled then the modified list from Step 2.
+If in this list, any of the namespace declarations have already been output during the canonicalization of one of the element
+  E's ancestors, say Ej, and has not been redeclared since then to a different value, 
+  i.e not been redeclared by an element between Ej and E, then remove it from this list.
+
+
+Step 4:  Sort this list of namespace declaration in lexicographic(ascending) order 
+          of prefixes.  In case of prefix rewriting, sort by rewritten prefixes, not original prefixes.
+          
+          Note that default namespace declaration has no prefix, so it is considered lexicographically least.
+          
+Step 5: Output each of these namespace nodes, as specified in the Processing model.
+
+
+2.5.4 Example of exclusive canonicalization with prefix rewriting
+          This following XML snippet will be used to determine the various options of prefixRewriting.
+
+          Example 11<wsse:Security  
+xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<wsse:UserName wsu:Id="i1">
+...
+</wsse:UserName>
+<wsse:Timestamp wsu:Id="i2">
+...
+</wsse:Timestamp>
+<wsse:Security>
+
+2.5.4.1 With PrefixRewrite="none"
+Example 12<wsse:Security 
+xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+<wsse:UserName
+xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+wsu:Id="i1">
+...
+</wsse:UserName>
+<wsse:Timestamp
+xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+wsu:Id="i2">
+...
+</wsse:Timestamp>
+</wsse:Security>
+            Note how the "wsu" prefix declaration is present in wsse:Security, but is not utilized. 
+            So exclusive canonicalization will "push the declaration down" into
+            <UserName> and <Timestamp> where it is really used,  
+            i.e. the wsu declaration will be output twice, once in
+            <UserName> and another in <Timestamp>, as shown above. 
+          
+
+2.5.4.2 With PrefixRewrite="sequential"
+Example 13<n0:Security
+xmlns:n0="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+<n0:UserName
+xmlns:n1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+n1:Id="i1">
+...
+</n0:UserName>
+<n0:Timestamp
+xmlns:n1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+n1:Id="i2">
+...
+</n0:Timestamp>
+</n0:Security>
+Now observe what happens with sequential prefix rewriting, the "wsse" prefix is rewritten to "n0" and the 
+"wsu" prefix is rewritten to "n1".
+          
+
+
+
+2.6 Attribute processing
+Note: namespace declarations are not considered as attributes, they are processed separately as namespace nodes.
+        
+ Processing the attributes of an element E consists of the following steps:
+        
+Ignore any attributes that are present in the exclusion list. However note that namespace nodes cannot be excluded. 
+Sort all the attributes in increasing lexicographic order with
+          namespace URI as the primary key and local name as the secondary key
+          (an empty namespace URI is lexicographically least).
+If it is a qualified attribute and the PrefixRewrite parameter is sequential, modify the QName
+          of the attribute name to use the new prefix. i.e. one of n0, n1, n2, ... etc. Do not do this for the xml
+          prefix, as this is not changed during prefix rewriting.
+If the attribute is among those enumerated 
+          by the QNameAware parameter, then change the QName in that attribute value to use the new prefix.
+          
+
+
+
+
+3. Use of Canonical XML 2.0 in XML Security
+
+3.1 Use of Canonical XML 2.0 in XML Signature 2.0
+Canonical XML 2.0 may be used as a canonicalization
+        algorithm in XML Digital Signature [XMLDSIG-CORE2], via the <ds:CanonicalizationMethod>.
+
+Identifier:
+http://www.w3.org/2010/xml-c14n2
+
+
+Canonical XML 2.0 supports a set of parameters, as enumerated in 
+        Canonicalization Parameters. All parameters are optional and have default values. When used in conjunction with 
+        the <ds:CanonicalizationMethod> element, each parameter is expressed with a dedicated child element. They can be present in any order.
+        A schema definition for each parameter follows:
+
+        
+  Schema Definition:
+        <schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/2010/xml-c14n2"
+        targetNamespace="http://www.w3.org/2010/xml-c14n2"
+        version="0.1" elementFormDefault="qualified">
+
+        <xs:element name="IgnoreComments" type="xs:boolean"/>
+        
+        <xs:element name="TrimTextNodes" type="xs:boolean"/>
+        
+        <xs:element name="PrefixRewrite">
+        <xs:simpleType>
+        <xs:restriction base="xs:string">
+        <xs:enumeration value="none"/>
+        <xs:enumeration value="sequential"/>
+        <xs:enumeration value="derived"/>
+        </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        
+        <xs:element name="QNameAware">
+        <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+        <xs:element ref="Element"/>
+        <xs:element ref="XPathElement"/>
+        <xs:element ref="QualifiedAttr"/>
+        <xs:element ref="UnqualifiedAttr"/>
+        <xs:sequence>
+        </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="Element">
+        <xs:complexType>
+        <xs:attribute name="Name" type="xs:NCName" use="required"/>
+        <xs:attribute name="NS" type="xs:anyURI"/>
+        </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="QualifiedAttr">
+        <xs:complexType>
+        <xs:attribute name="Name" type="xs:NCName" use="required"/>
+        <xs:attribute name="NS" type="xs:anyURI"/>
+        </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="UnqualifiedAttr">
+        <xs:complexType>
+        <xs:attribute name="Name" type="xs:NCName" use="required"/>
+        <xs:attribute name="ParentName" type="xs:NCName" use="required"/>
+        <xs:attribute name="ParentNS" type="xs:anyURI"/>
+        </xs:complexType>
+        </xs:element>
+
+        <xs:element name="XPathElement">
+        <xs:complexType>
+        <xs:attribute name="Name" type="xs:NCName" use="required"/>
+        <xs:attribute name="NS" type="xs:anyURI"/>
+        </xs:complexType>
+        </xs:element>
+        
+
+        </schema>
+
+          XML Signature 2.0 MUST implicitly pass in the dsig2:IncludedXPath and dsig2:ExcludedXpath as QNameAware, even if they are 
+          not explicitly present in the Signature element.
+        
+
+
+3.2 Use of Canonical XML 2.0 in XML Encryption 1.1
+        Canonical XML 2.0 may also be used in XML Encryption 1.1, with changes as noted in the non-normative section 
+        "Serializing XML" of XML Encryption 1.1 [XMLENC-CORE1].
+
+      
+
+
+4. Pseudocode
+This section presents the entire canonicalization algorithm in pseudo code. It is not normative.
+
+4.1 canonicalize()
+        Top level canonicalize function.
+
+This pseudocode uses the following data structures to keep track of namespaces.
+
+namespaceContext= [ ("" => "") ] 
+ namespaceContext is a hash table of  prefix -> uri , it contains the current
+definition of a particular prefix. It is initialized to indicate that the default namespace is mapped to an empty URI.
+
+This data structure is used as a stack variable, i.e. it is passed around by value, so that while traversing the 
+tree, a child element makes a copy of this namespaceContext and make modifications to the copy. After finishing off 
+with that child element and all its descendants, the previous namespaceContext is restored from the stack. 
+
+Note: namespaceContext always has original prefixes, even with prefix rewriting. 
+
+
+outputPrefixes= [ "" ]
+ outputPrefixes is an array of  prefixes , it contains the prefixes
+that have been been output by current element or its ancestors.
+
+This is also used as a stack variable.
+ 
+Note: In case of prefix rewriting outputPrefixes has rewritten prefixes, whereas without prefix
+rewriting outputPrefixes has original ones. 
+
+prefixCounter=0: 
+ This is a counter only for prefix rewriting. It is used a global variable, not a stack variable.
+rewrittenPrefixes=[ ]: 
+ rewrittenPrefixes is a hash table of uri -> rewrittenPrefix.
+It is initialized to empty. Finding out the rewrittenPrefix for an original prefix is a two step lookup,
+first lookup the URI for the original prefix in the namespaceContext hash table, then lookup the rewrittenPrefix for the
+URI in the rewrittenPrefixes hash table.
+
+
+It is a global variable. 
+
+
+
+namespaceContext = [ "" => "" ]
+outputPrefixes = [ "" ]
+prefixCounter = 0
+rewrittenPrefixes = []
+ 
+canonicalize(list of subtree, list of exclusion elements and attributes, properties)
+{
+    put the exclusion elements and attributes in hash table for easier lookup
+          
+    sort the multiple subtrees by document order
+          
+    for each subtree
+    canonicalizeSubtree(subtree) 
+}
+        
+
+
+4.2 canonicalizeSubtree()
+Canonicalize an individual subtree.
+        
+canonicalizeSubtree(node)
+{
+          
+    if (node is the document node or a document root element) 
+    {
+        // (whole document is being processed, no ancestors to worry about)
+        processNode(node)
+    }
+    else
+    {
+        starting from the element, walk up the tree to collect a list of
+        ancestors 
+          
+        for each of this ancestor elements starting with the document
+        root, but not including the element itself 
+            addNamespaces()
+          
+        processNode(node)
+    }   
+}
+        
+
+
+4.3 processNode()
+        Redirect to appropriate node processing function
+
+        processNode(node, namespaceContext)
+{
+    call the appropriate function - processDocument, processElement,
+    processTextNode, ... depending on the node type.
+}
+        
+
+
+4.4 processDocument()
+        Process the Document Node.
+        processDocument(document, namespaceContext)
+{
+    Loop through all child nodes and call
+    processNode(child, namespaceContext)
+}
+        
+
+
+4.5 processElement()
+        Process an Element Node.
+        processElement(element)
+{
+  if this exists in the exclusion hash table
+    return
+    
+  make of copy of and namespaceContext and outputPrefixes in the stack
+  //(by copying, any changes made can be undone when this function returns)
+  
+  nsToBeOutputList = processNamespaces(element)
+  
+  output('<')
+  if PrefixRewrite is sequential, temporarily modify the QName to have the new prefix value as determined from the namespaceContext and rewrittenPrefixes
+ 
+  output(element QName)  
+
+  for each of the namespaces in the nsToBeOutputList
+    output this namespace declaration 
+    
+  sort each of the non namespaces attributes by URI first then attribute name.
+  output each of these attributes with original QName or a modifiedQName if PrefixRewrite is sequential
+  
+  output('>')
+  
+  Loop through all child nodes and call
+    processNode(child)
+  
+  output('</')
+  output(element QName) // use modifiedQName if PrefixRewrite is sequential
+  output('>')
+  
+  restore namespaceContext and outputPrefixes
+}
+        
+
+
+4.6 processText()
+        Process an Text Node.
+        processText(textNode)
+{
+  if this text node is outside document root
+     return
+     
+  in the text replace 
+    all ampersands by &amp;, 
+    all open angle brackets (<) by &lt;, 
+    all closing angle brackets (>) by &gt;, 
+    and all  #xD characters by &#xD;.
+    
+  If TrimTextNodes is true and there is no xml:space="preserve" declaration in scope
+    trim leading and trailing space
+  
+  If PrefixRewrite = sequential and this text node is a child of a qname aware element, 
+    search for embedded prefixes, and replace with rewritten prefixes 
+      
+  output(text)
+}        
+Note: The DOM parser might have split up a long text node into multiple adjacent text nodes,
+        some of which may be empty. In that case be careful when trimming the leading and trailing space -
+        the net result should be same as if it the adjacent text nodes were concatenated into one
+
+
+4.7 processPI()
+        Process an Processing Instruction (PI) Node.
+        processPI(piNode)
+{
+  if after document node
+    output('#xA')
+    
+  output('<?')
+  output(the PI target name of the node)
+  output(a leading space)
+  output(the PI string value)
+  output('?>') 
+
+  if before document node
+    output('#xA')
+}                     
+        
+
+
+4.8 processComment()
+        Process an Comment Node.
+        processComment(commentNode)
+{
+  if ignoreComments
+    return
+    
+  if after document node
+    output('#xA')
+    
+  output('<!--')
+  output(string value of node)
+  output('-->')
+
+  if before document node
+    output('#xA')
+}        
+
+
+4.9 addNamespaces()
+        Add namespaces from this element to the namespace context. This function is called for every ancestor element, and also at every element of the subtrees (minus the exclusion elements). 
+        addNamespaces(element)
+{
+    for each the explicit and implicit namespace declarations in the element
+    {
+        if namespaceContext already has this prefix with the same URI
+            do nothing
+
+        else if namespaceContext already has this prefix with a different URI
+            update the namespaceContext hash table with the new prefix -> URI mapping
+        if this prefix exists in outputPrefixes, remove it
+
+        else if namespaceContext doesn't have this prefix
+            add the new prefix -> URI mapping to the namespaceContext 
+    } 
+}
+        
+
+
+4.10 processNamespaces()
+        Process the list of namespaces for this element.
+        processNamespaces(element)
+{
+    addNamespaces(element)
+  
+    create a list of visibly utilized prefixes - visiblePrefixes, which includes
+        a) the prefix used by the element itself
+        b) the prefix used by all the qualified attributes of the element
+        c) the prefix embedded in the attribute value of any QName aware attributes
+        d) the prefix embedded in the text node child of this element, if this element is QName aware
+    
+    if PrefixRewrite = sequential
+    {
+        newNamespaceURIs = []    // empty List
+    
+        for each prefix in visiblePrefixes
+            get the URI for this prefix from the namespaceContext hash table
+            check if the URI already exists in rewrittenPrefixes hash table
+            if it does not add the URI to newNamespaceURIs
+       
+    
+        sort the newNamespaceURIs list in lexical order
+     
+        for each URI in the newNamespaceURIs list
+            assign a prefix "nN" where N is value of prefixCounter
+            increment prefixCounter by 1
+            add the mapping URI -> nN  into the rewrittenPrefixes hash table         
+    } 
+  
+    nsToBeOutput = [] // empty hash table
+  
+    for each prefix in visiblePrefixes 
+    {
+        find the URI that this prefix maps to, by looking in the namespaceContext hash table
+     
+        if PrefixRewrite = sequential
+            convert this prefix to rewrittenPrefix, by using the URI to
+            lookup the rewrittenPrefix in the rewrittenPrefixes hash table 
+         
+        if this prefix (original or rewritten) does not exist in outputPrefixes
+            add this prefix to outputPrefixes 
+            add the prefix-> URI mapping into the nsToBeOutput hash table
+    }
+  
+    sort the nsToBeOutputList by the prefix
+ 
+    return nsToBeOutputList    
+}
+        
+
+
+
+5. Output rules
+
+The document is encoded in UTF-8.
+Line breaks normalized to #xA on input (automatically done by a DOM parser)
+Attribute values are normalized.
+Character and parsed entity references are replaced.
+CDATA sections are replaced with their character content.
+The XML declaration and document type declaration are removed.
+Empty elements are converted to start-end tag pairs.
+Whitespace outside of the document element and within start and end tags is normalized.
+Attribute value delimiters are set to quotation marks (double quotes).
+Special characters in attribute values and character content are replaced by character references.
+Default attributes are added to each element. 
+
+
+
+6. Processing model for Streaming XML parsers
+Unlike DOM parsers which represent XML document as a tree of nodes, streaming parsers represent 
+      an XML document as stream of events like "start-element", "end-element", "text" etc. A document subset can
+      also be represented as a stream of events. This stream of events in exactly in the same order as a tree walk,
+      so the above canonicalization algorithm can be also used to canonicalize an event stream.
+      
+
+A. ReferencesDated references below are to the latest known or appropriate edition of the referenced work.  The referenced works may be subject to revision, and conformant implementations may follow, and are encouraged to investigate the appropriateness of following, some or all more recent editions or replacements of the works cited. It is in each case implementation-defined which  editions are supported.A.1 Normative references[RFC2119]S. Bradner. Key words for use in RFCs to Indicate Requirement Levels. March 1997. Internet RFC 2119.  URL: http://www.ietf.org/rfc/rfc2119.txt
+[XML-NAMES]Richard Tobin et al. Namespaces in XML 1.0 (Third Edition). 8 December 2009. W3C Recommendation. URL: http://www.w3.org/TR/2009/REC-xml-names-20091208/
+[XML10]C. M. Sperberg-McQueen et al. Extensible Markup Language (XML) 1.0 (Fifth Edition). 26 November 2008. W3C Recommendation. URL: http://www.w3.org/TR/2008/REC-xml-20081126/
+[XMLDSIG-CORE2]D. Eastlake; J. Reagle; D. Solo; F. Hirsch; T. Roessler; K. Yiu; P. Datta; S. Cantor. XML Signature Syntax and Processing Version 2.0. 11 April 2013. W3C Working Group Note. URL: http://www.w3.org/TR/2013/NOTE-xmldsig-core2-20130411/
+A.2 Informative references[C14N2-TestCases]Pratik Datta; Frederick Hirsch. Test Cases for Canonical XML 2.0. 11 April 2013. W3C Working Group Note. URL: http://www.w3.org/TR/2013/NOTE-xml-c14n2-testcases-20130411/
+[DOM-LEVEL-2-CORE]Arnaud Le Hors et al. Document Object Model (DOM) Level 2 Core Specification. 13 November 2000. W3C Recommendation. URL: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/
+[URI]T. Berners-Lee; R. Fielding; L. Masinter. Uniform Resource Identifiers (URI): generic syntax. January 2005. RFC 3986. URL: http://www.ietf.org/rfc/rfc3986.txt
+[XML-C14N]John Boyer. Canonical XML Version 1.0. 15 March 2001. W3C Recommendation. URL: http://www.w3.org/TR/2001/REC-xml-c14n-20010315
+[XML-C14N11]John Boyer; Glenn Marcy. Canonical XML Version 1.1. 2 May 2008. W3C Recommendation. URL: http://www.w3.org/TR/2008/REC-xml-c14n11-20080502/
+[XML-EXC-C14N]Donald E. Eastlake 3rd; Joseph Reagle; John Boyer. Exclusive XML Canonicalization Version 1.0. 18 July 2002. W3C Recommendation. URL: http://www.w3.org/TR/2002/REC-xml-exc-c14n-20020718/
+[XML-PARSER-STAX]Christopher Fry. JSR 173: Streaming API for XML for Java Specification 8th October 2003. v1.0  URL: http://jcp.org/en/jsr/detail?id=173
+[XMLBASE]Jonathan Marsh; Richard Tobin. XML Base (Second Edition). 28 January 2009. W3C Recommendation. URL: http://www.w3.org/TR/2009/REC-xmlbase-20090128/
+[XMLDSIG-XPATH-FILTER2]Merlin Hughes; John Boyer; Joseph Reagle. XML-Signature XPath Filter 2.0. 8 November 2002. W3C Recommendation. URL: http://www.w3.org/TR/2002/REC-xmldsig-filter2-20021108/
+[XMLENC-CORE1]J. Reagle; D. Eastlake; F. Hirsch; T. Roessler. XML Encryption Syntax and Processing Version 1.1. 11 April 2013. W3C Recommendation. URL: http://www.w3.org/TR/2013/REC-xmlenc-core1-20130411/
+

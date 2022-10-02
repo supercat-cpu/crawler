@@ -1,0 +1,1905 @@
+
+
+
+
+
+Beautiful Soupãã­ã¥ã¡ã³ã — BeautifulSoup Document 3.0 ãã­ã¥ã¡ã³ã
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ããã²ã¼ã·ã§ã³
+
+
+ç´¢å¼
+BeautifulSoup Document 3.0 ãã­ã¥ã¡ã³ã »
+
+
+
+
+ç®æ¬¡
+
+Beautiful Soupãã­ã¥ã¡ã³ã
+ã¯ã¤ãã¯ã¹ã¿ã¼ã
+ãã­ã¥ã¡ã³ãããã¼ã¹ãã
+HTMLããã¼ã¹ãã
+XMLããã¼ã¹ãã
+ããåããªãå ´å
+
+
+Beautiful Soupã¯ã¦ãã³ã¼ãå¯¾å¿ã ãããã¡ãããã
+ãã­ã¥ã¡ã³ããè¡¨ç¤ºãã
+ãã¼ã¹ããªã¼
+ã¿ã°ã®å±æ§(ã¢ããªãã¥ã¼ã)
+
+
+ãã¼ã¹ããªã¼ãããã²ã¼ããã
+parent
+ã³ã³ãã³ã(contents)
+string
+nextSibling ã¨ previousSibling
+next ã¨ previous
+Tagã®ã¤ãã¬ã¼ã¿
+ã¿ã°åãã¡ã³ãå¤æ°ã¨ãã¦æ±ã
+
+
+ãã¼ã¹ããªã¼ãæ¤ç´¢ãã
+åºæ¬ã®æ¤ç´¢ã¡ã½ãã: findAll(name, attrs, recursive, text, limit, **kwargs)
+findAll(name=None, attrs={}, recursive=True, text=None, limit=None, **kwargs)
+CSSã¯ã©ã¹ã§æ¤ç´¢ãã
+
+
+findAllãå¼ã³åºãã®ã¨åãããã«ã¿ã°ãå¼ã³åºã
+find(name, attrs, recursive, text, **kwargs)
+
+
+firstã«ä½ãèµ·ããã®ï¼
+
+
+ãã¼ã¹ããªã¼ã®ä¸­ãæ¤ç´¢ãã
+findNextSiblings(name, attrs, text, limit, **kwargs) ã¨ findNextSibling(name, attrs, text, **kwargs
+findPreviousSiblings(name, attrs, text, limit, **kwargs) ã¨ findPreviousSibling(name, attrs, text, **kwargs)
+findAllNext(name, attrs, text, limit, **kwargs) ã¨ findNext(name, attrs, text, **kwargs)
+findAllPrevious(name, attrs, text, limit, **kwargs) ã¨ findPrevious (name, attrs, text, **kwargs)
+findParents(name, attrs, limit, **kwargs) ã¨ findParent(name, attrs, **kwargs)
+
+
+ãã¼ã¹ããªã¼ãå¤æ´ããã
+å±æ§ã®å¤ãå¤ãã
+ã¨ã¬ã¡ã³ããåé¤ãã
+ããã¨ã¬ã¡ã³ããå¥ãªã¨ã¬ã¡ã³ãã«ç½®ãæãã
+ã¾ã£ããæ°ããã¨ã¬ã¡ã³ããè¿½å ãã
+
+
+ãã©ãã«ã·ã¥ã¼ãã£ã³ã°
+ãªãã§ASCIIãããªãæå­ãã¡ããã¨è¡¨ç¤ºãã¦ãããªãã®ï¼
+Beautiful Soupã¯ãããé£ããããã¼ã¿ãç¡ããããã£ãï¼ãªãã§ï¼ãªãã§ã ãï¼
+BeautifulSoupãä½ã£ããã¼ã¹ããªã¼ã¯ãªããããã«åãã­ã¼ãï¼
+Beautiful Soupã¯ããã¼éããï¼
+
+
+ãã£ã¨è©³ãã
+ã¸ã§ãã¬ã¼ã¿ã¼
+ä»ã®çµã¿è¾¼ã¿ãã¼ãµã¼
+ãã¼ãµã¼ãã«ã¹ã¿ãã¤ãºãã
+ã¨ã³ãã£ãã£ã®å¤æ
+æ­£è¦è¡¨ç¾ãä½¿ã£ã¦ã ããªãã¼ã¿ããµãã¿ã¤ãºãã
+SoupStrainerã§æ¥½ãã
+ãã­ã¥ã¡ã³ãã®ä¸é¨ã ãããã¼ã¹ãããã¨ã§ãæ§è½ãåä¸ããã
+extractãä½¿ã£ã¦ã¡ã¢ãªä½¿ç¨éãåæ¸ãã
+
+
+åè
+Beautiful Soupãä½¿ã£ã¦ããã¢ããªã±ã¼ã·ã§ã³
+é¡ä¼¼ã©ã¤ãã©ãª
+
+
+æå¾ã«
+
+
+ç´¢å¼ã¨ãã¼ãã«
+
+
+ãã®ãã¼ã¸
+
+ã½ã¼ã¹ã³ã¼ããè¡¨ç¤º
+
+
+
+ã¯ã¤ãã¯æ¤ç´¢
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Beautiful Soupãã­ã¥ã¡ã³ãÂ¶
+Beautiful Soupã¯pythonã§åä½ããHTMLã¨XMLã®ãã¼ãµã¼ã§ããBeautiful Soupã¯ãã¼ã¹ããããªã¼ã®æä½ãæ¤ç´¢ãå¤æ´ãç°¡åã«ããã¤ãä»ã¾ã§ã¨åãæ¹æ³ã§ã§ãã¾ããããã«ããããã­ã°ã©ãã¼ã®ä»äºæéãç¯ç´ãã¾ããã¾ããRubyful Soupã¨ããRubyçãããã¾ãã
+ãã®ãã­ã¥ã¡ã³ãã¯Beautiful Soupã®ãã¼ã¸ã§ã³3.0ã«ãããä¸»è¦ãªæ©è½ããµã³ãã«ä»ãã§èª¬æãã¾ãããã®ãã­ã¥ã¡ã³ããèª­ãã°ãã®ã©ã¤ãã©ãªãã©ããªã«è¯ãããã©ããã£ã¦åãã¦ããããã©ããã£ã¦ä½¿ããããããããã¨ãã©ããã£ã¦å®ç¾ããããäºæ³ã¨ç°ãªãåä½ãããå ´åã«ãªã«ãããã°ããã®ããåããã¾ãã
+
+ã¯ã¤ãã¯ã¹ã¿ã¼ãÂ¶
+Beautiful Soupãããããæã«å¥ãã¾ããChangeLogã«ã¯ãã¼ã¸ã§ã³3.0ã¨ããä»¥åã®ãã¼ã¸ã§ã³ã¨ã®éããæ¸ããã¦ãã¾ãã
+ä»¥ä¸ã®ãã¡ã®ã©ããä¸è¡ãæ¸ããBeautiful Soupãèª­ã¿è¾¼ã¿ã¾ãã:
+from BeautifulSoup import BeautifulSoup          # For processing HTML
+from BeautifulSoup import BeautifulStoneSoup     # For processing XML
+import BeautifulSoup                             # To get everything
+
+
+ããã¯Beautiful Soupã®åºæ¬çãªæ©è½ãä½¿ãã³ã¼ãã§ããããã¯èªç±ã«ã³ãã¼ãã¦æ§ããªãã®ã§ããèªåã§Pythonã§å®è¡ãã¦ã¿ã¦ãã ããã
+from BeautifulSoup import BeautifulSoup
+import re
+
+doc = ['<html><head><title>Page title</title></head>',
+       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
+       '</html>']
+soup = BeautifulSoup(''.join(doc))
+
+print soup.prettify()
+# <html>
+#  <head>
+#   <title>
+#    Page title
+#   </title>
+#  </head>
+#  <body>
+#   <p id="firstpara" align="center">
+#    This is paragraph
+#    <b>
+#     one
+#    </b>
+#    .
+#   </p>
+#   <p id="secondpara" align="blah">
+#    This is paragraph
+#    <b>
+#     two
+#    </b>
+#    .
+#   </p>
+#  </body>
+# </html>
+
+
+soupãä½¿ã£ã¦æä½ãã¾ãã
+soup.contents[0].name
+# u'html'
+
+soup.contents[0].contents[0].name
+# u'head'
+
+head = soup.contents[0].contents[0]
+head.parent.name
+# u'html'
+
+head.next
+# <title>Page title</title>
+
+head.nextSibling.name
+# u'body'
+
+head.nextSibling.contents[0]
+# <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>
+
+head.nextSibling.contents[0].nextSibling
+# <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>
+
+
+ããã¿ã°ããããã¯ããããã­ããã£ãæã£ã¦ããã¿ã°ãæ¢ãsoupãä½¿ãã¾ãã
+titleTag = soup.html.head.title
+titleTag
+# <title>Page title</title>
+
+titleTag.string
+# u'Page title'
+
+len(soup('p'))
+# 2
+
+soup.findAll('p', align="center")
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>. </p>]
+
+soup.find('p', align="center")
+# <p id="firstpara" align="center">This is paragraph <b>one</b>. </p>
+
+soup('p', align="center")[0]['id']
+# u'firstpara'
+
+soup.find('p', align=re.compile('^b.*'))['id']
+# u'secondpara'
+
+soup.find('p').b.string
+# u'one'
+
+soup('p')[1].b.string
+# u'two'
+
+
+soupãå¤æ´ããã®ã¯ç°¡åã§ãã
+titleTag['id'] = 'theTitle'
+titleTag.contents[0].replaceWith("New title")
+soup.html.head
+# <head><title id="theTitle">New title</title></head>
+
+soup.p.extract()
+soup.prettify()
+# <html>
+#  <head>
+#   <title id="theTitle">
+#    New title
+#   </title>
+#  </head>
+#  <body>
+#   <p id="secondpara" align="blah">
+#    This is paragraph
+#    <b>
+#     two
+#    </b>
+#    .
+#   </p>
+#  </body>
+# </html>
+
+soup.p.replaceWith(soup.b)
+# <html>
+#  <head>
+#   <title id="theTitle">
+#    New title
+#   </title>
+#  </head>
+#  <body>
+#   <b>
+#    two
+#   </b>
+#  </body>
+# </html>
+
+soup.body.insert(0, "This page used to have ")
+soup.body.insert(2, " &lt;p&gt; tags!")
+soup.body
+# <body>This page used to have <b>two</b> &lt;p&gt; tags!</body>
+
+
+ããã¯å®éã«ä½¿ããã¦ããä¾ã§ãããã®ã³ã¼ãã¯ICC Commercial Crime Services ã®é±éæµ·è³å ±åããåå¾ãBeautiful Soupãä½¿ã£ã¦ãã¼ã¹ããæµ·è³äºä»¶ã¨ãã¦è¡¨ç¤ºãã¾ãã
+import urllib2
+from BeautifulSoup import BeautifulSoup
+
+page = urllib2.urlopen("http://www.icc-ccs.org/prc/piracyreport.php")
+soup = BeautifulSoup(page)
+for incident in soup('td', width="90%"):
+    where, linebreak, what = incident.contents[:3]
+    print where.strip()
+    print what.strip()
+    print
+
+
+
+
+ãã­ã¥ã¡ã³ãããã¼ã¹ããÂ¶
+Beautiful Soupã³ã³ã¹ãã©ã¯ã¿ã¯XMLãHTMLã®ãã­ã¥ã¡ã³ããæå­å(ãããã¯ãã¡ã¤ã«å½¢å¼ã®ãªãã¸ã§ã¯ã)ãå¼æ°ã«ããªã¾ãããã®ã³ã³ã¹ãã©ã¯ã¿ã¯ãã­ã¥ã¡ã³ãããã¼ã¹ããã¡ã¢ãªåã«å¯¾å¿ãããã¼ã¿æ§é ãä½æãã¾ãã
+Beautiful Soupã«å®ç§ãªå½¢å¼ã®ãã­ã¥ã¡ã³ããæ¸¡ãã¨ããã¼ã¹ããããã¼ã¿æ§é ã¯åã®ãã­ã¥ã¡ã³ãã¨ã»ã¨ãã©åãããã«ãªãã¾ãããããããããã­ã¥ã¡ã³ãã«ééããããã°ãBeautiful Soupã¯çµé¨åçãªæ¹æ³ãä½¿ã£ã¦æ§é ãçè§£ãããã¼ã¿æ§é ãä½æãã¾ãã
+
+HTMLããã¼ã¹ããÂ¶
+HTMLãã­ã¥ã¡ã³ãããã¼ã¹ããã«ã¯BeautifulSoupã¯ã©ã¹ãä½¿ãã¾ããä»¥ä¸ã«BeautifulSoupãã§ãããã¨ãããã¤ãè¨ãã¾ãã
+
+ããã¤ãã®ã¿ã°(<BLOCKQUOTE>)ã¯å¥ãå­ã«ãããã¨ãã§ããããã¤ã(<P>)ã¯ã§ãã¾ããã
+
+Tableã¨listã¿ã°ã¯å¥ãå­ã®é åºã¯èªç¶ã«ãªãã¾ããä¾ãã°ã<TD>ã¿ã°ã¯<TR>ã¿ã°ã®ä¸­ã«å¥ãã¾ãããã®éã«ã¯ãªãã¾ããã
+
+<SCRIPT>ã¿ã°ã®ä¸­èº«ã¯HTMLã¨ãã¦ãã¼ã¹ããã¾ããã
+
+<META>ã¿ã°ã¯ãã­ã¥ã¡ã³ãã®ã¨ã³ã³ã¼ããæå®ãã¾ãã
+
+
+å®éã®ä¾ã§ãã
+from BeautifulSoup import BeautifulSoup
+html = "<html><p>Para 1<p>Para 2<blockquote>Quote 1<blockquote>Quote 2"
+soup = BeautifulSoup(html)
+print soup.prettify()
+# <html>
+#  <p>
+#   Para 1
+#  </p>
+#  <p>
+#   Para 2
+#   <blockquote>
+#    Quote 1
+#    <blockquote>
+#     Quote 2
+#    </blockquote>
+#   </blockquote>
+#  </p>
+# </html>
+
+
+BeautifulSoupã¯åã®ãã­ã¥ã¡ã³ãã«éãã¿ã°ããªãå ´åã§ããå¯è½ãªãããéãã¿ã°ãå¥ãããã¨ã«æ³¨æãã¦ãã ããã
+ãã£ãã®ãã­ã¥ã¡ã³ãã¯æ­£ããHTMLã§ã¯ããã¾ããããããã¾ã§æªãã¯ããã¾ããã§ããããã¡ãã¯ã¨ãã§ããªããã­ã¥ã¡ã³ãã§ããä»ã®åé¡ãããã¾ããã<FORM>ã¿ã°ã<TABLE>ã¿ã°ã®å¤ã§å§ã¾ã£ã¦ããã<TABLE>ã¿ã°ã®ä¸­ã§çµãã£ã¦ãã¾ãã(ãã®ãããªHTMLã¯æåãªWebã®ä¼ç¤¾ã§è¦ã¤ãããã¾ã)
+from BeautifulSoup import BeautifulSoup
+html = """
+<html>
+<form>
+ <table>
+ <td><input name="input1">Row 1 cell 1
+ <tr><td>Row 2 cell 1
+ </form>
+ <td>Row 2 cell 2<br>This</br> sure is a long cell
+</body>
+</html>"""
+
+
+Beautiful Soupã¯ãã®ãã­ã¥ã¡ã³ããä¸æãæ±ã£ã¦ããã¾ãã
+print BeautifulSoup(html).prettify()
+# <html>
+#  <form>
+#   <table>
+#    <td>
+#     <input name="input1" />
+#     Row 1 cell 1
+#    </td>
+#    <tr>
+#     <td>
+#      Row 2 cell 1
+#     </td>
+#    </tr>
+#   </table>
+#  </form>
+#  <td>
+#   Row 2 cell 2
+#   <br />
+#   This
+#   sure is a long cell
+#  </td>
+# </html>
+
+
+ãã¼ãã«ã®æå¾ã®ã»ã«ã¯<TABLE>ã¿ã°ã®å¤ã«ããã¾ããBeautiful Soupã¯<FORM>ã¿ã°ãéããããã<TABLE>ã¿ã°ãéãã¾ããåã®ãã­ã¥ã¡ã³ãã®èèã¯ãã¶ã<FORM>ã¿ã°ããã¼ãã«ã®æå¾ã«æ¡å¼µãããã¨ããã®ã§ããããããããBeautiful Soupã¯ãããªãã¨ã¯ç¥ãã¾ããããããªå¤ãªå ´åã§ããBeautiful Soupã¯æ­£ãããªããã­ã¥ã¡ã³ãããã¼ã¹ããå¨ã¦ã®ãã¼ã¿ãæ±ãã¾ãã
+
+
+XMLããã¼ã¹ããÂ¶
+BeautifulSoupã¯ã©ã¹ã¯çµé¨åã«ãã£ã¦ãWebãã©ã¦ã¶ã¨åããããã®HTMLãæ¸ããäººã®æå³ãèª­ã¿åãæ©è½ãåãã¦ãã¾ããããããXMLã¯ã¿ã°ã®ç¨®é¡ãåºå®ããã¦ããªããããçµé¨åã¯é©ç¨ã§ãã¾ãããã¤ã¾ããBeautifulSoupã¯XMLã«å¯¾ãã¦ã¯ããã»ã©è¯ãããã¾ããã
+XMLãã­ã¥ã¡ã³ãããã¼ã¹ããã«ã¯BeautifulStoneSoupã¯ã©ã¹ãä½¿ãã¾ãããã®ã¯ã©ã¹ã¯XMLã®æ¹è¨ã«å¯¾ããæ©è½ã¯ãªããã¿ã°ã®å¥ãå­æ§é ã«å¯¾ããåç´ãªã«ã¼ã«ã ããæã£ã¦ãã¾ããä¾ãã°ãããªæãã§ãã
+from BeautifulSoup import BeautifulStoneSoup
+xml = "<doc><tag1>Contents 1<tag2>Contents 2<tag1>Contents 3"
+soup = BeautifulStoneSoup(xml)
+print soup.prettify()
+# <doc>
+#  <tag1>
+#   Contents 1
+#   <tag2>
+#    Contents 2
+#   </tag2>
+#  </tag1>
+#  <tag1>
+#   Contents 3
+#  </tag1>
+# </doc>
+
+
+BeautifulStoneSoupã®æ¬ ç¹ã¯ç©ºè¦ç´ ã¿ã°(ä¾: <EXAMPLE />)ã«ã¤ãã¦çè§£åºæ¥ãªããã¨ã§ããHTMLã¯ç©ºè¦ç´ ãã§ããã¿ã°ã¯åºå®ããã¦ãã¾ãããXMLã¯DTDã«ãªãã¨æ¸ããã¦ãããã«ä¾å­ãã¾ãã èªåã§éããã¿ã°ãselfClosingTagsã¨ãã¦BeautifulStoneSoupã®ã³ã³ã¹ãã©ã¯ã¿ã«æ¸¡ãã¨ãBeautifulStoneSoupã¯è¯ãããã«åãè¨ãã£ã¦ããã¾ãã
+from BeautifulSoup import BeautifulStoneSoup
+xml = "<tag>Text 1<selfclosing>Text 2"
+print BeautifulStoneSoup(xml).prettify()
+# <tag>
+#  Text 1
+#  <selfclosing>
+#   Text 2
+#  </selfclosing>
+# </tag>
+
+print BeautifulStoneSoup(xml, selfClosingTags=['selfclosing']).prettify()
+# <tag>
+#  Text 1
+#  <selfclosing />
+#  Text 2
+# </tag>
+
+
+
+
+ããåããªãå ´åÂ¶
+ä»¥ä¸ã®ï¼ã¤ã¨ã¯éãçµé¨åãä½¿ãä»ã®ãã¼ãµã¼ãããã¤ãããã¾ããã¾ãããµãã¯ã©ã¹ãä½ã£ã¦ã«ã¹ã¿ãã¤ãºãããã¼ãµãä½ããããã«èªåã®çµé¨åãå¥ãè¾¼ããã¨ãåºæ¥ã¾ãã
+
+
+
+Beautiful Soupã¯ã¦ãã³ã¼ãå¯¾å¿ã ãããã¡ããããÂ¶
+ãã­ã¥ã¡ã³ãããã¼ã¹ãããããã¦ãã³ã¼ãã«å¤æããã¾ããBeautiful Soupã®ãã¼ã¿æ§é ã®ä¸­ã«ã¯ã¦ãã³ã¼ãã ããä¿å­ããã¾ãã
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("Hello")
+soup.contents[0]
+# u'Hello'
+soup.originalEncoding
+# 'ascii'
+
+
+UTF-8ã§æ¸ãããæ¥æ¬èªãã­ã¥ã¡ã³ããä½¿ã£ãä¾ã§ãã
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("\xe3\x81\x93\xe3\x82\x8c\xe3\x81\xaf")
+soup.contents[0]
+# u'\u3053\u308c\u306f'
+soup.originalEncoding
+# 'utf-8'
+
+str(soup)
+# '\xe3\x81\x93\xe3\x82\x8c\xe3\x81\xaf'
+
+# Note: this bit uses EUC-JP, so it only works if you have cjkcodecs
+# installed, or are running Python 2.4.
+soup.__str__('euc-jp')
+# '\xa4\xb3\xa4\xec\xa4\xcf'
+
+
+Beautiful Soupã¯UnicodeDammitã¨å¼ã°ããã¯ã©ã¹ãä½¿ã£ã¦ä¸ãããããã­ã¥ã¡ã³ãã®ã¨ã³ã³ã¼ãã£ã³ã°ãèª¿ã¹ãåã®ã¨ã³ã³ã¼ãã£ã³ã°ããªã«ã§ãããã¨ãUnicodeã«å¤æãã¾ããããã(Beautiful Soupããã¼ã¹ããªã)ä»ã®ãã­ã¥ã¡ã³ããå¿è¦ãªå ´åãUnicodeDammitãèªåã§ä½¿ããã¨ãã§ãã¾ãããã®ã¯ã©ã¹ã®å¤§é¨åã¯ãUniversal Feed Parserã«åºã¥ãã¦ãã¾ãã
+ããPython 2.4ããå¤ããã¼ã¸ã§ã³ãä½¿ã£ã¦ããå ´åãcjkcodecsã¨iconvcodecããã¦ã³ã­ã¼ããã¦ã¤ã³ã¹ãã¼ã«ããå¿è¦ãããã¾ããããã«ãããPythonãããå¤ãã®ã¨ã³ã³ã¼ãã£ã³ã°ãç¹ã«CJKããæ±ããããã«ãªãã¾ããã¾ããèªåæ¤ç¥ãæåããç¢ºçãä¸ããããã«chardetããã¤ã³ã¹ãã¼ã«ããã¨ããã§ãããã
+Beautiful Soupã¯ä»¥ä¸ã®ã¨ã³ã³ã¼ãã£ã³ã°ããã®é çªã§è©¦ãã¦Unicodeã«å¤æãã¾ãã
+
+fromEncodingå¼æ°ã¨ãã¦soupã³ã³ã¹ãã©ã¯ã¿ã«æ¸¡ããã¨ã³ã³ã¼ãã£ã³ã°
+
+ãã­ã¥ã¡ã³ãèªèº«ã«ããã¨ã³ã³ã¼ãã£ã³ã°ãä¾ãã°ãHTMLãã­ã¥ã¡ã³ãã®å ´åãXMLå®£è¨ãããã¯http-equivMETAã¿ã°ã§ãããããBeautiful Soupããã®ç¨®é¡ã®ã¨ã³ã³ã¼ãã£ã³ã°ããã­ã¥ã¡ã³ãã®ä¸­ã«è¦ã¤ããå ´åããã®ã¨ã³ã³ã¼ãã£ã³ã°ãä½¿ã£ã¦ããä¸åº¦æåãããã­ã¥ã¡ã³ãããã¼ã¹ããªããã¾ããä¾å¤ã¯ãã¨ã³ã³ã¼ãã£ã³ã°ãæç¤ºçã«æå®ãããã®ã¨ã³ã³ã¼ãã£ã³ã°ãæ­£ããå ´åã§ãããã®å ´åããã­ã¥ã¡ã³ãä¸­ã«ããã¨ã³ã³ã¼ãã£ã³ã°æå®ã¯ç¡è¦ããã¾ãã
+
+ãã¡ã¤ã«ã®æåã®æ°ãã¤ããèª¿ã¹ã¦åãã£ãã¨ã³ã³ã¼ãã£ã³ã°ããããã®ã¹ãã¼ã¸ã§ã¨ã³ã³ã¼ãã£ã³ã°ãåãã£ãå ´åãUTF-*ããEBCDICãASCIIã®ã©ããã§ãã
+
+chardetã©ã¤ãã©ãªãã¤ã³ã¹ãã¼ã«ããã¦ããã°ãchardetãèª¿ã¹ãã¨ã³ã³ã¼ãã£ã³ã°
+
+UTF-8
+Windows-1252
+
+Beautiful Soupã¯æ¨æ¸¬ã§ããå ´åã¯ã»ã¨ãã©ã®å ´åæ­£ããæ¨æ¸¬ãã¦ããã¾ããããããå®£è¨ããªãå¤ãªã¨ã³ã³ã¼ãã£ã³ã°ãªæç« ã®å ´åãæ¨æ¸¬ãã»ã¼ã§ãã¾ããããã®å ´åWindows-1252ã¨ãã¦æ±ãã¾ãããã ãããã«ããã¦ãã®ã¨ã³ã³ã¼ãã£ã³ã°ã¯ééã£ã¦ãã¾ããããã«Beautiful Soupãã¨ã³ã³ã¼ãã£ã³ã°ãééã£ã¦æ¨æ¸¬ãã¦ãã¾ãEUC-JPã®ä¾ãåºãã¾ãã(ããä¸åº¦è¨ãã¨ãããã¯EUC-JPãä½¿ã£ã¦ããããã§ããã®ä¾ã¯Python2.4ãcjkcodecsãã¤ã³ã¹ãã¼ã«ãã¦ããæã ãèµ·ããã¾ã)
+from BeautifulSoup import BeautifulSoup
+euc_jp = '\xa4\xb3\xa4\xec\xa4\xcf'
+
+soup = BeautifulSoup(euc_jp)
+soup.originalEncoding
+# 'windows-1252'
+
+str(soup)
+# '\xc2\xa4\xc2\xb3\xc2\xa4\xc3\xac\xc2\xa4\xc3\x8f'     # Wrong!
+
+
+ããããããfromEncodingã§ã¨ã³ã³ã¼ãã£ã³ã°ãæå®ããå ´åããã­ã¥ã¡ã³ãã¯æ­£ãããã¼ã¹ã§ãããããUTF-8ã«å¤æããããããã¯EUC-JPã«æ»ãããåºæ¥ã¾ãã
+soup = BeautifulSoup(euc_jp, fromEncoding="euc-jp")
+soup.originalEncoding
+# 'windows-1252'
+
+str(soup)
+# '\xe3\x81\x93\xe3\x82\x8c\xe3\x81\xaf'                 # Right!
+
+soup.__str__(self, 'euc-jp') == euc_jp
+# True
+
+
+Windows-1252ã¨ã³ã³ã¼ãã£ã³ã°ãããã¯ããã«ä¼¼ã¦ããISO-8859-1ãISO-8859-2ãä½¿ã£ã¦ãããã­ã¥ã¡ã³ããBeautiful Soupã«æ¸¡ããå ´åãBeautiful Soupã¯ãã­ã¥ã¡ã³ãã®smart quotes(è¨³è¨»:éãã¨éãã¨ã§åããç°ãªãã¯ãªã¼ãã¼ã·ã§ã³)ãä»ã®Windowsç¬èªã®æå­ãæ¢ãã¦æ¶ãã¾ããBeautiful Soupã¯ãããã®æå­ãåãUnicodeæå­ã«å¤æããã®ã§ã¯ãªããHTMLã¨ã³ãã£ãã£(BeautifulSoupã®å ´å) ã XMLã¨ã³ãã£ãã£ (BeautifulStoneSoupã®å ´å)ã«å¤æãã¾ãã
+ãããé¿ããããã«ã¯ãsmartQuotesTo=Noneãsoupã³ã³ã¹ãã©ã¯ã¿ã«æ¸¡ãã¾ãããã®å ´åã Smart quote ã¯ä»ã®æå­ã¨åããUnicodeã«å¤æããã¾ãã “xml” ã “html” ãsmartQuotesToã«æ¸¡ãã¨BeautifulSoupãBeautifulStoneSoupã®ããã©ã«ãã®æåãå¤ãããã¾ãã
+from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup
+text = "Deploy the \x91SMART QUOTES\x92!"
+
+str(BeautifulSoup(text))
+# 'Deploy the &lsquo;SMART QUOTES&rsquo;!'
+
+str(BeautifulStoneSoup(text))
+# 'Deploy the &#x2018;SMART QUOTES&#x2019;!'
+
+str(BeautifulSoup(text, smartQuotesTo="xml"))
+# 'Deploy the &#x2018;SMART QUOTES&#x2019;!'
+
+BeautifulSoup(text, smartQuotesTo=None).contents[0]
+# u'Deploy the \u2018SMART QUOTES\u2019!'
+
+
+
+
+ãã­ã¥ã¡ã³ããè¡¨ç¤ºããÂ¶
+Beautiful Soup(ããã®ãµãã»ãã)ã®ãã­ã¥ã¡ã³ãã¯stré¢æ°ãä½¿ãã¨stringæå­åã«ã§ãã¾ãããããã¯ãrenderContentsã¡ã½ãããä½¿ãã¨ããã¡ãã£ã¨ãã£ãããè¡¨ç¤ºãã¦ããã¾ããã¾ããunicodeé¢æ°ãä½¿ãã¨ãã­ã¥ã¡ã³ãå¨ä½ãUnicodeæå­åã«ãã¦ããã¾ãã
+prettifyã¡ã½ããã¯éè¦ãªæ¹è¡ã¨ç©ºç½ãå¥ãã¦ãã­ã¥ã¡ã³ããè¦ããããã¦ããã¾ããããã¯ã¾ãç©ºç½ãããªããã­ã¹ããã¼ããåé¤ãã¦ããã¾ãããããã¯XMLãã­ã¥ã¡ã³ããå¤æ´ãã¦ãã¾ãããããã¾ãããstrã¨unicodeé¢æ°ã¯ç©ºç½ãããªããã­ã¹ããã¼ããåé¤ãã¾ãããããã¼ãã®éã«ç©ºç½ãæ¿å¥ããã¾ããã
+ä¾ã§ãã
+from BeautifulSoup import BeautifulSoup
+doc = "<html><h1>Heading</h1><p>Text"
+soup = BeautifulSoup(doc)
+
+str(soup)
+# '<html><h1>Heading</h1><p>Text</p></html>'
+soup.renderContents()
+# '<html><h1>Heading</h1><p>Text</p></html>'
+soup.__str__()
+# '<html><h1>Heading</h1><p>Text</p></html>'
+unicode(soup)
+# u'<html><h1>Heading</h1><p>Text</p></html>'
+
+soup.prettify()
+# '<html>\n <h1>\n  Heading\n </h1>\n <p>\n  Text\n </p>\n</html>'
+
+print soup.prettify()
+# <html>
+#  <h1>
+#   Heading
+#  </h1>
+#  <p>
+#   Text
+#  </p>
+# </html>
+
+
+ãã­ã¥ã¡ã³ãä¸­ã®ã¿ã°ãä½¿ã£ãæãstrã¨renderContentsã§ã¯éãçµæã«ãªããã¨ã«æ³¨æãã¦ãã ãããstrã¯ã¿ã°ã¨ã³ã³ãã³ããè¡¨ç¤ºãã¾ãããrenderContentsã¯ã³ã³ãã³ãã ããè¡¨ç¤ºãã¾ãã
+heading = soup.h1
+str(heading)
+# '<h1>Heading</h1>'
+heading.renderContents()
+# 'Heading'
+
+
+__str__ãprettifyãrenderContentsãå¼ã¶æã«ã¨ã³ã³ã¼ãã£ã³ã°ãé¸æã§ãã¾ããããã©ã«ãã®ã¨ã³ã³ã¼ãã£ã³ã°ã¯(strã§ä½¿ãããã¨åãã)UTF-8ã§ããä»¥ä¸ã¯ISO-8859-1ã®æå­åããã¼ã¹ãã¦åãæå­åãéãã¨ã³ã³ã¼ãã£ã³ã°ã§åºåããä¾ã§ãã
+from BeautifulSoup import BeautifulSoup
+doc = "Sacr\xe9 bleu!"
+soup = BeautifulSoup(doc)
+str(soup)
+# 'Sacr\xc3\xa9 bleu!'                          # UTF-8
+soup.__str__("ISO-8859-1")
+# 'Sacr\xe9 bleu!'
+soup.__str__("UTF-16")
+# '\xff\xfeS\x00a\x00c\x00r\x00\xe9\x00 \x00b\x00l\x00e\x00u\x00!\x00'
+soup.__str__("EUC-JP")
+# 'Sacr\x8f\xab\xb1 bleu!'
+
+
+ããåã®ãã­ã¥ã¡ã³ãã«ã¨ã³ã³ã¼ãã£ã³ã°ã®å®£è¨ããã£ãå ´åãBeautiful Soupã¯Stringæå­åã«å¤æããæã«æ°ããã¨ã³ã³ã¼ãã£ã³ã°ã§å®£è¨ãæ¸ãç´ãã¾ããããã¯ã¤ã¾ããããHTMLãã­ã¥ã¡ã³ããBeautifulSoupã«èª­ã¿è¾¼ã¾ãè¡¨ç¤ºããå ´åãHTMLçã«ç¶ºéºã«ãªã£ã¦ãããã¨ã«å ãã¦ãUTF-8ã«ééçã«å¤æããã¦ããã¨ãããã¨ã§ãã
+HTMLã®ä¾ã§ãã
+from BeautifulSoup import BeautifulSoup
+doc = """<html>
+<meta http-equiv="Content-type" content="text/html; charset=ISO-Latin-1" >
+Sacr\xe9 bleu!
+</html>"""
+
+print BeautifulSoup(doc).prettify()
+# <html>
+#  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+#  SacrÃ© bleu!
+# </html>
+
+
+XMLã®ä¾ã§ãã
+from BeautifulSoup import BeautifulStoneSoup
+doc = """<?xml version="1.0" encoding="ISO-Latin-1">Sacr\xe9 bleu!"""
+
+print BeautifulStoneSoup(doc).prettify()
+# <?xml version='1.0' encoding='utf-8'>
+# SacrÃ© bleu!
+
+
+
+
+ãã¼ã¹ããªã¼Â¶
+ä»ã¾ã§ã®ã¨ããã¯ãã­ã¥ã¡ã³ããèª­ã¿è¾¼ãã§æ¸ãæ»ããã¨ã«éä¸­ãã¦ãã¾ãããã ãã©ãã ãããã®å ´åãããªã¼ããã¼ã¹ãããã¨ã«èå³ãããã§ããããããã§ããªã¼ã¨ã¯Beautiful Soupããã¼ã¹ãã¦ä½æãããã¼ã¿æ§é ã®ãã¨ã§ãã
+ãã¼ãµã¼ãªãã¸ã§ã¯ã (BeautifulSoupãBeautifulStoneSoupã¤ã³ã¹ã¿ã³ã¹)ã¯æ·±ãå¥ãå­æ§é ã§å¼·ãçµã³ã¤ãããã¼ã¿æ§é ãXMLãHTMLã®ãã­ã¥ã¡ã³ãã¨å¯¾å¿ãã¦ãã¾ãããã¼ãµã¼ãªãã¸ã§ã¯ãã¯ï¼ç¨®é¡ã®ãªãã¸ã§ã¯ããæã£ã¦ãã¾ãã <TITLE>ã¿ã°ã<B>ã¿ã°ã«å¯¾å¿ããTagãªãã¸ã§ã¯ãã¨ã”ãã¼ã¸ã¿ã¤ãã«”ã”ãã®ãã©ã°ã©ã”ãªã©ã®æå­åã«å¯¾å¿ããNavigableStringãªãã¸ã§ã¯ãã§ãã
+ã¾ããXMLæ§é ã«å¯¾å¿ããNavigableStringã®ãµãã¯ã©ã¹(CDataã»Commentã»Declarationã»ProcessingInstruction)ãããã¾ãããããã¯NavigableStringã¨åãæ¯ãèãããã¾ãããè¡¨ç¤ºããæã«ã¯ãã¼ã¿ãè¿½å ãã¾ããã³ã¡ã³ããå«ãã ãã­ã¥ã¡ã³ãã®ä¾ã§ãã
+from BeautifulSoup import BeautifulSoup
+import re
+hello = "Hello! <!--I've got to be nice to get what I want.-->"
+commentSoup = BeautifulSoup(hello)
+comment = commentSoup.find(text=re.compile("nice"))
+
+comment.__class__
+# <class 'BeautifulSoup.Comment'>
+comment
+# u"I've got to be nice to get what I want."
+comment.previousSibling
+# u'Hello! '
+
+str(comment)
+# "<!--I've got to be nice to get what I want.-->"
+print commentSoup
+# Hello! <!--I've got to be nice to get what I want.-->
+
+
+ãã¦ãæç« ã®æåã®é¨åã§ä½¿ããããã­ã¥ã¡ã³ãã«ã¤ãã¦ããã¡ãã£ã¨è¦ã¦ã¿ã¾ãããã
+from BeautifulSoup import BeautifulSoup
+doc = ['<html><head><title>Page title</title></head>',
+       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
+       '</html>']
+soup = BeautifulSoup(''.join(doc))
+
+print soup.prettify()
+# <html>
+#  <head>
+#   <title>
+#    Page title
+#   </title>
+#  </head>
+#  <body>
+#   <p id="firstpara" align="center">
+#    This is paragraph
+#    <b>
+#     one
+#    </b>
+#    .
+#   </p>
+#   <p id="secondpara" align="blah">
+#    This is paragraph
+#    <b>
+#     two
+#    </b>
+#    .
+#   </p>
+#  </body>
+# </html>
+
+
+
+ã¿ã°ã®å±æ§(ã¢ããªãã¥ã¼ã)Â¶
+Tagã¨NavigableStringãªãã¸ã§ã¯ãã¯å¤ãã®æç¨ãªã¡ã³ãã¼ãæã£ã¦ãã¾ãããã®å¤§é¨åã¯ãã¼ã¹ããªã¼ãããã²ã¼ãããã¨ãã¼ã¹ããªã¼ãæ¤ç´¢ããã§è§£èª¬ããã¦ãã¾ããããããTagãªãã¸ã§ã¯ãã«ã¤ãã¦ããã§è§£èª¬ããããã¨ãä¸ã¤ã ãããã¾ããããã¯å±æ§(ã¢ããªãã¥ã¼ã)ã§ãã
+SGMLã¿ã°ã¯å±æ§ãæã£ã¦ãã¾ããä¾ãã°ãä¸ã§åºããHTMLã®ä¾ã§ãããããã®<P>ã¿ã°ã¯ “id”å±æ§ã¨”align”å±æ§ãæã£ã¦ãã¾ãããã®ãããªã¿ã°ã®å±æ§ã«Tagãªãã¸ã§ã¯ããä½¿ã£ã¦è¾æ¸å½¢å¼ã§ã¢ã¯ã»ã¹ã§ãã¾ãã
+firstPTag, secondPTag = soup.findAll('p')
+
+firstPTag['id']
+# u'firstPara'
+
+secondPTag['id']
+# u'secondPara'
+
+
+NavigableStringãªãã¸ã§ã¯ãã¯å±æ§ãæã£ã¦ãã¾ãããTagã ããå±æ§ãæã£ã¦ãã¾ãã
+
+
+
+ãã¼ã¹ããªã¼ãããã²ã¼ãããÂ¶
+å¨ã¦ã®Tagãªãã¸ã§ã¯ãã¯ä»¥ä¸ã«ç¤ºãã¡ã³ãå¤æ°ãå¨ã¦æã£ã¦ãã¾ã(å®éã«ã¯ã¡ã³ãã¼å¤æ°ãNoneã®å ´åãããã¾ã)ãNavigableStringãªãã¸ã§ã¯ãã¯contentsã¨stringãé¤ãå¨ã¦ã®ã¡ã³ãå¤æ°ãæã¡ã¾ãã
+
+parentÂ¶
+ä¸ã®ä¾ã§ã¯<HEAD>Tagã®è¦ªã¯ <HTML>Tagã§ããã <HTML>Tagã®è¦ªã¯BeautifulSoupãã¼ãµã¼èªèº«ã§ãããã¼ãµã¼ãªãã¸ã§ã¯ãã®è¦ªã¯Noneã§ããparentããã©ããã¨ã§ããã¼ã¹ããªã¼ãä¸ã«ç»ã£ã¦è¡ãã¾ãã
+soup.head.parent.name
+# u'html'
+soup.head.parent.parent.__class__.__name__
+# 'BeautifulSoup'
+soup.parent == None
+# True
+
+
+
+
+ã³ã³ãã³ã(contents)Â¶
+parentãä½¿ãã¨ãã¼ã¹ããªã¼ãä¸ã«ç»ãã¾ããcontentsãä½¿ãã¨ãããªã¼ãä¸ã«ä¸ãã¾ããcontentsã¯ãã¼ã¸ã¨ã¬ã¡ã³ãã«å«ã¾ãã¦ããTagã¨NavigableStringãªãã¸ã§ã¯ãã®é åºä¿æãªã¹ã(ordered list)ã§ãããããã¬ãã«ã®ãã¼ãµã¼ãªãã¸ã§ã¯ãã¨Tagãªãã¸ã§ã¯ãã ããcontentsãæã£ã¦ãã¾ããNavigableStringãªãã¸ã§ã¯ãã¯æå­å(strings)ã ããæã£ã¦ããããµãã¨ã¬ã¡ã³ããæã£ã¦ãã¾ãããå¾ã£ã¦contentsãæã£ã¦ãã¾ããã
+ä¸ã®ä¾ã§ã¯ãæåã®<P>Tagã®ã³ã³ãã³ãã¯NavigableString(“This is paragraph ”)ã¨ <B>Tagãããã¦å¥ã®NavigableString(”.”)ãå«ãã ãªã¹ãã§ãã<B>Tagã®ã³ã³ãã³ãã¯NavigableString(“one”)ãå«ãã ãªã¹ãã§ãã
+pTag = soup.p
+pTag.contents
+# [u'This is paragraph ', <b>one</b>, u'.']
+pTag.contents[1].contents
+# [u'one']
+pTag.contents[0].contents
+# AttributeError: 'NavigableString' object has no attribute 'contents'
+
+
+
+
+stringÂ¶
+ããã¿ã°ãï¼ã¤ã ãããå­ãã¼ããæã£ã¦ããªãããã®å­ãã¼ããæå­åã ã£ããããã®å­ãã¼ãã¯tag.stringã¨ãã¦åç§ã§ãã¾ãããtag.contents[0]ã¨ãã¦ãåç§ã§ãã¾ããä¸ã®ä¾ã§ã¯ãsoup.b.stringã¯NavigableStringã¯Unicodeã®”one”ãè¡¨ãã¦ãã¾ããããã¯ãã¼ã¹ããªã¼ä¸ã®æåã®<B>Tagã®æå­åã®ãã¨ãæãã¦ãã¾ãã
+soup.b.string
+# u'one'
+soup.b.contents[0]
+# u'one'
+
+
+ããããsoup.p.stringã¯Noneã§ãããªããªãããã¼ã¹ããªã¼ã®æåã®<P>Tagã¯ä¸ã¤ä»¥ä¸ã®å­ãã¼ããæã£ã¦ããããã§ãã<HEAD>Tagã¯ä¸ã¤ã ãããå­ãã¼ããæã£ã¦ããªãã«ãé¢ããããsoup.head.stringãNoneã§ãããªããªããã®å­ãã¼ãã¯Tag(<TITLE> Tag) ã§ãããNavigableStringã§ã¯ãªãããã§ãã
+soup.p.string == None
+# True
+soup.head.string == None
+# True
+
+
+
+
+nextSibling ã¨ previousSiblingÂ¶
+ãã®ã¡ã³ãå¤æ°ã¯ãã¼ã¹ããªã¼ã®ä¸­ã§æ¬¡ã®ãããã¯åã®åãã¬ãã«ã®ãã®ã¾ã§é£ã°ãã¾ããä¸è¨ã®ããã«ã <HEAD>Tagã®nextSiblingã¯ <BODY>Tagã§ãããªããªã<BODY>Tagã¯<html>ã¿ã°ã®ããä¸ã ããã§ãã<BODY>Tagã®nextSiblingã¯Noneã§ãããªããªãã<HTML>ã¿ã°ã®ããæ¬¡ã¯ãªã«ããªãããã§ãã
+soup.head.nextSibling.name
+# u'body'
+soup.html.nextSibling == None
+# True
+
+
+éã«è¨ãã°ã <BODY>Tagã®previousSiblingã¯<HEAD>Tagã§ã<HEAD>Tagã®previousSiblingã¯Noneã§ãã
+soup.body.previousSibling.name
+# u'head'
+soup.head.previousSibling == None
+# True
+
+
+ããã¡ãã£ã¨ä¾ãåºãã¾ãã æåã®<P>Tagã®nextSiblingã¯äºçªç®ã®<P>Tagã§ããäºçªç®ã®<P>Tagã®ä¸­ã«ãã<B>Tagã®previousSiblingã¯NavigableStringã® “This is paragraph” ã§ãããã®NavigableStringã®previousSiblingã¯Noneã§ãæåã®<P>Tagã®ä¸­ã«ã¯ä»ã«ãªã«ãããã¾ããã
+soup.p.nextSibling
+# <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>
+
+secondBTag = soup.findAlll('b')[1]
+secondBTag.previousSibling
+# u'This is paragraph'
+secondBTag.previousSibling.previousSibling == None
+# True
+
+
+
+
+next ã¨ previousÂ¶
+ãããã®ã¡ã³ãå¤æ°ã¯ãã¼ãµã¼ãå¦çããã®ã¨åãé åºã§ãã­ã¥ã¡ã³ãã®ã¨ã¬ã¡ã³ããæ±ãã¾ããããªã¼ã®ä¸­ã§åºã¦ããé åºã§ã¯ããã¾ãããä¾ãã°ã <HEAD>Tagã®nextã¯ã<BODY>Tagã§ã¯ããã¾ããããªããªããåã®ãã­ã¥ã¡ã³ãã§ã¯ã<TITLE>ã¿ã°ã¯<HEAD>ã¿ã°ã®ç´å¾ã«ããããã§ãã
+soup.head.next
+# u'title'
+soup.head.nextSibling.name
+# u'body'
+soup.head.previous.name
+# u'html'
+
+
+nextã¨previousãé¢ä¿ããå ´æã¨ãã¦ãTagã®contentsã¯nextSiblingã®åã«æ¥ã¾ããããããéå¸¸ã¯ãããã®ã¡ã³ãå¤æ°ãä½¿ããªãã§ããããããã¯ãã¼ã¹ããªã¼ã®ä¸­ãæãè¿ãæã«ä¸çªæ¥½ãªæ¹æ³ãªã®ã§ãã
+
+
+Tagã®ã¤ãã¬ã¼ã¿Â¶
+Tagããªã¹ãã¨ãã¦æ±ããã¨ã§ã¤ãã¬ã¼ã¿ã¨ãã¦é ãã«å¦çã§ãã¾ããããã¯ä¾¿å©ã§ããåãããã«ãTagãä½åå­ãã¼ããæã£ã¦ããããæ°ãããã¨ããlen(tag.contents)ã®ä»£ããã«ãlen(tag)ã¨ã§ãã¾ããä¸è¨ã®ãã­ã¥ã¡ã³ãã§ã®ä¾ã§ãã
+for i in soup.body:
+    print i
+# <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>
+# <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>
+
+len(soup.body)
+# 2
+len(soup.body.contents)
+# 2
+
+
+
+
+ã¿ã°åãã¡ã³ãå¤æ°ã¨ãã¦æ±ãÂ¶
+ãã¼ã¹ããªã¼ãããã²ã¼ãããæ¹æ³ã¯ç°¡åã§ããæ¬²ããã¿ã°ã®ååããã¼ãµã¼ã®ã¡ã³ãå¤æ°ãTagãªãã¸ã§ã¯ããä½¿ãã°ããã®ã§ããä¸è¨ã®ä¾ã§ã¯ãsoup.headã¯æåã®(ããã¦å¯ä¸ã®)<HEAD>ã¿ã°ãè¿ãã¾ãã
+soup.head
+# <head><title>Page title</title></head>
+
+
+ä¸è¬çã«mytag.foo ãå¼ã¶ã¨ãmytagã®æåã®å­ãã¼ãã<FOO>Tagãè¿ãã¾ããããmytagã®ç´ä¸ã«<FOO>ã¿ã°ããªãã£ãå ´åãmytag.fooã¯Noneãè¿ãã¾ããããã«ããããã¼ã¹ããªã¼ãæ¸¡ã£ã¦ããã®ãç°¡åã«ãªãã¾ãã
+soup.head.title
+# <title>Page title</title>
+
+soup.body.p.b.string
+# u'one'
+
+
+ãã¼ã¹ããªã¼ã®é©åãªå ´æã«ã¸ã£ã³ããããã¨ãã§ãã¾ããä¾ãã°ã<HEAD>ã¿ã°ã®å¤ã®å¤ãªå ´æã«ãã<TITLE>ã¿ã°ãæ°ã«ããªãå ´åãsoup.titleã¨æã¤ã ãã§ãHTMLãã­ã¥ã¡ã³ãã®ã¿ã¤ãã«ãå¾ããã¾ããsoup.head.titleã¨æã¤å¿è¦ã¯ããã¾ããã
+soup.title.string
+# u'Page title'
+
+
+soup.pã¯ãã­ã¥ã¡ã³ãä¸­ã®æåã®<P>ã¿ã°ã«ã¸ã£ã³ããã¾ãããããã©ãã«ãããã¨ããã§ããsoup.table.tr.tdã¯ãã­ã¥ã¡ã³ãä¸­ã®æåã®ãã¼ãã«ã®æåã®åã«ã¸ã£ã³ããã¾ãã
+ãããã®ã¡ã³ãå¤æ°ã¯å®éã¯ãã¨ã§è¿°ã¹ãfirstã¡ã½ããã®å¥ã®åå(alias)ã§ããç§ã¯ãã¼ã¹ããªã¼ã®é¢ç½ãã¨ãããããã«è§¦ããããããã«ãããã§ãã®å¥åã«ã¤ãã¦è¿°ã¹ã¾ããã
+ãã­ã¥ã¡ã³ãä¸­ã®æåã®<FOO>ã¿ã°ãå¾ãå¥ã®æ¹æ³ã¯ã.fooã§ã¯ãªãfooTagãä½¿ãæ¹æ³ã§ããä¾ãã°ãsoup.table.tr.tdã¯soup.tableTag.trTag.tdTagãsoup.tableTag.tr.tdTagã¨ãæ¸ãã¾ããããã¯ããªãããªã«ããã¦ããã®ããæç¢ºã«è¨ãæã«ä¾¿å©ã§ãããããã¯ãBeautiful Soupãæã¤ã¡ã½ããåãã¡ã³ãå¤æ°åã¨XMLã®ã¿ã°ã¨ãã¶ã¤ãã£ã¦ããæã«ä¾¿å©ã§ãã
+from BeautifulSoup import BeautifulStoneSoup
+xml = '<person name="Bob"><parent rel="mother" name="Alice">'
+xmlSoup = BeautifulStoneSoup(xml)
+
+xmlSoup.person.parent                      # A Beautiful Soup member
+# <person name="Bob"><parent rel="mother" name="Alice"></parent></person>
+xmlSoup.person.parentTag                   # A tag name
+# <parent rel="mother" name="Alice"></parent>
+
+
+Pythonã®æ­£ããåå(hyphenated-nameãªã©)ã¨ã¯ç°ãªãã¿ã°ãæ¢ãããå ´åãfindãä½¿ãå¿è¦ãããã¾ãã
+
+
+
+ãã¼ã¹ããªã¼ãæ¤ç´¢ããÂ¶
+Beautiful Soupã¯ãã¼ã¹ããªã¼ãæ¸¡ããæå®ã¨ãããããTagã¨NavigableStringãéããããããã®ã¡ã½ãããæä¾ãã¦ãã¾ãã
+Beautiful Soupã®ãªãã¸ã§ã¯ãã¨ãããããåºæºãå®ç¾©ããæ¹æ³ã¯å¹¾ã¤ãããã¾ããBeautiful Soupãæã¤å¨ã¦ã®æ¤ç´¢ã¡ã½ããã®åºç¤ã¨ãªãfindAllããèª¬æãã¾ãããã®åã«ãä»¥ä¸ã®ãã­ã¥ã¡ã³ãã§ãã¢ãã¾ãã
+from BeautifulSoup import BeautifulSoup
+doc = ['<html><head><title>Page title</title></head>',
+       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
+       '</html>']
+soup = BeautifulSoup(''.join(doc))
+print soup.prettify()
+# <html>
+#  <head>
+#   <title>
+#    Page title
+#   </title>
+#  </head>
+#  <body>
+#   <p id="firstpara" align="center">
+#    This is paragraph
+#    <b>
+#     one
+#    </b>
+#    .
+#   </p>
+#   <p id="secondpara" align="blah">
+#    This is paragraph
+#    <b>
+#     two
+#    </b>
+#    .
+#   </p>
+#  </body>
+# </html>
+
+
+ã¤ãã§ãªããããã®ç« ã§èª¬æããï¼ã¤ã®ã¡ã½ãã (findAllã¨find)ã¯Tagãªãã¸ã§ã¯ãã¨ãããã¬ãã«ãã¼ãµã¼ã«ã ãä½ç¨ããNavigableStringã«ã¯ä½¿ãã¾ããã(è¨³è¨»: ãããªã®ï¼)ãã¼ã¹ããªã¼ã®ä¸­ãæ¤ç´¢ããã§å®ç¾©ããã¡ã½ããã¯NavigableStringãªãã¸ã§ã¯ãã«ãä½¿ãã¾ãã
+
+åºæ¬ã®æ¤ç´¢ã¡ã½ãã: findAll(name, attrs, recursive, text, limit, **kwargs)Â¶
+findAllã¡ã½ããã¯ä¸ããããå ´æããããªã¼ãæ¸¡ãå§ãã¾ããããã¦ãå¨ã¦ã®é©åããTagã¨NavigableStringãè¦ã¤ãã¾ããfindAllã¡ã½ããã®ã·ã°ããã£ã¯ãã®éãã§ãã
+
+findAll(name=None, attrs={}, recursive=True, text=None, limit=None, **kwargs)Â¶
+ãããã®å¼æ°ã¯Beautiful Soupã®APIã®ä¸­ã§ä½åº¦ãä½åº¦ãåºã¦ãã¾ãããã®ä¸­ã§æãéè¦ãªã®ã¯nameã¨ã­ã¼ã¯ã¼ãå¼æ°ã§ãã
+
+nameå¼æ°ã¯ã¿ã°ãnameã§å¶éãã¾ããnameãå¶éããæ¹æ³ã¯ããã¤ãããããããã¯Beautiful Soupã®APIã§ä½åº¦ãåºã¦ãã¾ãã
+
+ä¸çªç°¡åãªä½¿ç¨æ³ã¯ãã¿ã°ã®ååãæ¸¡ããã¨ã§ãããã®ã³ã¼ãã¯ãã­ã¥ã¡ã³ãä¸­ã®å¨ã¦ã®<B>ã¿ã°ãè¦ã¤ãã¾ãã
+soup.findAll('b')
+# [<b>one</b>, <b>two</b>]
+
+
+
+æ­£è¦è¡¨ç¾ãæ¸¡ããã¨ãåºæ¥ã¾ãããã®ã³ã¼ãã¯Bã§å§ã¾ãååã®ã¿ã°ãå¨ã¦è¦ã¤ãã¦ãã¾ãã
+import re
+tagsStartingWithB = soup.findAll(re.compile('^b'))
+[tag.name for tag in tagsStartingWithB]
+# [u'body', u'b', u'b']
+
+
+
+ãªã¹ããè¾æ¸ã§æ¸¡ããã¨ãåºæ¥ã¾ãããã®ï¼ã¤ã®å¼ã³åºãã¯å¨ã¦ã®<TITLE>ã¨<P>ã¿ã°ãè¦ã¤ãã¦ãã¾ãããã®ï¼ã¤ã¯åãåãããã¾ãããäºçªç®ã®ã»ããéãã§ãã
+soup.findAll(['title', 'p'])
+# [<title>Page title</title>,
+#  <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+soup.findAll({'title' : True, 'p' : True})
+# [<title>Page title</title>,
+#  <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+
+
+ç¹å¥ãªå¤ã®Trueãæ¸¡ããã¨ãåºæ¥ã¾ããããã¯ååãæã¤å¨ã¦ã®ã¿ã°ã«ããããã¾ããã¤ã¾ããå¨ã¦ã®ã¿ã°ã§ãã
+allTags = soup.findAll(True)
+[tag.name for tag in allTags]
+[u'html', u'head', u'title', u'body', u'p', u'b', u'p', u'b']
+
+
+ããã¯ä¸è¦ä¾¿å©ãªããã«ã¯è¦ãã¾ããããå±æ§å¤ã§çµãæã«å½¹ã«ç«ã¡ã¾ãã
+
+
+
+
+
+
+Tagãªãã¸ã§ã¯ãã ããå¼æ°ã«åããçå½å¤ã ããè¿ããå¼ã³åºãå¯è½ãªãªãã¸ã§ã¯ããæ¸¡ããã¨ãã§ãã¾ããfindAllãè¦ã¤ããå¨ã¦ã®Tagãªãã¸ã§ã¯ãããã®å¼åºå¯è½ãªãã¸ã§ã¯ãã«æ¸¡ãããããããã®å¼åºãTrueãè¿ããããããããã¨ã¿ãªãã¾ãã
+ãã®ã³ã¼ãã¯å±æ§ãï¼ã¤æã¤ã¿ã°ã ããæ¢ãã¦ãã¾ãã
+
+
+
+soup.findAll(lambda tag: len(tag.attrs) == 2)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+
+ãã®ã³ã¼ãã¯ä¸æå­ã®ååããã¤ãå±æ§ãæããªãã¿ã°ãæ¢ãã¦ãã¾ãã
+soup.findAll(lambda tag: len(tag.name) == 1 and not tag.attrs)
+# [<b>one</b>, <b>two</b>]
+
+
+
+
+
+ã­ã¼ã¯ã¼ãå¼æ°ã¯ã¿ã°ã®å±æ§ãå¶éãã¾ãããã®ç°¡åãªä¾ã§ã¯ã”aligin”å±æ§ã”center”ãªã¿ã°ãå¨ã¦è¦ã¤ãã¾ãã
+soup.findAll(align="center")
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>]
+
+
+nameå¼æ°ã¨åãããã«ãã­ã¼ã¯ã¼ãå¼æ°ã«ã¯å¯¾å¿ããå±æ§ã«å¯¾ãã¦å¥ãã®å¶éãããããã¤ãããã¾ããæå­åãæ¸¡ããã¨ãåºæ¥ã¾ãããä¸ã¤ã®å¤ã ãã«å¶éãããã¨ãã§ãã¾ããæ­£è¦è¡¨ç¾ããªã¹ããè¾æ¸ãTrueãNoneãå±æ§å¤ãå¼æ°ã«æ¸¡ãå¼ã³åºãå¯è½ãªãã¸ã§ã¯ã(å±æ§å¤ã¯Noneã®æããããã¨ã«æ³¨æãã¦ãã ãã)ãå¨ã¦æ¸¡ãã¾ããä¾ãè¦ã¦ãã ããã
+
+soup.findAll(id=re.compile("para$"))
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+soup.findAll(align=["center", "blah"])
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+soup.findAll(align=lambda(value): value and len(value) < 5)
+# [<p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+
+
+Trueã¨Noneã¯ç¹å¥ãªå¤ã§ããTrueã¯ä¸ããå±æ§ã®ã©ããªå¤ãæã¤ã¿ã°ã«ãããããã¾ãããNoneã¯ä¸ããå±æ§ã®ãã¡å¤ãæããªãã¿ã°ã«ããããã¾ããä¾ãè¦ã¦ãã ããã
+soup.findAll(align=True)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+[tag.name for tag in soup.findAll(align=None)]
+# [u'html', u'head', u'title', u'body', u'b', u'b']
+
+
+ãããã¿ã°ã®å±æ§ã«è¤éãªããããã¯çµã¿åããã®å¶éãè¡ãããã®ãªãã°ãä¸ã«æ¸ããã¦ããããã«nameã«å¼åºå¯è½ãªãã¸ã§ã¯ããæ¸¡ããTagãªãã¸ã§ã¯ããå¦çãã¦ãã ããã
+ããã§åé¡ããããã¨ã«æ°ãã¤ãããããã¾ããããããnameã¨ããå±æ§ãå®ç¾©ããã¿ã°ããã£ãå ´åã«ã©ããªãã§ããããnameã¨ããååãæã¤ã­ã¼ã¯ã¼ãå¼æ°ãä½¿ããã¨ã¯åºæ¥ã¾ããããªããªã Beautiful Soupã®æ¤ç´¢ç¨ã¡ã½ããããã§ã«nameå¼æ°ãå®ç¾©ãã¦ããããã§ããä»ã«ããPythonã®äºç´å¾ã¯ã­ã¼ã¯ã¼ãå¼æ°ã¨ãã¦ä½¿ãã¾ããã
+Beautiful Soupã¯ããããå ´åã«ä½¿ããattrã¨ããç¹å¥ãªå¼æ°ãç¨æãã¦ãã¾ããattrsã¯ã­ã¼ã¯ã¼ãå¼æ°ã¨åãããã«è¾æ¸åã¨ãã¦æ¯ãèãã¾ãã
+soup.findAll(id=re.compile("para$"))
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+soup.findAll(attrs={'id' : re.compile("para$")})
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+
+
+
+classã»forã»importãªã©ã®Pythonã®äºç´èªããããã¯ãnameã»recursiveã»limitã»textã»attrsãªã©ãBeautiful Soupã§ä½¿ã£ã¦ããã¡ã½ãããååã¨ãã¦æã¤å±æ§ãæ¤ç´¢ã®æ¡ä»¶ã¨ãããæã«attrãä½¿ãã¾ãã
+
+from BeautifulSoup import BeautifulStoneSoup
+xml = '<person name="Bob"><parent rel="mother" name="Alice">'
+xmlSoup = BeautifulStoneSoup(xml)
+
+xmlSoup.findAll(name="Alice")
+# []
+
+xmlSoup.findAll(attrs={"name" : "Alice"})
+# [parent rel="mother" name="Alice"></parent>]
+
+
+
+
+
+CSSã¯ã©ã¹ã§æ¤ç´¢ããÂ¶
+attrå¼æ°ã¯ã¡ãã£ã¨åããã«ããæ©è½ã§ãããããCSSã®ã¯ã©ã¹ãæã¤ã¿ã°ãæ¤ç´¢ããã®ã«ä½¿ãã¾ãã CSSã®å±æ§ã¯classã¨ããPythonã®äºç´èªã¨åãååãä½¿ã£ã¦ããããããã®ã¾ã¾ã§ã¯æ¤ç´¢ã§ããªãããã§ãã
+CSSã¯ã©ã¹ãsoup.find(“tagName”, { “class” : “cssClass” } ã¨ãã¦æ¤ç´¢ã§ãã¾ãããããªè¯ãããæä½ã§ã¯ãããããªã³ã¼ããèãããã¾ããä¾ãã°ãè¾æ¸åã®ä»£ããã«æå­åãattrsã«æ¸¡ãã¦ãåä½ãã¾ãããã®æå­åã¯CSSã¯ã©ã¹ãæ¤ç´¢ããããã«ä½¿ããã¾ãã
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("""Bob's <b>Bold</b> Barbeque Sauce now available in
+                        <b class="hickory">Hickory</b> and <b class="lime">Lime</a>""")
+
+soup.find("b", { "class" : "lime" })
+# <b class="lime">Lime</b>
+
+soup.find("b", "hickory")
+# <b class="hickory">Hickory</b>
+
+
+
+textã¯Tagã®ä»£ããã«NavigableStringãªãã¸ã§ã¯ããæ¤ç´¢ããããã®ãã­ã¹ã§ãããã®å¤ã«ã¯æå­åãæ­£è¦è¡¨ç¾ãè¾æ¸åã®ãªã¹ããTrueãNoneãNavigableStringãªãã¸ã§ã¯ããå¼æ°ã«åãå¼ã³åºãå¯è½ãªãã¸ã§ã¯ããä½¿ãã¾ãã
+soup.findAll(text="one")
+# [u'one']
+soup.findAll(text=u'one')
+# [u'one']
+
+soup.findAll(text=["one", "two"])
+# [u'one', u'two']
+
+soup.findAll(text=re.compile("paragraph"))
+# [u'This is paragraph ', u'This is paragraph ']
+
+soup.findAll(text=True)
+# [u'Page title', u'This is paragraph ', u'one', u'.', u'This is paragraph ',
+#  u'two', u'.']
+
+soup.findAll(text=lambda(x): len(x) < 12)
+# [u'Page title', u'one', u'.', u'two', u'.']
+
+If you use ``text``, then any values you give for ``name`` and the keyword arguments are ignored.
+
+
+
+recursiveã¯çå½å¤(ããã©ã«ãã¯True)ã®å¼æ°ã§ããããã¯ Beautiful Soupããã¼ã¹ããªã¼ãå¨ã¦ãã©ãããTagãããã¯ãã¼ãµã¼ãªãã¸ã§ã¯ãã®ç´ä¸ã®å­ä¾ã ããè¦ãããæå®ãã¾ãããã®å·®ãä»¥ä¸ã®ä¾ã§ç¤ºãã¾ãã
+[tag.name for tag in soup.html.findAll()]
+# [u'head', u'title', u'body', u'p', u'b', u'p', u'b']
+
+[tag.name for tag in soup.html.findAll(recursive=False)]
+# [u'head', u'body']
+
+
+recursiveãFalseã®æã<HTML>ã¿ã°ç´ä¸ã®å­ä¾ããæ¤ç´¢ãã¾ãããç´ä¸ã ããæ¢ãã°ããæã«ãããä½¿ãã¨ãæéãç­ç¸®ã§ãã¾ãã
+
+limitå¼æ°ãè¨­å®ããã¨ãæ¤ç´¢ã®æ°ãå¶éã§ãã¾ãããããã­ã¥ã¡ã³ãã«1000åã®ãã¼ãã«ãããããã®4çªç®ã®ãã¼ãã«ã ãå¿è¦ãªå ´åãlimitã«4ãå¥ããã°æéãç­ç¸®ã§ãã¾ããããã©ã«ãã§ã¯å¶éã¯ããã¾ããã
+soup.findAll('p', limit=1)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>]
+
+soup.findAll('p', limit=100)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>,
+#  <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>]
+
+
+
+
+
+
+
+findAllãå¼ã³åºãã®ã¨åãããã«ã¿ã°ãå¼ã³åºãÂ¶
+ã¡ãã£ã¨ããã·ã§ã¼ãã«ãããããã¾ããããã¼ãµã¼ãªãã¸ã§ã¯ããTagãé¢æ°ã®ããã«å¼ã³åºããfindAllã¨åãå¼æ°ãä¸ããããããã¯findAllã®å¼ã³åºãã«ãªãã¾ããä¸è¨ã®ä¾ã
+soup(text=lambda(x): len(x) < 12)
+# [u'Page title', u'one', u'.', u'two', u'.']
+
+soup.body('p', limit=1)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>]
+
+
+
+find(name, attrs, recursive, text, **kwargs)Â¶
+OKãä»ã®æ¤ç´¢ã¡ã½ãããè¦ã¦ããã¾ãããããããã¯ã»ã¨ãã©findAllã¨åãå¼æ°ãåãã¾ãã
+findã¡ã½ããã¯findAllã¨ã»ã¼åãã§ãããé©åããå¨ã¦ã®ãªãã¸ã§ã¯ããè¿ãã®ã§ã¯ãªããfindã¯è¦ã¤ããæåã®ãªãã¸ã§ã¯ãã ããè¿ãã¾ããããã¯limitã«1ãä¸ãã¦ãè¿ãå¤ã®éåãåãåºããçµæã«ä¼¼ã¦ãã¾ããä¸è¨ã®ãã­ã¥ã¡ã³ãã§ã®ä¾:
+soup.findAll('p', limit=1)
+# [<p id="firstpara" align="center">This is paragraph <b>one</b>.</p>]
+
+soup.find('p', limit=1)
+# <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>
+
+soup.find('nosuchtag', limit=1) == None
+# True
+
+
+ä¸è¬çã«è¤æ°å½¢ã®åå(findAllãfindNextSiblings) ãæã¤æ¤ç´¢ã¡ã½ããã¯ãlimitå¼æ°ãåããè¿ãå¤ã¯éåã§ããè¤æ°å½¢ã§ãªãåå(findãfindNextSibling)ã¯ãlimitãåãããåä¸ã®çµæãè¿ãã¾ãã
+
+
+
+firstã«ä½ãèµ·ããã®ï¼Â¶
+Beautiful Soupã®ä»¥åã®ãã¼ã¸ã§ã³ã§ã¯ãfirstãfetchãfetchPreviousã¨ããã¡ã½ãããããã¾ããããããã®ã¡ã½ããã¯ã¾ã ããã¾ãããdeprecated(å»æ­¢äºå®)ã§ãè¿ããã¡ã«ãªããªãã¾ãããããã®ååã®ã¡ã½ãããæã¤å¹æã¯ã¨ã¦ãæ··ä¹±ãã¾ããæ°ããååã¯ååã«ä¸è²«æ§ãããã¾ããä¸è¨ã§è¿°ã¹ãããã«ãã¡ã½ããåãè¤æ°å½¢ãããã¯Allãã¤ãã¦ããå ´åãè¤æ°ã®ãªãã¸ã§ã¯ããè¿ãã¾ããããã§ãªããã°åä¸ã®ãªãã¸ã§ã¯ããè¿ãã¾ãã
+
+
+
+ãã¼ã¹ããªã¼ã®ä¸­ãæ¤ç´¢ããÂ¶
+findAllã¨findã¯ãã¼ã¹ããªã¼ã®æå®ããå ´æããå§ã¾ããè¾¿ã£ã¦è¡ãã¾ããä¸çªæå¾ã«ãã©ãçãã¾ã§ãªãã¸ã§ã¯ãã®contentsãåå¸°çã«ã¤ãã¬ã¼ããã¾ãã
+ããã¯NavigableStringãªãã¸ã§ã¯ãã§ã¯ãããã®ã¡ã½ãããå¼ã¹ãªãã¨ãããã¨ãæå³ãã¦ãã¾ãããªããªãNavigableStringãªãã¸ã§ã¯ãã¯contentsãæããªãããã¼ã¹ããªã¼ã®èã®é¨åã ããã§ãã
+ããããä¸æ¹åã ãããã­ã¥ã¡ã³ããã¤ãã¬ã¼ãããæ¹åã§ã¯ããã¾ããããã¼ã¹ããªã¼ãããã²ã¼ãããã§è¿°ã¹ãããã«ãä»ã«ããããããªæ¹æ³ãããã¾ããparentãnextSiblingãªã©ã§ãããããã®ã¤ãã¬ã¼ãã¯ï¼ã¤ã®å¯¾å¿ããã¡ã½ãããæã£ã¦ãã¾ããä¸ã¤ã¯findAllã¨ä¼¼ã¦ãããããä¸ã¤ã¯findã¨ä¼¼ã¦ãã¾ããNavigableStringãªãã¸ã§ã¯ãã¯ãããã®æä½ããµãã¼ããã¦ããã®ã§ããããã®ã¡ã½ãããTagãªãã¸ã§ã¯ãããã¼ãµã¼ãªãã¸ã§ã¯ãã¨åãããã«å¼ã³åºããã¨ãåºæ¥ã¾ãã
+ãªãã§ãããä¾¿å©ãªãã§ããããã æ¬²ããTagãNavigableStrinãfindAllãããã¯findã§ããªãã¨ããããã¾ããä¾ãã°ããããªHTMLãèãã¦ã¿ã¾ãããã
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup('''<ul>
+ <li>An unrelated list
+</ul>
+
+<h1>Heading</h1>
+<p>This is <b>the list you want</b>:</p>
+<ul><li>The data you want</ul>''')
+
+
+æ¬²ãããã¼ã¿ãæã£ã¦ãã<LI>ã¿ã°ãå¾ãæ¹æ³ã¯ããã¤ãããã¾ããæãåãããããã®ã¯ãããªæãã§ãã
+soup('li', limit=2)[1]
+# <li>The data you want</li>
+
+
+<LI>ã¿ã°ãæã«å¥ããå®å®ããæ¹æ³ã§ã¯ãªããã¨ã¯æç½ã§ããããä¸åã ãã¹ã¯ã¬ã¤ãã³ã°ãããã®ã§ããã°åé¡ã«ã¯ãªãã¾ããããããé·æéã«æ¸¡ã£ã¦ä½åº¦ãã¹ã¯ã¬ã¤ãã³ã°ããã®ã§ããã°ãã®ãããªéæ®ã¯ã¨ã¦ãéè¦ã«ãªãã§ããããããå¥ã®<LI>ã¿ã°ã«ãã£ã¦ééã£ããªã¹ããä½ã£ãå ´åãæ¬²ãããã®ã¨ã¯å¥ã®ã¿ã°ãæã«å¥ããäºã«ãªããééã£ããã¼ã¿ã§ããªãã®ã¹ã¯ãªãããå£ãã¦ãã¾ãã§ãããã
+soup('ul', limit=2)[1].li
+# <li>The data you want</li>
+
+
+ããã¯ã¡ãã£ã¨ã¾ãã«ãªãã¾ããããªããªããééã£ããªã¹ãã«ãªã£ã¦ãçãæ®ããããã§ããã§ãããã­ã¥ã¡ã³ããæåããééã£ãå¥ã®ãªã¹ãã®å ´åãæ¬²ãã<LI>ã¿ã°ã§ã¯ãªããæåã®<LI>ã¿ã°ãæã«å¥ãããã¨ã«ãªãã¾ãããã£ã¨ä¿¡é ¼æ§ãããæ¹æ³ã¯ããã­ã¥ã¡ã³ãæ§é ã®ä¸­ã®ulã¿ã°ã®å ´æãåæ ãããæ¹æ³ã§ãã
+ãã®HTMLãè¦ãæãæ¬²ãããªã¹ãã¯ã<H1>ã¿ã°ã®ä¸ã«ãã<UL>ã¿ã°ãã§ããã¨æãã§ããããåé¡ã¯ã<UL>ã¿ã°ã¯<h1>ã¿ã°ã«å«ã¾ãã¦ããããã§ã¯ãªãã¨ãããã¨ã§ããåã«ç¶ãã¦ããã ãã§ãã<H1>ã¿ã°ãå¾ãã®ã¯ç°¡åã§ããã<UL>ã¿ã°ãfirstãfetchãä½¿ã£ã¦å¾ãæ¹æ³ã¯ããã¾ããããªããªãããããã®ã¡ã½ããã¯<H1>ã¿ã°ã®contentsã ããæ¢ãããã§ãã<UL>ã¿ã°ãè¦ã¤ããã«ã¯nextãnextSiblingã¡ã³ãå¤æ°ãä½¿ãã¾ãã
+s = soup.h1
+while getattr(s, 'name', None) != 'ul':
+    s = s.nextSibling
+s.li
+# <li>The data you want</li>
+
+
+ãããã¯ããã£ã¨ä¿¡é ¼æ§ãããæ¹æ³ã¯ãã¡ãã§ãã
+s = soup.find(text='Heading')
+while getattr(s, 'name', None) != 'ul':
+    s = s.next
+s.li
+# <li>The data you want</li>
+
+
+ããããä¹ãè¶ããªããã°ãªããªãåé¡ãã¾ã ããã¾ãããã®ç« ã§è¿°ã¹ãã¡ã½ããã¯ä¾¿å©ãªçç¥æ³ãããã¾ãããããã¯ããã²ã¼ãããå¤ã®ä¸ã¤ãã«ã¼ããããã®ã«ä½¿ãã¾ã(è¨³è¨»: èªä¿¡ãªã)ãããªã¼ã®ä¸­ã§ã®éå§å°ç¹ãä¸ããã¨ãæå®ããæ¡ä»¶ã«é©åããTagãNavigableStringãªãã¸ã§ã¯ããè¨é²ãã¤ã¤ããªã¼ãããã²ã¼ããã¦ããã¾ããä¸ã®ã³ã¼ãã®æåã®ã«ã¼ãã®ä»£ããã«ããæ¸ããã¨ãåºæ¥ã¾ãã
+soup.h1.findNextSibling('ul').li
+# <li>The data you want</li>
+
+
+äºçªç®ã®ã«ã¼ãã®ä»£ããã«ããæ¸ãã¦ãå¤§ä¸å¤«ã§ãã
+soup.find(text='Heading').findNext('ul').li
+# <li>The data you want</li>
+
+
+ãããã®ã«ã¼ãã¯findNextSiblingã¨findNextã§ç½®ãæãããã¾ãããã®ç« ã®æ®ãã§ãã®ãããªã¡ã½ããã®å¨é¨ãè§£èª¬ãã¾ããããä¸åº¦è¨ãã¾ãããå¨ã¦ã®ããã²ã¼ãå¤æ°ã¯2ç¨®é¡ã®ã¡ã½ãããããã¾ããä¸ã¤ã¯findAllã¨åãããã«ãªã¹ããè¿ããããä¸ã¤ã¯findã¨åãããã«åä¸ã®ãªãã¸ã§ã¯ããè¿ãã¾ãã
+æå¾ã«ãè¦æ£ããsoupã®ãã­ã¥ã¡ã³ããä¾ã¨ãã¦ä½¿ã£ã¦ã¿ã¾ãã
+from BeautifulSoup import BeautifulSoup
+doc = ['<html><head><title>Page title</title></head>',
+       '<body><p id="firstpara" align="center">This is paragraph <b>one</b>.',
+       '<p id="secondpara" align="blah">This is paragraph <b>two</b>.',
+       '</html>']
+soup = BeautifulSoup(''.join(doc))
+print soup.prettify()
+# <html>
+#  <head>
+#   <title>
+#    Page title
+#   </title>
+#  </head>
+#  <body>
+#   <p id="firstpara" align="center">
+#    This is paragraph
+#    <b>
+#     one
+#    </b>
+#    .
+#   </p>
+#   <p id="secondpara" align="blah">
+#    This is paragraph
+#    <b>
+#     two
+#    </b>
+#    .
+#   </p>
+#  </body>
+# </html>
+
+
+
+findNextSiblings(name, attrs, text, limit, **kwargs) ã¨ findNextSibling(name, attrs, text, **kwargsÂ¶
+ãããã®ã¡ã½ããã¯ãããªãã¸ã§ã¯ãã®nextSiblingã¡ã³ãã¼å¤æ°ãè¾¿ããæå®ããTagãããã¯NavigableTextãéãã¦ãã¾ããä¸è¨ãã­ã¥ã¡ã³ãã«é¢é£ãã¾ãã
+paraText = soup.find(text='This is paragraph ')
+paraText.findNextSiblings('b')
+# [<b>one</b>]
+
+paraText.findNextSibling(text = lambda(text): len(text) == 1)
+# u'.'
+
+
+
+
+findPreviousSiblings(name, attrs, text, limit, **kwargs) ã¨ findPreviousSibling(name, attrs, text, **kwargs)Â¶
+ãããã®ã¡ã½ããã¯ãããªãã¸ã§ã¯ãã®previousSiblingã¡ã³ãå¤æ°ãè¾¿ããæå®ããTagãããã¯NavigableTextãéãã¦ãã¾ããä¸è¨ãã­ã¥ã¡ã³ãã«é¢é£ãã¾ãã
+paraText = soup.find(text='.')
+paraText.findPreviousSiblings('b')
+# [<b>one</b>]
+
+paraText.findPreviousSibling(text = True)
+# u'This is paragraph '
+
+
+
+
+findAllNext(name, attrs, text, limit, **kwargs) ã¨ findNext(name, attrs, text, **kwargs)Â¶
+ãããã®ã¡ã½ããã¯ãããªãã¸ã§ã¯ãã®ã¡ã³ãå¤æ°ãè¾¿ããæå®ããTagãããã¯NavigableTextãéãã¦ãã¾ããä¸è¨ãã­ã¥ã¡ã³ãã«é¢é£ãã¾ãã
+pTag = soup.find('p')
+pTag.findAllNext(text=True)
+# [u'This is paragraph ', u'one', u'.', u'This is paragraph ', u'two', u'.']
+
+pTag.findNext('p')
+# <p id="secondpara" align="blah">This is paragraph <b>two</b>.</p>
+
+pTag.findNext('b')
+# <b>one</b>
+
+
+
+
+findAllPrevious(name, attrs, text, limit, **kwargs) ã¨ findPrevious (name, attrs, text, **kwargs)Â¶
+ãããã®ã¡ã½ããã¯ãããªãã¸ã§ã¯ãã®previousã¡ã³ãå¤æ°ãè¾¿ããæå®ããTagãããã¯NavigableTextãéãã¦ãã¾ããä¸è¨ãã­ã¥ã¡ã³ãã«é¢é£ãã¾ãã
+lastPTag = soup('p')[-1]
+lastPTag.findAllPrevious(text=True)
+# [u'.', u'one', u'This is paragraph ', u'Page title']
+# Note the reverse order!
+
+lastPTag.findPrevious('p')
+# <p id="firstpara" align="center">This is paragraph <b>one</b>.</p>
+
+lastPTag.findPrevious('b')
+# <b>one</b>
+
+
+
+
+findParents(name, attrs, limit, **kwargs) ã¨ findParent(name, attrs, **kwargs)Â¶
+ãããã®ã¡ã½ããã¯ãããªãã¸ã§ã¯ãã®parentã¡ã³ãå¤æ°ãè¾¿ããæå®ããTagãããã¯NavigableTextãéãã¦ãã¾ãããããã¯textå¼æ°ãåãã¾ããããªããªããã©ããªãªãã¸ã§ã¯ããNavigableStringãè¦ªã¨ãã¦æããªãããã§ãä¸è¨ãã­ã¥ã¡ã³ãã«é¢é£ãã¾ãã
+bTag = soup.find('b')
+
+[tag.name for tag in bTag.findParents()]
+# [u'p', u'body', u'html', '[document]']
+# NOTE: "u'[document]'" means that that the parser object itself matched.
+
+bTag.findParent('body').name
+# u'body'
+
+
+
+
+
+ãã¼ã¹ããªã¼ãå¤æ´ãããÂ¶
+ããã§ãã¼ã¹ããªã¼ã®ä¸­ãããªã«ããè¦ã¤ããæ¹æ³ãåããã¾ãããã§ãããã¶ãè¦ã¤ãããã®ãå¤æ´ãããè¡¨ç¤ºããããããã§ãããããã®å ´åãåã«ãã®ã¨ã¬ã¡ã³ãããã®è¦ªã®contentsããåãé¤ãã°è¯ãã§ã(è¨³è¨»: ã¡ãã£ã¨ä¸æ)ããã®å ´åã§ããã­ã¥ã¡ã³ãã®æ®ãã¯ä»åãé¤ããã¨ã¬ã¡ã³ãã¸ã®åç§ãæã£ã¦ãã¾ããBeautiful Soupã¯åé¨ã®ä¸è²«æ§ãä¿ã¡ã¤ã¤ããã¼ã¹ããªã¼ãå¤æ´ããã¡ã½ãããæä¾ãã¾ãã
+
+å±æ§ã®å¤ãå¤ããÂ¶
+è¾æ¸å½¢å¼ã«ãªã£ã¦ããTagãªãã¸ã§ã¯ãã®å±æ§å¤ãç´æ¥å¤ããã¨ãã¨ã¬ã¡ã³ãã®å±æ§ã®å¤ãå¤ãã£ããã¨ã«ãªãã¾ãã
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("<b id="2">Argh!</b>")
+print soup
+# <b id="2">Argh!</b>
+b = soup.b
+
+b['id'] = 10
+print soup
+# <b id="10">Argh!</b>
+
+b['id'] = "ten"
+print soup
+# <b id="ten">Argh!</b>
+
+b['id'] = 'one "million"'
+print soup
+# <b id='one "million"'>Argh!</b>
+
+
+åãããã«ãå±æ§ã®å¤ãæ¶ããããæ°ããå±æ§ãä»ãå ããããåºæ¥ã¾ãã
+del(b['id'])
+print soup
+# <b>Argh!</b>
+
+b['class'] = "extra bold and brassy!"
+print soup
+# <b class="extra bold and brassy!">Argh!</b>
+
+
+
+
+ã¨ã¬ã¡ã³ããåé¤ããÂ¶
+ä¸åº¦ã¨ã¬ã¡ã³ãã¸ã®åç§ãå¾ã¦ãã¾ãã°ãextractã¡ã½ãããä½¿ã£ã¦ãã®ã¨ã¬ã¡ã³ããããªã¼ããåãæã£ã¦ãã¾ãã¾ãããã®ã³ã¼ãã¯ãã­ã¥ã¡ã³ãããå¨ã¦ã®ã³ã¡ã³ããåãé¤ãã¾ãã
+from BeautifulSoup import BeautifulSoup, Comment
+soup = BeautifulSoup("""1<!--The loneliest number-->
+                        <a>2<!--Can be as bad as one--><b>3""")
+comments = soup.findAll(text=lambda text:isinstance(text, Comment))
+[comment.extract() for comment in comments]
+print soup
+# 1
+# <a>2<b>3</b></a>
+
+
+ãã®ã³ã¼ãã¯ãã­ã¥ã¡ã³ãã®ä¸­ã®ãããµãããªã¼ãå¨é¨åãé¤ãã¾ãã
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("<a1></a1><a><b>Amazing content<c><d></a><a2></a2>")
+soup.a1.nextSibling
+# <a><b>Amazing content<c><d></d></c></b></a>
+soup.a2.previousSibling
+# <a><b>Amazing content<c><d></d></c></b></a>
+
+subtree = soup.a
+subtree.extract()
+
+print soup
+# <a1></a1><a2></a2>
+soup.a1.nextSibling
+# <a2></a2>
+soup.a2.previousSibling
+# <a1></a1>
+
+
+extractã¡ã½ããã¯ä¸ã¤ã®ãã¼ã¹ããªã¼ãäºã¤ã®å¥ãã®ããªã¼ã«åè§£ãã¾ããããã²ã¼ã·ã§ã³ã®ã¡ã³ãå¤æ°ã¯å¤åããããããã®äºã¤ã®ããªã¼ã¯ããäºåº¦ã¨ä¸ã¤ã«ãªããªãããã«è¦ãã¾ãã
+soup.a1.nextSibling
+# <a2></a2>
+soup.a2.previousSibling
+# <a1></a1>
+subtree.previousSibling == None
+# True
+subtree.parent == None
+# True
+
+
+
+
+ããã¨ã¬ã¡ã³ããå¥ãªã¨ã¬ã¡ã³ãã«ç½®ãæããÂ¶
+replaceWithã¡ã½ããã¯ä¸ã¤ã®ãã¼ã¸ã¨ã¬ã¡ã³ããåãé¤ããå¥ã®ã¨ã¬ã¡ã³ãã§ç½®ãæãã¾ããæ°ããã¨ã¬ã¡ã³ãã¯Tag(ãã®ã¨ã¬ã¡ã³ãã®ç´ä¸ã®ãã¼ã¹ããªã¼å¨ä½ããããã¾ãã) ã§ããNavigableStringã§ããã¾ãã¾ãããããåãªãæå­åãreplaceWithã«ä¸ããå ´åãNavigableStringã«å¤æããã¾ãããã¼ã¹ãç´ããããããããã²ã¼ã·ã§ã³ã®ã¡ã³ãå¤æ°ã¯å¤ããã¾ãã
+ç°¡åãªä¾ãè¨ãã¾ãã
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("<b>Argh!</b>")
+soup.find(text="Argh!").replaceWith("Hooray!")
+print soup
+# <b>Hooray!</b>
+
+newText = soup.find(text="Hooray!")
+newText.previous
+# <b>Hooray!</b>
+newText.previous.next
+# u'Hooray!'
+newText.parent
+# <b>Hooray!</b>
+soup.b.contents
+# [u'Hooray!']
+
+
+ããã¿ã°ãå¥ã®ã¿ã°ã«å¥ãæ¿ãããããã¡ãã£ã¨è¤éãªä¾ã§ãã
+from BeautifulSoup import BeautifulSoup, Tag
+soup = BeautifulSoup("<b>Argh!<a>Foo</a></b><i>Blah!</i>")
+tag = Tag(soup, "newTag", [("id", 1)])
+tag.insert(0, "Hooray!")
+soup.a.replaceWith(tag)
+print soup
+# <b>Argh!<newTag id="1">Hooray!</newTag></b><i>Blah!</i>
+
+
+ãã­ã¥ã¡ã³ãã®ä¸é¨ããã¨ã¬ã¡ã³ããåãé¤ããå¥ã®å ´æã«åãè¾¼ããã¨ãã§ãã¾ãã
+from BeautifulSoup import BeautifulSoup
+text = "<html>There's <b>no</b> business like <b>show</b> business</html>"
+soup = BeautifulSoup(text)
+
+no, show = soup.findAll('b')
+show.replaceWith(no)
+print soup
+# <html>There's  business like <b>no</b> business</html>
+
+
+
+
+ã¾ã£ããæ°ããã¨ã¬ã¡ã³ããè¿½å ããÂ¶
+Tagã¯ã©ã¹ã¨ãã¼ãµã¼ã¯ã©ã¹ã¯insertã¨ããã¡ã½ãããæã£ã¦ãã¾ããããã¯Pythonã®ãªã¹ãã®insertã¡ã½ããã¨åãåãããã¾ããã¿ã°ãå«ãã§ããã¡ã³ãã¼ã®ã¤ã³ããã¯ã¹ãå¼æ°ã«åããæ°ããã¨ã¬ã¡ã³ãããã®å ´æã«åãè¾¼ã¿ã¾ãã
+ãã­ã¥ã¡ã³ãä¸­ã®ã¿ã°ãæ°ããã¿ã°ã§ç½®ãæãããã¢ã¯ãä»¥åã®ç« ã§è¡ãã¾ãããinsertãä½¿ã£ã¦å®å¨ãªãã¼ã¹ããªã¼ãä¸ããä½ãä¸ãããã¨ãåºæ¥ã¾ãã
+from BeautifulSoup import BeautifulSoup, Tag, NavigableString
+soup = BeautifulSoup()
+tag1 = Tag(soup, "mytag")
+tag2 = Tag(soup, "myOtherTag")
+tag3 = Tag(soup, "myThirdTag")
+soup.insert(0, tag1)
+tag1.insert(0, tag2)
+tag1.insert(1, tag3)
+print soup
+# <mytag><myOtherTag></myOtherTag><myThirdTag></myThirdTag></mytag>
+
+text = NavigableString("Hello!")
+tag3.insert(0, text)
+print soup
+# <mytag><myOtherTag></myOtherTag><myThirdTag>Hello!</myThirdTag></mytag>
+
+
+ä¸ã¤ã®ã¨ã¬ã¡ã³ãã¯ãä¸ã¤ã®ãã¼ã¹ããªã¼ã«ããã¦ä¸ã¤ã®å ´æããå­å¨ã§ãã¾ãããããããã§ã«soupãªãã¸ã§ã¯ãã§ä½¿ããã¦ããã¨ã¬ã¡ã³ããinsertãããã¨ããã¨ãã©ããã«å¥ããåã« (extractãä½¿ã£ã¦)soupãªãã¸ã§ã¯ãããåãå¤ããã¾ãããã®ä¾ã§ã¯ãNavigableStringãsoupã®äºã¤ç®ã®å ´æã«å¥ãããã¨ãã¦ãã¾ãããããä¸åº¦å¥ãããã¨ã¯ã§ãã¾ãããç§»åãã¾ãã
+tag2.insert(0, text)
+print soup
+# <mytag><myOtherTag>Hello!</myOtherTag><myThirdTag></myThirdTag></mytag>
+
+
+ããã¯ãã®ã¨ã¬ã¡ã³ããå®å¨ã«å¥ãªsoupãªãã¸ã§ã¯ãã«å±ãã¦ãèµ·ããã¾ããã¨ã¬ã¡ã³ãã¯åä¸ã®è¦ªã åä¸ã®nextSibleingãªã©ããæã¡ã¾ããããã®ãããã¨ã¬ã¡ã³ãã¯åæã«ä¸ã¤ã®å ´æã§ããå­å¨ããªãã®ã§ãã
+
+
+
+ãã©ãã«ã·ã¥ã¼ãã£ã³ã°Â¶
+ãã®ç« ã§ã¯Beautiful Soupãä½¿ãã¨ãã«ããããåé¡ã«ã¤ãã¦è§£èª¬ãã¾ãã
+
+ãªãã§ASCIIãããªãæå­ãã¡ããã¨è¡¨ç¤ºãã¦ãããªãã®ï¼Â¶
+ãããã®ã¨ã©ã¼ã“‘ascii’ codec can’t encode character ‘x’ in position y: ordinal not in range(128)”ã ã£ããããã®åé¡ã¯Beautiful Soupã§ã¯ãªãPythonã®åé¡ã§ããéASCIIã®æå­ãBeautiful Soupãä½¿ããã«è¡¨ç¤ºããã¦ãåãåé¡ãèµ·ãããã©ãããç¢ºèªãã¦ãã ãããä¾ãã°ãããã«å®éã«åãã³ã¼ããè¨ãã¾ãã
+latin1word = 'Sacr\xe9 bleu!'
+unicodeword = unicode(latin1word, 'latin-1')
+print unicodeword
+
+
+ãããããåãã¦Beautiful Soupã§ã¯åããªããã°ãããã¯ãã¶ãBeautiful Soupã®ãã°ã§ãããããããããããåããªããã°ããªãã®Pythonç°å¢ã®åé¡ã§ããPythonã¯å®å¨ã«éASCIIæå­ãã¿ã¼ããã«ã«å¾¡æ¬ãã¾ãããã®åä½ãä¸æ¸ãããããã«ã¯äºã¤ã®æ¹æ³ãããã¾ãã
+
+ç°¡åãªæ¹æ³ã¯ãæ¨æºåºåãISO-Latin-1ãUTF-8ã®æå­ã«å¯¾ããã³ã³ãã¼ã¿ã¼ã«ãããããªãããã¨ã§ãã
+
+
+
+import codecs
+import sys
+streamWriter = codecs.lookup('utf-8')[-1]
+sys.stdout = streamWriter(sys.stdout)
+
+
+codecs.lookupã¯ä½¿ããã¡ã½ããã®æ°ã¨ã³ã¼ããã¯ã«é¢é£ããä»ã®ãªãã¸ã§ã¯ããè¿ãã¾ããæå¾ã®ã¯ã¢ã¦ããããã¹ããªã¼ã ãã©ããã§ããStreamWriteãªãã¸ã§ã¯ãã§ãã
+
+
+é£ããæ¹æ³ã¯ãããã©ã«ãã®ã¨ã³ã³ã¼ãã£ã³ã°ãISO-Latin-1ãUTF-8ã«è¨­å®ããsitecustomeize.pyãã¡ã¤ã«ãä½ã£ã¦Pythonã®ç°å¢ã«ã¤ã³ã¹ãã¼ã«ããæ¹æ³ã§ããããã«ãããåãã®ãã­ã°ã©ã ã«ãªã«ããããã¨ãªããå¨ã¦ã®Pythonãã­ã°ã©ã ãæ¨æºåºåã«ãã®ã¨ã³ã³ã¼ãã£ã³ã°ãä½¿ãããã«ãªãã¾ããç§ã®ç°å¢ã§ã¯ã/usr/lib/python/sitecustomize.pyããããªæãã«ãªã£ã¦ã¾ãã
+
+
+
+import sys
+sys.setdefaultencoding("utf-8")
+
+
+
+Pythonã®ã¦ãã³ã¼ããµãã¼ãã«ã¤ãã¦ãã£ã¨ç¥ãããå ´åã¯ãUnicode for ProgrammersãEnd to End Unicode Web Applications in Pythonãè¦ã¦ãã ãããPythonã¯ãã¯ããã¯ã®1.20ã¨1.21ã®ã¬ã·ããåèã«ãªãã¾ãã
+ã¿ã¼ããã«ã®è¡¨ç¤ºãASCIIã«å¶éããã¦ããã¨ãã¦ãããã¼ã¹ãå¦çãUTF-8ãä»ã®ã¨ã³ã³ã¼ãã£ã³ã°ã§æ¸ãã ããã¨ã«Beautiful Soupãä½¿ãããã¨ã¯è¦ãã¦ããã¦ãã ããããã åã«printã§æ­£ããæå­ãè¡¨ç¤ºãããªãã ãã§ãããã
+
+
+Beautiful Soupã¯ãããé£ããããã¼ã¿ãç¡ããããã£ãï¼ãªãã§ï¼ãªãã§ã ãï¼Â¶
+Beautiful Soupã¯è²§å¼±ãªæ§é ã®SGMLãæ±ããã¨ãåºæ¥ã¾ãããSGMLã§ã¯ãªãã¨ã¿ãªãã¦æå ±ãå¤±ã£ã¦ãã¾ããã¨ãããã¾ããããã¯è²§å¼±ãªæ§é ãæã¤ãã¼ã¯ã¢ããã§å±éã«èµ·ãããã¨ã§ã¯ããã¾ããããwebã¯ã­ã¼ã©ã¼ãä½ã£ã¦ããæã¨ããå¶ç¶æå ±ãå¤±ããã¨ã¨ãããããã¾ãã
+è§£æ±ºæ¹æ³ã¯æ­£è¦è¡¨ç¾ã§ãã¼ã¿ãäºåã«ãµãã¿ã¤ãºãããã¨ã ãã§ããä»¥ä¸ã«ç§ãBeautiful Soupã®ã¦ã¼ã¶ãè¦ã¤ããä¾ãç¤ºãã¾ãã
+
+Beautiful Soupã¯ã¾ããå½¢å¼ã®ã®XMLå®ç¾©ããã¼ã¿ã¨ãã¦æ±ãã¾ããããããå®éã«ã¯å­å¨ããªãæ­£ããå½¢å¼ã®XMLå®ç¾©ãå¤±ã£ã¦ãã¾ãã¾ãã
+from BeautifulSoup import BeautifulSoup
+BeautifulSoup("< ! FOO @=>")
+# < ! FOO @=>
+BeautifulSoup("<b><!FOO>!</b>")
+# <b>!</b>
+
+
+
+ãããããªãã®ãã­ã¥ã¡ã³ããå®£è¨ããå§ã¾ããçµãããªãã£ãããBeautiful Soupã¯æ®ãã®ãã­ã¥ã¡ã³ããå®£è¨ã®ä¸é¨ã ã¨æ¨æ¸¬ãã¾ããããããã­ã¥ã¡ã³ããå®£è¨ã®éä¸­ã§çµãã£ãå ´åãBeautiful Soupã¯å®£è¨ãå®å¨ã«ç¡è¦ãã¾ããããã¤ãä¾ãç¤ºãã¾ãã
+from BeautifulSoup import BeautifulSoup
+
+BeautifulSoup("foo<!bar")
+# foo
+
+soup = BeautifulSoup("<html>foo<!bar</html>")
+print soup.prettify()
+# <html>
+#  foo<!bar</html>
+# </html>
+
+
+ãããç´ãæ¹æ³ã¯ããã¤ãããã¾ããã²ã¨ã¤ã¯ããã«æ¸ããã¦ãã¾ãã
+Beautiful Soupã¯ãã­ã¥ã¡ã³ãã®çµãã«ãã£ã¦ãçµãã£ã¦ããªãã¨ã³ãã£ãã£ã®åç§ãç¡è¦ãã¾ãã (è¨³è¨»: ãã¨ã§ç¢ºèª)
+BeautifulSoup("&lt;foo&gt")
+# &lt;foo
+
+
+ç§ã¯å®éã®webãã¼ã¸ã§ã¯è¦ããã¨ããã¾ãããããããã©ããã«ã¯ãããã§ãããã
+
+ä¸æ­£ãªå½¢å¼ã®ã³ã¡ã³ããããã¨ãBeautiful Soupã¯æ®ãã®ãã­ã¥ã¡ã³ããå¨é¨ç¡è¦ãã¦ãã¾ãã¾ããããã¯æ­£è¦è¡¨ç¾ã§ãµãã¿ã¤ãºããã§è¿°ã¹ã¦ãã¾ãã
+
+
+
+
+BeautifulSoupãä½ã£ããã¼ã¹ããªã¼ã¯ãªããããã«åãã­ã¼ãï¼Â¶
+éãããã«ãã¼ã¹ãããå ´åã¯ãä»ã®çµã¿è¾¼ã¿ãã¼ãµã¼ãããã¼ãµã¼ãã«ã¹ã¿ãã¤ãºãããåèã«ãã¦ãã ããã
+
+
+Beautiful Soupã¯ããã¼éããï¼Â¶
+Beautiful Soupã¯ElementTreeãèªåã§ä½ã£ãSGMLParserã®ãµãã¯ã©ã¹ããæ©ããªããã¨ã¯ããã¾ãããElementTreeã¯Cã§æ¸ããã¦ãã¾ãããSGMParserã¯èªåã®å¥½ããªããã«å°ããBeautiful Soupãæ¸ãã¾ããBeautiful Soupã®ç¹å¾´ã¯ããã­ã°ã©ãã®æéãæ¸ãããã¨ã§ããã­ã»ããµã®æéãæ¸ãããã¨ã§ã¯ããã¾ããããã
+ããã¯ã¤ã¾ããBeautiful Soupããã­ã¥ã¡ã³ãã®ä¸é¨ã ãããã¼ã¹ãããã¨ã§ãæ§è½ãåä¸ããããã¨ãã§ããã¨ãããã¨ã§ããã¾ããä½¿ã£ã¦ããªããªãã¸ã§ã¯ããextractãdecomposeãä½¿ã£ã¦GCã«ååããããã¨ãã§ãã¾ãã
+
+
+
+ãã£ã¨è©³ããÂ¶
+ããã¾ã§è¿°ã¹ã¦ãããã¨ã§ãBeautiful Soupã®åºæ¬çãªä½¿ãæ¹ã¯çµããã¾ãããããããHTMLã¨XMLã¯ããªãã­ã¼ã§ãå®éã®ä¸çã¯ãã£ã¨ããªãã­ã¼ã§ãããªã®ã§ãå®ã¯Beautiful Soupã¯ããã¡ãã£ã¨ä»æããé ãæã£ã¦ãã¾ãã
+
+ã¸ã§ãã¬ã¼ã¿ã¼Â¶
+ä¸ã§è¿°ã¹ãSearchã¡ã½ããã¯ã¸ã§ãã¬ã¼ã¿ã¼ã¡ã½ããã§åãã¦ãã¾ãããã®ã¡ã½ãããèªåã§ä½¿ããã¨ãã§ãã¾ããå·ä½çã«ã¯ãnextGeneratorã»previousGeneratorã»nextSiblingGeneratorã»previousSiblingGeneratorã»parentGeneratorã§ããTagããã¼ãµã¼ãªãã¸ã§ã¯ãã¯childGeneratorã¨recursiveChildGeneratorãããã«æã£ã¦ãã¾ãã
+ãã­ã¥ã¡ã³ããã¤ãã¬ã¼ããã¦æå­åãå¨ã¦éãããã¨ã§ãHTMLã¿ã°ãåãé¤ãç°¡åãªä¾ãç¤ºãã¾ãã
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("""<div>You <i>bet</i>
+<a href="http://www.crummy.com/software/BeautifulSoup/">BeautifulSoup</a>
+rocks!</div>""")
+
+''.join([e for e in soup.recursiveChildGenerator()
+         if isinstance(e,unicode)])
+# u'You bet\nBeautifulSoup\nrocks!'
+
+
+ãã¡ãããã¿ã°ã®ä¸ã®æå­åãè¦ã¤ããããã«ã¸ã§ãã¬ã¼ã¿ã¼ã¯å¿è¦ããã¾ãããæ¬¡ã®ã³ã¼ãã¯.findAll(text=True)ã¨åãäºããã¾ãã
+''.join(soup.findAll(text=True))
+# u'You bet\nBeautifulSoup\nrocks!'
+
+
+ãã£ã¡ã¯recursiveChildGeneratorãä½¿ããã£ã¨è¤éãªä¾ã§ãããã­ã¥ã¡ã³ãã®ã¨ã¬ã¡ã³ããã¤ãã¬ã¼ãããåºåãã¾ãã
+from BeautifulSoup import BeautifulSoup
+soup = BeautifulSoup("1<a>2<b>3")
+g = soup.recursiveChildGenerator()
+while True:
+    try:
+        print g.next()
+    except StopIteration:
+        break
+# 1
+# <a>2<b>3</b></a>
+# 2
+# <b>3</b>
+# 3
+
+
+
+
+ä»ã®çµã¿è¾¼ã¿ãã¼ãµã¼Â¶
+Beautiful Soupã«ã¯BeautifulSoupã¨BeautifulStoneSoupä»¥å¤ã«ï¼ã¤ã®ãã¼ãµã¼ã¯ã©ã¹ãããã¾ãã
+
+MinimalSoupã¯BeautifulSoupã®ãµãã¯ã©ã¹ã§ãHTMLã®ãããªç©ºè¦ç´ ã¿ã°ã<SCRIPT>ã¿ã°ã®ç¹æ®ãªæåã<META>ã¿ã°ãã¨ãããã¨ã³ã³ã¼ãã£ã³ã°ã®ç¨®é¡ãªã©ãçè§£ãã¾ããããããããã¯çµé¨åçã¢ã«ã´ãªãºã ãã¾ã£ããæã¡ã¾ããããã®ããã<LI>ã¿ã°ã<UL>ã¿ã°ã®ä¸ã«ãããã¨ãªã©ãç¥ãã¾ãããããã¯ççãªãã¼ã¯ã¢ããããã¼ã¹ããæã«ä½¿ãã¾ãã
+
+ICantBelieveItsBeautifulSoupã¯ã©ã¹ãBeautifulSoupã¯ã©ã¹ã®ãµãã¯ã©ã¹ã§ããããã¯HTMLæ¨æºã«è¿ãçµé¨åãæã¡ã¾ãããå®ä¸çã§ã©ã®ããã«ä½¿ããã¦ãããã¯ç¡è¦ãã¾ããä¾ãã°ã<B>ã¿ã°ãå¥ãå­ã«ãããã¨ã¯æ­£ããHTMLãªã®ã§ãããå®ä¸çã§ã¯å¥ãå­ã«ãªã£ã¦ãã<B>ã®ã»ã¨ãã©ã¯èèãæåã®<B>ã¿ã°ãéãå¿ãããã®ãªã®ã§ãããããæ¬å½ã«<B>ã¿ã°ã®å¥ãå­ãããããå ´åã«ã¯ãICantBelieveItsBeautifulSoupãä½¿ã£ã¦ãã ããã
+
+BeautifulSOAPã¯BeautifulStoneSoupã®ãµãã¯ã©ã¹ã§ããããã¯ãåã«è¦ªã¨ã¬ã¡ã³ãã®å±æ§ãä½¿ãããã ãã«ãµãã¨ã¬ã¡ã³ããä½¿ããSOAPã¡ãã»ã¼ã¸ããã¼ã¹ããã®ã«ä¾¿å©ã§ãã
+from BeautifulSoup import BeautifulStoneSoup, BeautifulSOAP
+xml = "<doc><tag>subelement</tag></doc>"
+print BeautifulStoneSoup(xml)
+# <doc><tag>subelement</tag></doc>
+print BeautifulSOAP(xml)
+<doc tag="subelement"><tag>subelement</tag></doc>
+
+
+BeautifulSOAPã§ã¯ã¿ã°ã®ä¸­èº«ãè¦ãªãã¦ã<TAG>ã¿ã°ã®ã³ã³ãã³ãã«ã¢ã¯ã»ã¹ã§ãã¾ãã
+
+
+
+
+ãã¼ãµã¼ãã«ã¹ã¿ãã¤ãºããÂ¶
+çµã¿è¾¼ã¿ã®ãã¼ãµã¼ã¯ã©ã¹ããã¾ãåããªãã¨ãã¯ãã«ã¹ã¿ãã¤ãºãå¿è¦ã§ãããã®ã«ã¹ã¿ãã¤ãºã¨ã¯ã ãããã®å ´åãå¥ãå­å¯è½ãªã¿ã°ã¨ç©ºè¦ç´ å¯è½ãªã¿ã°ã®ãªã¹ããããããã¨ã§ããç©ºè¦ç´ ã¿ã°ã¯selfClosingTagsãsoupã³ã³ã¹ãã©ã¯ã¿ã«æ¸¡ããã¨ã§ã«ã¹ã¿ãã¤ãºã§ãã¾ããå¥ãå­å¯è½ãªã¿ã°ã®ãªã¹ããã«ã¹ã¿ãã¤ãºããã«ã¯ããµãã¯ã©ã¹ãä½æããå¿è¦ãããã¾ãã
+æãä¾¿å©ãªã¯ã©ã¹ã¯MinimalSoup(HTMLåã) ã¨BeautifulStoneSoup(XMLåã)ã§ãããããããµãã¯ã©ã¹ã®ä¸­ã®RESET_NESTING_TAGSã¨NESTABLE_TAGSããªã¼ãã¼ã©ã¤ãããæ¹æ³ãèª¬æãã¾ããããã¯Beautiful Soupã§æãåããã«ããé¨åã§ãä¸æãèª¬æã§ãã¾ãããã§ãããªã«ãããæ¸ããã¨ã§ããã£ã¼ãããã¯ãåãã¦ãã£ã¨è¯ããããã¨ãã§ãã¾ãã
+Beautiful Soupããã­ã¥ã¡ã³ãããã¼ã¹ããæãéå§ã¿ã°ãã¹ã¿ãã¯ã«è©°ã¿ã¾ããæ°ããã¿ã°ãçºè¦ãããã³ã«ãã¹ã¿ãã¯ã®ä¸çªä¸ã«ç©ãã§ããã¾ããããããã®åã«ãä»ã®éå§ã¿ã°ãéããã¹ã¿ãã¯ããåãé¤ããã¨ãããã¾ããä»ã¾ãã«è¦ã¤ããã¿ã°ã®è³ªã¨ãã¹ã¿ãã¯ã®ä¸­ã®ã¿ã°ã®è³ªã«å¿ãã¦ã©ã®ã¿ã°ãéãããæ±ºå®ãã¾ãã
+ä¸çªè¯ãæ¹æ³ã¯ä¾ãä½¿ã£ã¦èª¬æãããã¨ã§ããä¾ãã°ãã¹ã¿ãã¯ã [‘html’, ‘p’, ‘b’] ã¨ãªã£ã¦ãã¨ãã¾ããããããã§Beautiful Soupã<P>ã¿ã°ãè¦ã¤ãã¾ãããããåã«ããä¸ã¤ã® ‘p’ ãã¹ã¿ãã¯ã«ç©ãã ãã§ããã°ãäºã¤ç®ã®<P>ã¿ã°ã¯æåã®<P>ã®ä¸­ã«ãããã¨ã¨ã¿ãªãã¦ãéãã¦ãã<B>ã¿ã°ã«ã¤ãã¦ã¯ãªã«ãèãã¾ãããããããããã§ã¯<P>ã¿ã°ãã¡ããã¨åãã¾ããã<P>ã¿ã°ã¯å¥ã®<P>ã¿ã°ã®ä¸­ã«ã¯å¥ãããã¾ããã<P>ã¿ã°ã¯”å¥ãå­”ã«ãªããªãã®ã§ãã
+ãã®ãããBeautiful Soupã¯<P>ã¿ã°ãè¦ã¤ããããä»ã¾ã§è¦ã¤ããåãç¨®é¡ã®ã¿ã°ãå«ãå¨ã¦ã®ã¿ã°ãéãã¾ããããã¯æ¨æºã®æ¯ãèãã§ãããBeautifulStoneSoupã¯ã©ã®ãããªã®ã¿ã°ã«ã¤ãã¦ãåæ§ã®ãã¨ãè¡ãã¾ããããã¿ã°ãNESTABLE_TAGSãRESET_NESTING_TAGSã«å«ã¾ãã¦ããªãå ´åããããªãã¾ããããããã¿ã°ãRESET_NESTING_TAGSã«å«ã¾ãã¦ãããNESTABLE_TAGSã«å«ã¾ãã¦ããªãå ´åã<P>ã¿ã°ã¨åãããã«ãªãã¾ãã
+from BeautifulSoup import BeautifulSoup
+BeautifulSoup.RESET_NESTING_TAGS['p'] == None
+# True
+BeautifulSoup.NESTABLE_TAGS.has_key('p')
+# False
+
+print BeautifulSoup("<html><p>Para<b>one<p>Para two")
+# <html><p>Para<b>one</b></p><p>Para two</p></html>
+#                      ^---^--The second <p> tag made those two tags get closed
+
+
+ã¹ã¿ãã¯ã [‘html’, ‘span’, ‘b’] ã§ããã Beautiful Soupã<SPAN>ã¿ã°ãè¦ã¤ããã¨ãã¾ãããã<SPAN>ã¿ã°ã¯å¥ã®<SPAN>ã¿ã°ãç¡éã«å«ããã¨ãã§ãã¾ãããã®ãããæ°ããè¦ã¤ããããã¨ãã£ã¦ä»¥åã®<SPAN>ã¿ã°ãåãåºãå¿è¦ã¯ããã¾ãããããã¯NESTABLE_TAGSã§ã¿ã°åãç©ºã®ãªã¹ãã«ãããããã¦ãããã¨ã§è¡¨ç¾ããã¦ãã¾ãããã®ç¨®é¡ã®ã¿ã°ã¯RESET_NESTING_TAGSã«å«ã¾ãã¦ã¯ããã¾ããã  <SPAN>ã¿ã°ã¯ä»ã®ã©ããªã¿ã°ãã¹ã¿ãã¯ããåãåºããã¨ã¯ãã¾ããã
+from BeautifulSoup import BeautifulSoup
+BeautifulSoup.NESTABLE_TAGS['span']
+# []
+BeautifulSoup.RESET_NESTING_TAGS.has_key('span')
+# False
+
+print BeautifulSoup("<html><span>Span<b>one<span>Span two")
+# <html><span>Span<b>one<span>Span two</span></b></span></html>
+
+
+ä¸çªç®ã®ä¾ã§ã¯ã[‘ol’, ‘li’, ‘ul’]ãã¹ã¿ãã¯ã«ã®ã£ã¦ãã¾ããããã¯ã orderd list(é åºä»ããªã¹ã) ã§ãããæåã®ã¨ã¬ã¡ã³ãã«ã¯ unordered list(é åºãªããªã¹ã)ãå«ãã§ãã¾ã(è¨³è¨»: ä¸æç¢º)ãããã§Beautiful Soupã<LI>ã¿ã°ãè¦ã¤ããã¨ãã¾ãããããã®å ´åãæ°ãã<LI>ã¿ã°ã¯é åºãªããªã¹ãã®ä¸é¨ã§ããããæåã®<LI>ã¿ã°ã¯ã¹ã¿ãã¯ããåãåºãã¦ã¯ããã¾ããã<UL>ã¿ã°ã<OL>ã¿ã°ãããéã¯ã<LI>ã¿ã°ãå¥ã®<LI>ã¿ã°ã®ä¸­ã«å«ã¾ãã¦ãã¦ãæ§ãã¾ããã(è¨³è¨»:ä¸æç¢º)
+from BeautifulSoup import BeautifulSoup
+print BeautifulSoup("<ol><li>1<ul><li>A").prettify()
+# <ol>
+#  <li>
+#   1
+#   <ul>
+#    <li>
+#     A
+#    </li>
+#   </ul>
+#  </li>
+# </ol>
+
+
+ãããã<UL>ã<OL>ãéã«ãªãã£ãå ´åãä¸ã¤ã®<LI>ã¿ã°ã¯ä»ã®<LI>ã¿ã°ã®ä¸ã«ã¯ããããã¾ããã
+print BeautifulSoup("<ol><li>1<li>A").prettify()
+# <ol>
+#  <li>
+#   1
+#  </li>
+#  <li>
+#   A
+#  </li>
+# </ol>
+
+
+Beautiful Soupã¯<LI>ã¿ã°ãRESET_NESTING_TAGSã«”li”ãå¥ãããã¨ã§è¡¨ç¾ãã “li” ãå¥ãå­å¯è½ã§ããNESTABLE_TAGSã«å«ã¾ãããã¨ã§è¡¨ç¾ãã¾ãã
+BeautifulSoup.RESET_NESTING_TAGS.has_key('li')
+# True
+BeautifulSoup.NESTABLE_TAGS['li']
+# ['ul', 'ol']
+
+
+å¥ãå­å¯è½ãªã¿ã°ãã©ããã£ã¦æ±ã£ã¦ããããèª¬æãã¾ãã
+BeautifulSoup.NESTABLE_TAGS['td']
+# ['tr']
+BeautifulSoup.NESTABLE_TAGS['tr']
+# ['table', 'tbody', 'tfoot', 'thead']
+BeautifulSoup.NESTABLE_TAGS['tbody']
+# ['table']
+BeautifulSoup.NESTABLE_TAGS['thead']
+# ['table']
+BeautifulSoup.NESTABLE_TAGS['tfoot']
+# ['table']
+BeautifulSoup.NESTABLE_TAGS['table']
+# []
+
+
+<TD>ã¿ã°ã¯<TR>ã¿ã°ã®ä¸­ã«å«ãããã¾ãã<TR>ã¿ã°ã¯<TABLE>, <TBODY>, <TFOOT>, <THEAD> ã¿ã°ã®ä¸­ã«å«ãããã¾ãã <TBODY>, <TFOOT>, <THEAD>ã¿ã°ã¯<TABLE>ã®ä¸­ã«å«ãããã¾ãã<TABLE>ã¿ã°ã¯å¥ã®<TABLE>ã¿ã°ã«å«ãããã¾ãããããHTMLãã¼ãã«ãç¥ã£ã¦ããã°ããããã®ã«ã¼ã«ãåããã¨æãã¾ãã
+ããä¸ã¤ä¾ãä¸ãã¾ããã¹ã¿ãã¯ã [‘html’, ‘p’, ‘table’] ã§Beautiful Soupã<P>ã¿ã°ã«ã¶ã¤ãã£ãæã§ãã
+æåã«è¦ãæãããã¯[‘html’, ‘p’, ‘b’]ãã¹ã¿ãã¯ã«ãã£ã¦ã<P>ã¿ã°ãè¦ã¤ããæã®ä¾ã¨åãããã«è¦ãã¾ãããã®ä¾ã§ã¯ã<B>ã¿ã°ã¨<P>ã¿ã°ãéãã¾ããããªããªããä¸ã¤ã®ãã©ã°ã©ãã¯ä»ã®ãã©ã°ã©ããå«ããããªãããã§ãã
+ã§ãããã¼ãã«ã®ä¸­ã«ã¯ãã©ã°ã©ããå«ããããã®ã§ãããã®ãããæ­£ããå®è£ã§ã¯ãããã®ã¿ã°ãéãã¦ã¯ãããªãã®ã§ããBeautiful Soupã¯æ­£ããåä½ããã¾ãã
+from BeautifulSoup import BeautifulSoup
+print BeautifulSoup("<p>Para 1<b><p>Para 2")
+# <p>
+#  Para 1
+#  <b>
+#  </b>
+# </p>
+# <p>
+#  Para 2
+# </p>
+
+print BeautifulSoup("<p>Para 1<table><p>Para 2").prettify()
+# <p>
+#  Para 1
+#  <table>
+#   <p>
+#    Para 2
+#   </p>
+#  </table>
+# </p>
+
+
+ãªã«ãéãã®ã ã£ã¦ï¼éãã¨ããã¯ <TABLE>ã¯RESET_NESTING_TAGSã«å¥ã£ã¦ããã<B>ã¯å¥ã£ã¦ããªããã¨ã§ããRESET_NESTING_TAGSã«å¥ã£ã¦ããã¿ã°ã¯ãå¥ã£ã¦ããªãã¿ã°ããã¹ã¿ãã¯ããåãåºããã«ããã®ã§ãã
+ãªã¼ã±ã¼ããã¶ãããã¢ã¤ãã¢ãåºãã§ãããã BeautifulSoupã¯ã©ã¹ã«ã¯NESTABLE_TAGSãããã¾ããããã¯ããªããHTMLã«ã¤ãã¦ç¥ã£ã¦ãããã¨ã¨é¢é£ãããã¾ããã¤ã¾ããæ®éã®HTMLãããªãå¤ãªHTMLãã­ã¥ã¡ã³ããéãå¥ãå­ã®ã«ã¼ã«ãæã¤ä»ã®XMLã®æ¹è¨ã®ããã«ã¯ãèªåã§NESTABLE_TAGSãä½ãå¿è¦ãããã¾ã
+from BeautifulSoup import BeautifulSoup
+nestKeys = BeautifulSoup.NESTABLE_TAGS.keys()
+nestKeys.sort()
+for key in nestKeys:
+    print "%s: %s" % (key, BeautifulSoup.NESTABLE_TAGS[key])
+# bdo: []
+# blockquote: []
+# center: []
+# dd: ['dl']
+# del: []
+# div: []
+# dl: []
+# dt: ['dl']
+# fieldset: []
+# font: []
+# ins: []
+# li: ['ul', 'ol']
+# object: []
+# ol: []
+# q: []
+# span: []
+# sub: []
+# sup: []
+# table: []
+# tbody: ['table']
+# td: ['tr']
+# tfoot: ['table']
+# th: ['tr']
+# thead: ['table']
+# tr: ['table', 'tbody', 'tfoot', 'thead']
+# ul: []
+
+
+ããã¦ããããBeautifulSoupã®RESET_NESTING_TAGSã§ããkeyã ããéè¦ã§ããRESET_NESTING_TAGSã¯å®éãªã¹ãã§ãããé«éãªã©ã³ãã ã¢ã¯ã»ã¹ã®ããã«è¾æ¸å½¢å¼ã«ãªã£ã¦ãã¾ãã
+from BeautifulSoup import BeautifulSoup
+resetKeys = BeautifulSoup.RESET_NESTING_TAGS.keys()
+resetKeys.sort()
+resetKeys
+# ['address', 'blockquote', 'dd', 'del', 'div', 'dl', 'dt', 'fieldset',
+#  'form', 'ins', 'li', 'noscript', 'ol', 'p', 'pre', 'table', 'tbody',
+#  'td', 'tfoot', 'th', 'thead', 'tr', 'ul']
+
+
+ãµãã¯ã©ã¹ãä½ã£ã¦ããã®ãªããSELF_CLOSING_TAGSããªã¼ãã¼ã©ã¤ãããããããã¾ãããããã¯ç©ºè¦ç´ ã¿ã°ã®ååã¨ä»ã®å¨é¨ã®å¤(RESET_NESTING_TAGSã®ããã«ãå®éã«ã¯ãªã¹ãã®è¾æ¸å½¢å¼)ã§ãããããããã¤ã³ã¹ã¿ã³ã¹ãä½æãããã³ã«ããã®SELF_CLOSING_TAGSãã³ã³ã¹ãã©ã¯ã¿ã«selfClosingTagsã¨ãã¦æ¸¡ãå¿è¦ã¯ããã¾ããã
+
+
+ã¨ã³ãã£ãã£ã®å¤æÂ¶
+ãã­ã¥ã¡ã³ãããã¼ã¹ããã¨ããHTMLãXMLã®å®ä½åç§ãå¯¾å¿ããã¦ãã³ã¼ãæå­ã«å¤æã§ãã¾ãããã®ã³ã¼ãã¯HTMLã®”&eacute;”ãã¦ãã³ã¼ãã®LATIN SMALL LETTER E WITH ACUTEã«ã”&#101;”ãLATIN SMALL LETTER Eã«å¤æãã¾ãã
+from BeautifulSoup import BeautifulStoneSoup
+BeautifulStoneSoup("Sacr&eacute; bl&#101;u!",
+                   convertEntities=BeautifulStoneSoup.HTML_ENTITIES).contents[0]
+# u'Sacr\xe9 bleu!'
+
+
+ããã¯ãHTML_ENTITIES(ä¸­èº«ã¯åãªã”html”ã¨ããæå­å)ãä½¿ã£ãå ´åã§ãããããXML_ENTITIES(ãããã¯”xml”ã¨ããæå­å)ãä½¿ã£ãå ´åãæ°å­ã®ã¨ã³ãã£ãã£ã¨5ã¤ã®XMLã¨ã³ãã£ãã£(“&quot;”, “&apos;”, “&gt;”, “&lt;”, “&amp;”)ã ããå¤æããã¾ãããããALL_ENTITIES(ãããã¯ [“xml”, “html”] ã¨ãããªã¹ã)ãä½¿ã£ãå ´åãäºç¨®é¡ã®ã¨ã³ãã£ãã£ãå¤æããã¾ããæå¾ã®ææ³ã¯ “&apos;” ã¯XMLã¨ã³ãã£ãã£ã§ãããHTMLã¨ã³ãã£ãã£ã§ã¯ãªããããå¿è¦ã«ãªãã¾ãã
+BeautifulStoneSoup("Sacr&eacute; bl&#101;u!",
+                   convertEntities=BeautifulStoneSoup.XML_ENTITIES)
+# Sacr&eacute; bleu!
+
+from BeautifulSoup import BeautifulStoneSoup
+BeautifulStoneSoup("Il a dit, &lt;&lt;Sacr&eacute; bl&#101;u!&gt;&gt;",
+                   convertEntities=BeautifulStoneSoup.XML_ENTITIES)
+# Il a dit, <<Sacr&eacute; bleu!>>
+
+
+Beautiful Soupã«XMLãHTMLã¨ã³ãã£ãã£ãå¯¾å¿ããã¦ãã³ã¼ãæå­ã«å¤æããããæç¤ºãããã Windows-1252ã¯(Microsoft smart qutesã®ããã«)ãåãããã«ã¦ãã³ã¼ãæå­ã«å¤æããã¾ããããã¯Beautiful Soupããããã®æå­ãã¨ã³ãã£ãã£ã«å¤æããæã«ãèµ·ããã¾ãã
+from BeautifulSoup import BeautifulStoneSoup
+smartQuotesAndEntities = "Il a dit, \x8BSacr&eacute; bl&#101;u!\x9b"
+
+BeautifulStoneSoup(smartQuotesAndEntities, smartQuotesTo="html").contents[0]
+# u'Il a dit, &lsaquo;Sacr&eacute; bl&#101;u!&rsaquo;'
+
+BeautifulStoneSoup(smartQuotesAndEntities, convertEntities="html",
+                   smartQuotesTo="html").contents[0]
+# u'Il a dit, \u2039Sacr\xe9 bleu!\u203a'
+
+BeautifulStoneSoup(smartQuotesAndEntities, convertEntities="xml",
+                   smartQuotesTo="xml").contents[0]
+# u'Il a dit, \u2039Sacr&eacute; bleu!\u203a'
+
+
+æ°ããHTML/XMLã¨ã³ãã£ãã£ãä½ãæãä»ããå¨ã¦ã®ã¨ã³ãã£ãã£ãã¦ãã³ã¼ãæå­ã«å¤æããã®ã¯æå³ãåãããªãã(è¨³è¨»:æå³ãåããªãã£ã)
+
+
+æ­£è¦è¡¨ç¾ãä½¿ã£ã¦ã ããªãã¼ã¿ããµãã¿ã¤ãºããÂ¶
+Beautiful Soupã¯æªããã¼ã¯ã¢ãããããæãã«æ±ã£ã¦ããã¾ããããã§ãæªããã¼ã¯ã¢ãããã¨ã¯ã¿ã°ãééã£ãå ´æã«ãããã¨ã§ããããããæã«ã¯ãã¼ã¯ã¢ããã¯åã«å¤ãªå½¢ããã¦ããã ãã§ãåºæ¬çãªãã¼ãµã¼ã¯æ±ããªããªãã¾ãããã®ãããBeautiful Soupã¯ãã¼ã¹ããåã«æ­£è¦è¡¨ç¾ãèµ°ããããã¨ãã§ãã¾ãã
+æ¨æºã§ã¯Beautiful Soupã¯æ­£è¦è¡¨ç¾ãå¥åããããã­ã¥ã¡ã³ãã®ç½®ææ©è½ã¨ãã¦ä½¿ãã¾ãã<BR/>ã®ãããªç©ºè¦ç´ ã¿ã°ãè¦ã¤ãã<BR />ã«å¤æãã¾ãã<! –ã³ã¡ã³ã–>ã®ããã«é©åã§ãªãç©ºç½ãæã¤è£é£¾ãè¦ã¤ãã<!–ã³ã¡ã³ã–>ã®ããã«ç©ºç½ãé¤å»ãã¾ãã
+ããããªã«ãããã®æ¹æ³ã§ç´ãå¿è¦ãããæªããã¼ã¯ã¢ãããããå ´åã (regular exporession,replacement)ã®é¢æ°ã®ã¿ãã«ãæã¤ãªã¹ããsoupã³ã³ã¹ãã©ã¯ã¿ã«markupMassageå¼æ°ã¨ãã¦æ¸¡ãã¾ãã (è¨³è¨»:ãããµã¼ã¸ã§ããã¡ãã»ã¼ã¸ã§ã¯ããã¾ãã)
+ä¾ãè¦ã¾ããããå¤ãªå½¢ã®ã³ã¡ã³ããæã¤ãã¼ã¸ãããã¨ãã¾ããåºæ¬çãªSGMLãã¼ãµã¼ã¯ããã«åã¦ããã³ã¡ã³ãã¨ããä»¥éã®æå­ãå¨ã¦ç¡è¦ãã¾ãã
+from BeautifulSoup import BeautifulSoup
+badString = "Foo<!-This comment is malformed.-->Bar<br/>Baz"
+BeautifulSoup(badString)
+# Foo
+
+
+æ­£è¦è¡¨ç¾ã¨é¢æ°ã§æ´å½¢ãã¾ãããã
+import re
+myMassage = [(re.compile('<!-([^-])'), lambda match: '<!--' + match.group(1))]
+BeautifulSoup(badString, markupMassage=myMassage)
+# Foo<!--This comment is malformed.-->Bar
+
+
+ããã£ã¨ãã¾ã <BR>ã¿ã°ãæ®ã£ã¦ãã¾ãããä»å®ç¾©ããmarkupMassageã¯æ¨æºã®massageãä¸æ¸ããããããæ¨æºã®ç½®æé¢æ°ã¯åãã¾ããããã¼ãµã¼ã¯ã³ã¡ã³ããéãéããå¤ãªç©ºè¦ç´ ã¿ã°ã§æ­»ãã§ãã¾ãã¾ããæ°ããmassageé¢æ°ãæ¨æºã®ãªã¹ãã«ä»ãå ãã¾ããããããããã°å¨ã¦ã®é¢æ°ãåãã¾ãã
+import copy
+myNewMassage = copy.copy(BeautifulSoup.MARKUP_MASSAGE)
+myNewMassage.extend(myMassage)
+BeautifulSoup(badString, markupMassage=myNewMassage)
+# Foo<!--This comment is malformed.-->Bar<br />Baz
+
+
+ãããããã§å¨é¨åããã
+ããªãã®ãã¼ã¯ã¢ãããæ­£è¦è¡¨ç¾ã«ããç½®æãå¿è¦ã¨ãããã©ãããç¥ãããå ´åãFalseãmarkupMassageã«æ¸¡ããã¨ã§ããã«åããã¾ãã
+
+
+SoupStrainerã§æ¥½ããÂ¶
+å¨ã¦ã®æ¤ç´¢ã¡ã½ããã¯åãå¼æ°ãåããã¨ãæãåºãã¦ãã ããããã®è£å´ã§ã¯ãæ¤ç´¢ã¡ã½ããã®å¼æ°ã¯SoupStrainerãªãã¸ã§ã¯ãã«å¤æããã¾ããããã(findAllã®ãããª)ãªã¹ããè¿ãã¡ã½ãããå¼ãã å ´åãSoupStrainerãªãã¸ã§ã¯ãã¯çµæã®ãªã¹ãã®sourceãã­ããã£ã¨ãã¦ç¾ãã¦ãã¾ãã
+from BeautifulSoup import BeautifulStoneSoup
+xml = '<person name="Bob"><parent rel="mother" name="Alice">'
+xmlSoup = BeautifulStoneSoup(xml)
+results = xmlSoup.findAll(rel='mother')
+
+results.source
+# <BeautifulSoup.SoupStrainer instance at 0xb7e0158c>
+str(results.source)
+# "None|{'rel': 'mother'}"
+
+
+SoupStrainerã³ã³ã¹ãã©ã¯ã¿ã¯ name, attrs, text, **kwargsã¨findã¨ã»ã¨ãã©åãå¼æ°ãåãã¾ããSoupStrainerãå¨é¨ã®æ¤ç´¢ã¡ã½ããã«å¼æ°ã¨ãã¦æ¸¡ããã¨ãã§ãã¾ãã
+xmlSoup.findAll(results.source) == results
+# True
+
+customStrainer = BeautifulSoup.SoupStrainer(rel='mother')
+xmlSoup.findAll(customStrainer) == results
+#  True
+
+
+ããã¼ããç¥ã£ããã£ã¡ããªãã­ãã ã?ãã®ã¡ã½ããã®å¼ã³åºãå¼æ°ããããããªæ¹æ³ã§æ¸¡ããã¨ãã§ãã¾ããããããå¥ã®æ¹æ³ã¯ãSoupStrainerãsoupã³ã³ã¹ãã©ã¯ã¿ã«æ¸¡ãããã­ã¥ã¡ã³ãã®ãã¡å®éã®ãã¼ã¹ããé¨åãå¶éãããã¨ã§ããããã®æå³ã¯æ¬¡ã®ç« ã§è¿°ã¹ã¾ãã
+
+
+ãã­ã¥ã¡ã³ãã®ä¸é¨ã ãããã¼ã¹ãããã¨ã§ãæ§è½ãåä¸ãããÂ¶
+Beautiful Soupã¯ãã­ã¥ã¡ã³ãã®å¨ã¦ã®ã¨ã¬ã¡ã³ããPythonãªãã¸ã§ã¯ãã«ãã¦ãä»ã®è¤æ°ã®Pythonãªãã¸ã§ã¯ãã«æ¥ç¶ãã¾ããããããã­ã¥ã¡ã³ãã®ä¸é¨åããå¿è¦ãªããã°ãå¨é¨ããã¼ã¹ãããã¨ã¯ã¨ã¦ãéããã¨ã«ãªãã¾ããããã§ãSoupStrainerãparseOnlyTheseå¼æ°ã¨ãã¦soupã³ã³ã¹ãã©ã¯ã¿ã«æ¸¡ããã¨ãã§ãã¾ããBeautiful Soupã¯åãã®ã¨ã¬ã¡ã³ããSoupStrainerã¨ç§ããåãããé©åãããã®ã ããTagãNavigableTextã«å¤æãã¦ããªã¼ã«ä»ãå ãã¾ãã
+ã¨ã¬ã¡ã³ããããªã¼ã«å ãããããããã®ã¨ã¬ã¡ã³ãã¯SoupStrainerã¨ããããã¦ããªãã¦ãå­è¦ç´ ã¨ãªãã¾ããããã«ãããããªããæ¬²ãããã¼ã¿ãæã¤ãã­ã¥ã¡ã³ãã ãããã¼ã¹ããããã¨ã«ãªãã¾ãã
+ã¡ãã£ã¨éã£ããã­ã¥ã¡ã³ããåºãã¾ãããã
+doc = '''Bob reports <a href="http://www.bob.com/">success</a>
+with his plasma breeding <a
+href="http://www.bob.com/plasma">experiments</a>. <i>Don't get any on
+us, Bob!</i>
+
+<br><br>Ever hear of annular fusion? The folks at <a
+href="http://www.boogabooga.net/">BoogaBooga</a> sure seem obsessed
+with it. Secret project, or <b>WEB MADNESS?</b> You decide!'''
+
+
+ãã®ãã­ã¥ã¡ã³ããsoupã«ãã¼ã¹ããã«ã¯ãã©ã®é¨åãæ¬²ãããã«ãã£ã¦ãããã¤ãæ¹æ³ãããã¾ããä»¥ä¸ã®ä¾ã¯å¨ã¦ãSoupStrainerãä½¿ããã¨ã§ãã­ã¥ã¡ã³ãå¨ä½ããã¼ã¹ããããé«éã§ã¡ã¢ãªæ¶è²»ãå°ãªãã§ãã
+from BeautifulSoup import BeautifulSoup, SoupStrainer
+import re
+
+links = SoupStrainer('a')
+[tag for tag in BeautifulSoup(doc, parseOnlyThese=links)]
+# [<a href="http://www.bob.com/">success</a>,
+#  <a href="http://www.bob.com/plasma">experiments</a>,
+#  <a href="http://www.boogabooga.net/">BoogaBooga</a>]
+
+linksToBob = SoupStrainer('a', href=re.compile('bob.com/'))
+[tag for tag in BeautifulSoup(doc, parseOnlyThese=linksToBob)]
+# [<a href="http://www.bob.com/">success</a>,
+#  <a href="http://www.bob.com/plasma">experiments</a>]
+
+mentionsOfBob = SoupStrainer(text=re.compile("Bob"))
+[text for text in BeautifulSoup(doc, parseOnlyThese=mentionsOfBob)]
+# [u'Bob reports ', u"Don't get any on\nus, Bob!"]
+
+allCaps = SoupStrainer(text=lambda(t):t.upper()==t)
+[text for text in BeautifulSoup(doc, parseOnlyThese=allCaps)]
+# [u'. ', u'\n', u'WEB MADNESS?']
+
+
+æ¤ç´¢ã¡ã½ããã«æ¸¡ããSoupStrinerã¨soupã³ã³ã½ãã©ã¯ã¿ã«æ¸¡ããSoupStrinerã¨ã§ã¯å¤§ããªéããä¸ã¤ããã¾ããnameå¼æ°ã¯ãTagãªãã¸ã§ã¯ããå¼æ°ã«åãé¢æ°ããå¼æ°ã«åããã¨ãåºæ¥ããã¨ãæãåºãã¦ãã ããããããSoupStrainerã®nameã«ãããã¨ãã§ãã¾ãããªããªãSoupStrainerã¯Tagãªãã¸ã§ã¯ããæåã®å ´æã§ä½æããããã©ãããæ±ºå®ããããã«ä½¿ãããçºã§ããSoupStrainerã®nameã«é¢æ°ãæ¸¡ãã¾ãããTagãªãã¸ã§ã¯ãã¯åãã¾ãããã¿ã°ã®ååãå¼æ°ã®ãããã ããä¸ãããã¨ãåºæ¥ã¾ãã
+shortWithNoAttrs = SoupStrainer(lambda name, attrs: \
+                                len(name) == 1 and not attrs)
+[tag for tag in BeautifulSoup(doc, parseOnlyThese=shortWithNoAttrs)]
+# [<i>Don't get any on us, Bob!</i>,
+#  <b>WEB MADNESS?</b>]
+
+
+
+
+extractãä½¿ã£ã¦ã¡ã¢ãªä½¿ç¨éãåæ¸ããÂ¶
+Beautiful Soupããã­ã¥ã¡ã³ãããã¼ã¹ããæããã­ã¥ã¡ã³ããå¤§ããªå¯çµåãªãã¼ã¿æ§é ã¨ãã¦ã¡ã¢ãªã«ã­ã¼ããã¾ããåã«ãã¼ã¿æ§é ããæå­ãåãåºãããã ãã®å ´åãæå­åãåã£ã¦æ®ãã¯å¨é¨ã¬ãã¼ã¸ã³ã¬ã¯ã¿ã«ããã¦ãã£ã¦ãããã¨æãã§ãããããã®æå­åã¯NavigableStringã§ããããã®è¦ªã¡ã³ãã¯Tagãªãã¸ã§ã¯ããæãããããããã«å¥ã®Tagãªãã¸ã§ã¯ããæããâ¦ã¨ç¶ãã¾ããã ãããããªã¼ã®ã©ã®ä¸é¨åãæã£ãã¨ãã¦ããããªã¼å¨é¨ãã¡ã¢ãªã«æã¤ãã¨ã«ãªãã®ã§ãã
+extractã¡ã½ããã¯ãã®æ¥ç¶ãå£ãã¾ããextractãå¿è¦ãªæå­åã«å¯¾ãã¦å¼ã¶ã¨ãæ®ãã®ãã¼ã¹ããªã¼ããåãé¢ãã¾ããããªã¼ã®æ®ãã®é¨åã¯ã¹ã³ã¼ããå¤ããåã£ãæå­åãä½¿ã£ã¦ããéã«ã¬ãã¼ã¸ã³ã¬ã¯ã¿ã«ååããã¾ããããªã¼ã®å°ããªé¨åã ããå¿è¦ãªå ´åããããã¬ãã«ã®Tagã«å¯¾ãã¦extractãå¼ã¶ã¨ãããªã¼ã®æ®ãå¨é¨ãã¬ãã¼ã¸ã³ã¬ã¯ã¿ã«ååããã¾ãã
+ããã¯ä»ã®æ¹æ³ã§ãåãããã«åãã¾ããå¿è¦ããªãå·¨å¤§ãªãã­ã¥ã¡ã³ãããã£ãã¨ããextractãå¼ã¶ã¨ããªã¼ãç ´å£ããã(ãã£ã¨å°ãã)ããªã¼ãä½ã£ã¦ããéã«ã¬ãã¼ã¸ã³ã¬ã¯ã¿ã«ååããã¾ãã
+ããextractãã¡ããã¨åããªãå ´åãTag.decomposeãä½¿ãã¾ããããã¯extractããéãã§ããããã£ã¨å¾¹åºçã§ããããã¯Tagã¨ãã®ã³ã³ãã³ããåå¸°çã«åè§£ããããªã¼ã®å¨ã¦ã®é¨åããä»ã®å¨ã¦ã®é¨åããåãé¢ãã¾ãã
+å¤§ããªå¡ã®ããªã¼ãèªåã§ç ´å£ãããå ´åãæåããããªã¼ã®ä¸é¨ã ãããã¼ã¹ããããã«ããã°ãã£ã¨æéãç¯ç´ã§ããããããã¾ãããã
+
+
+
+åèÂ¶
+
+Beautiful Soupãä½¿ã£ã¦ããã¢ããªã±ã¼ã·ã§ã³Â¶
+ããããã®å®éã«ä½¿ããã¦ããã¢ããªã±ã¼ã·ã§ã³ãBeautiful Soupãä½¿ã£ã¦ãã¾ããç§ãç¥ã£ã¦ããå¬éããã¦ããã¢ããªã±ã¼ã·ã§ã³ãè¨ãã¾ãã
+
+Scrape ‘N’ Feedã¯RSSãã£ã¼ããæããªããµã¤ãã«ãã£ã¼ããä½æãããã¼ã«ã§ãã
+
+htmlatexã¯LaTexã®æ¹ç¨å¼ãè¦ã¤ãã¦ç»åã¨ãã¦æç»ããé¨åã«Beautiful Soupãä½¿ã£ã¦ãã¾ãã
+
+chmtopdfã¯CHMãã¡ã¤ã«ãPDFã«å¤æãã¾ããããã¨ç§ãè­°è«ãã¦ãã£ã¦ï¼(è¨³è¨»: ã©ãããæå³ã ãã)
+
+Duncan Gough ã®Fotopic backupã¯Beautiful SoupãFotopic Webãµã¤ããã¹ã¯ã¬ã¤ãã³ã°ããã®ã«ä½¿ã£ã¦ãã¾ãã
+
+IÃ±igo Sernaã®googlenews.pyã¯Beautiful Soupãparse_entryã¨parse_categoryé¢æ°ãä½¿ã£ã¦Google Newsãã¹ã¯ã¬ã¤ãã³ã°ããã®ã«ä½¿ã£ã¦ãã¾ããã
+
+Weather Office Screen Scraperã¯ã«ããæ¿åºã®æ°è±¡ãµã¤ããã¹ã¯ã¬ã¤ãã³ã°ããã®ã«ä½¿ã£ã¦ãã¾ãã
+
+News Cluesã¯RSS feedããã¼ã¹ããã®ã«ä½¿ã£ã¦ãã¾ãã
+
+BlinkFlashã¯ãªã³ã©ã¤ã³ãµã¼ãã¹ã®ç»é²ãèªååããã®ã«ä½¿ã£ã¦ãã¾ãã
+
+linkyã¨ãããªã³ã¯ãã§ãã«ã¼ã¯Beautiful Soupããã¼ã¸ã®ãªã³ã¯ã¨ãã§ãã¯ãå¿è¦ãªç»åãè¦ã¤ããã®ã«ä½¿ã£ã¦ãã¾ãã
+
+Matt Croydonã¯Beautiful Soup 1.xã Nokiaã®Series 60 ã¹ãã¼ããã©ã³ã§åããã¾ãããC.R. Sandeepã¯Series 60ã§åããªã¢ã«ã¿ã¤ã ã®å¤è²¨å¤æãã¼ã«ãæ¸ãã¾ãããã§ããã©ããã£ã¦å®ç¾ãããã¯å¬éããã¦ãã¾ããã
+
+jacobian.org ããã¯allofmp3.comãããã¦ã³ã­ã¼ãããé³æ¥½ãã¡ã¤ã«ã®ã¡ã¿ãã¼ã¿ãä¿®æ­£ããç­ãæç« ãåºã¦ãã¾ãã
+
+Python Community Serverã¯spamæ¤ç¥ã«ä½¿ã£ã¦ãã¾ãã
+
+
+
+
+é¡ä¼¼ã©ã¤ãã©ãªÂ¶
+ã¨ãã§ããªããã¼ã¯ã¢ãããæ±ããããªã¼ãæ¸¡ããæ¨æºçãªãã¼ãµã¼ãããã£ã¨è¯ããã¼ãµã¼ããããããªè¨èªã§å®è£ãã¦ããã®ãè¦ã¤ãã¾ããã
+
+ç§ã¯ãBeautiful SoupãRubyã«ç§»æ¤ãã¾ãããRubyful Soupã§ãã
+
+Hpricotã¯Rubyful Soupãç¸æã«åæ¦ãã¾ããã
+
+ElementTreeã¯é«éãªPythonã®XMLãã¼ãµã¼ã§ããæåº¦ãæªãã§ããç§ã¯ãããå¥½ãã§ãã
+
+Tag Soupã¯Javaã§æ¸ãããXML/HTMLãã¼ãµã¼ã§ããã¡ãªHTMLããã¼ã¹ã§ããHTMLã«æ¸ããªããã¦ããã¾ãã
+
+HtmlPragã¯ãã¡ãªHTMLããã¼ã¹ããSchemeã©ã¤ãã©ãªã§ãã
+
+xmltrampã¯æ¨æºã®XML/XHTMLãã¼ãµã¼ã§ããä»ã®ãã¼ãµã¼ã¨åãããã«ããªã¼ãå©ç¨èãæ¸¡ã£ã¦ãããªããã°ãªãã¾ããããããã¯ç°¡åã«ä½¿ãã¾ãã
+
+pullparserã¯ããªã¼ãæ¸¡ãã¡ã½ãããæä¾ãã¾ãã
+
+Mike Foordã¯Beautiful Soupãããªã¼ãå¤ããæã«HTMLãå¤æ´ããã®ãæ°ã«å¥ãã¾ããã§ããããã®ãããHTML Scraperãæ¸ãã¾ãããããã¯ãã¡ãªHTMLãæ±ããHTMLParserã®ä¸ã¤ã§ããããã¯Beautiful Soup 3.0ã®ãªãªã¼ã¹ãå¤ã³ããã®ã«ããããããã¾ãããç¥ããªããã©ã
+
+Ka-Ping Yeeã®scrape.pyã¯URLã§éãããã¼ã¸ãã¹ã¯ã¬ã¤ãã³ã°ãã¦ãåæãã¾ãã
+
+
+
+
+
+æå¾ã«Â¶
+ããã§çµããã§ãï¼æ¥½ããã§ãã ããï¼ç§ã¯Beautiful Soupãã¿ããªã®æéãç¯ç´ããããã«ä½ãã¾ãããããã«æ£ããã¨ãæ°åã§è²§å¼±ãªãã¶ã¤ã³ã®webãµã¤ãã®ãã¼ã¿ãè­°è«ã§ããããã«ãªãã¾ãããããã³ã¡ã³ããåé¡ãBeautiful Soupããã­ã¸ã§ã¯ãã«ä½¿ã£ã¦ããï¼ã¨ãããã¨ãªã©ãããã°ç§ã«ã¡ã¼ã«ãä¸ããã
+–Leonard
+
+ãã®ãã­ã¥ã¡ã³ãã¯Leonard Richardsonãä¿æããWebç©ºéã§ãããCrummyã®ä¸é¨ã§ããé£çµ¡åã (è¨³è¨»: æ¥æ¬èªè¨³èã¯ WAKAYAMA Shirouã§ã)
+Crummy is Â© 1996-2011 Leonard Richardson. ç¹å¥ãªè¨åããªãéããå¨ã¦ã®ãã­ã¹ãã¯ã¯ãªã¨ã¤ãã£ãã»ã³ã¢ã³ãº ã©ã¤ã»ã³ã¹(CC BY-SA 2.0)ã«å¾ãã¾ãã
+
+
+
+ç´¢å¼ã¨ãã¼ãã«Â¶
+
+ç´¢å¼
+ã¢ã¸ã¥ã¼ã«ç´¢å¼
+æ¤ç´¢ãã¼ã¸
+
+
+
+
+
+
+
+
+ããã²ã¼ã·ã§ã³
+
+
+ç´¢å¼
+BeautifulSoup Document 3.0 ãã­ã¥ã¡ã³ã »
+
+
+
+        © Copyright Â© 1996-2011 Leonard Richardson and 2011, WAKAYAMA Shirou.
+      ãã®ãã­ã¥ã¡ã³ãã¯ Sphinx 1.5 ã§çæãã¾ããã
+    
+

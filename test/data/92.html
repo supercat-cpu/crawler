@@ -1,0 +1,156 @@
+
+
+
+
+
+
+
+LinkTimeOptimization - GCC Wiki
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GCC Wiki
+
+
+
+
+Search:
+
+
+
+
+
+
+Login
+
+Self
+
+LinkTimeOptimization
+
+
+
+HomePageRecentChangesFindPageHelpContentsLinkTimeOptimization
+
+
+Immutable PageCommentsInfoAttachments
+
+
+More Actions:
+
+Raw Text
+Print View
+Render as Docbook
+Delete Cache
+------------------------
+Check Spelling
+Like Pages
+Local Site Map
+------------------------
+Rename Page
+Delete Page
+------------------------
+Subscribe User
+------------------------
+Remove Spam
+Revert to this revision
+Package Pages
+------------------------
+Load
+Save
+SlideShow
+
+
+
+
+
+
+
+
+
+Last updated: 03-Oct-2009 Contents
+Status
+Background
+Requirements
+Design
+Using LTO
+Building the branch
+Using LTO
+Issues left to address (TODO list) 
+Status
+The branch has been merged to trunk and is now closed. Final merge announcement: http://gcc.gnu.org/ml/gcc/2009-10/msg00060.html 
+Background
+Link Time Optimization (LTO) gives GCC the capability of dumping its internal representation (GIMPLE) to disk, so that all the different compilation units that make up a single executable can be optimized as a single module.  This expands the scope of inter-procedural optimizations to encompass the whole program (or, rather, everything that is visible at link time). This page contains information for this project, including design, implementation plan, status and TODO items.  If you are interested in collaborating, please see the list of TODO items at the end of this page. The project is being implemented in the lto SVN branch.  To get the latest version: $ svn co svn://gcc.gnu.org/svn/gcc/branches/lto The usual rules for contributing to branches apply to this branch: Messages and patches to the lists should have their subject prefixed with [lto]. ChangeLog entries should be written to ChangeLog.lto. 
+Requirements
+The fundamental mechanism used by the compiler to delay optimization until link time is to write the GIMPLE representation of the program on special sections in the output file.  For the initial implementation on the branch, ELF was chosen as the container format for these sections, but in GCC-4.6 support has been added on the trunk for PE-COFF and Mach-O.  In order to use LTO the target must support one of these binary formats. For PE-COFF and Mach-O a minimal binary reader/writer is implemented in GCC itself.  For ELF, we are using libelf v0.8.12, but any relatively recent libelf implementation should work.  Note that ELF is only required as the container format for GIMPLE, this does not mean that ELF must be used as the final executable format. Despite the "link time" name, LTO does not need to use any special linker features.  The basic mechanism needed is the detection of GIMPLE sections inside object files.  This is currently implemented in collect2.  Therefore, LTO will work on any linker already supported by GCC. As an added feature, LTO will take advantage of the plugin feature in gold.  This allows the compiler to pick up object files that may have been stored in library archives.  To use this feature, you must be using gold as the linker and enable the use of the plugin by compiling with gcc -fuse-linker-plugin.  This will shift the responsibility of driving the final stages of compilation from collect2 to gold via the linker plugin. 
+Design
+The following are some of the design documents and discussions for the basic functionality and cleanups: Initial design LTO design. LTO Driver Streamer Internal representation changes Design discussion. Scalable LTO BoF at GCC Summit 2007. Scalable Whole Program optimizer (WHOPR) WHOPR design. Design discussion. Design proposal for the whopr driver and linker plugin. Design proposal for WPA. WHOPR BoF at GCC Summit 2008. Design proposal for debug support for LTO and subsequent discussion. Cleanup plan for link-time and dynamic optimization 
+Using LTO
+
+Building the branch
+To build the branch, make sure that you have libelf v0.8.12 installed. $ svn co svn://gcc.gnu.org/svn/gcc/branches/lto
+$ mkdir bld && cd bld
+$ ../lto/configure --enable-lto && makeIf you have libelf installed in a non-system directory, you also need to add --with-libelf=<path> to the configure line. 
+Using LTO
+There are two main flags that enable LTO functionality. -flto: This uses the main LTO features.  When given several source files on the command line, it will write out the IL for each of them and then launch lto1 to load every function in every file.  The reconstructed cgraph is then optimized as usual.    $ gcc -flto -c f1.c
+   $ gcc -flto -c f2.c
+   $ gcc -flto -o f f1.o f2.oor    $ gcc -flto -o f f1.c f2.c-fwhopr: This is similar to -flto but it splits compilation to achieve scalability.  It is intended to handle extremely large programs whose call graphs do not fit in memory.  See the design document for details. 
+Issues left to address (TODO list)
+If you are interested in working on any of these issues, please add your name to the item you are interested in and send mail to the list. lto1 should be able to understand archive files.  This would save alot of IO in the plugin.  The plugin is already able to provide a resolution file. It can include the offset of each object in the archive. When compiling with -funsigned-char replace char with unsigned char in pass_ipa_free_lang_data instead of the streamer (http://gcc.gnu.org/ml/gcc-patches/2009-01/msg01056.html). -v -save-temps does not always show everything needed to reproduce a compilation stage when using -fwhopr The use of -fwhopr involves several calls to lto1 with temporary files that are often removed by collect2 or the linker plug-in.  This makes -v -save-temps useless, particularly when debugging problems during LTRANS. This also means that temporary files should use more easily recognizable names associated with the original source files that they were generated from.  Currently, the names are completely random and it is hard to trace them back to the original code. -fwhopr should not launch the LTRANS phase from lto1 Currently, it is lto1's responsibility to launch ltrans-driver which is the one that distributes the parallel generation of final code (LTRANS).  This should be done by xgcc instead. WPA should use the pass manager Currently, WPA is hard wired in lto/lto.c:lto_main to call passes (notably, the inliner) directly instead of using the pass manager.  This also means that the only pass that is currently working with WPA is the inliner.  This should be changed so that the pass manager runs all the IPA passes in summary mode as all the other passes. Design and implement rules for handling mixed command line options. The basic problem here is what to do when the flags used to generate the initial IL are different than the flags used for final code generation:     $ gcc -flto -O2 -msse2 -c file.c
+    $ gcc -flto -o file file.oClearly, -msse2 affects code generation in the backend but what about -O2?  Should it be implied in the second gcc invocation?  More details and some initial ideas are described in this document. Browsing/dumping tools for LTO files Currently, IL, call graph, symbol table and other bits of information stored in LTO files are only readable by GCC when compiling. We need tools to be able to analyze and visualize this content when debugging. Think of objdump for GIMPLE. (currently working on: Andi Hellmund) Run pass_ipa_free_lang_data all the time, not just in LTO compilation This is related to the implementation of a GIMPLE type system and debugging information.  This pass removes every front-end specific bits from types and decls.  In doing so, it obliterates all the debugging information stashed away in those nodes and all the data that is sometimes referenced from language hooks in the back end.  Once these issues are fixed, we will be able to use this pass as the transition into the GIMPLE type system, which will complete the separation between the Front Ends and the rest of the compiler. Read GIMPLE from a text file Currently, GIMPLE is generated internally by the compiler and emitted inside special sections as binary content. This permits the LTO front end (lto1) read and reconstitute the internal representation that was generated from the original source code. A very useful addition to the LTO front end would be the capability of reading GIMPLE formatted as a text file, as if it were source code. This involves creating a parser for LTO and building the internal representation directly from the text file. This would help the creation of unit tests. Instead of relying on source code, we could generate GIMPLE directly using a text editor and feed that to the optimizers directly. Fix debug information for LTO programs None: LinkTimeOptimization  (last edited 2014-10-10 17:51:01 by DiegoNovillo)
+
+
+
+Immutable PageCommentsInfoAttachments
+
+
+More Actions:
+
+Raw Text
+Print View
+Render as Docbook
+Delete Cache
+------------------------
+Check Spelling
+Like Pages
+Local Site Map
+------------------------
+Rename Page
+Delete Page
+------------------------
+Subscribe User
+------------------------
+Remove Spam
+Revert to this revision
+Package Pages
+------------------------
+Load
+Save
+SlideShow
+
+
+
+
+
+
+
+MoinMoin PoweredPython PoweredGPL licensedValid HTML 4.01
+
+
+
+

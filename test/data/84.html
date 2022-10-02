@@ -1,0 +1,319 @@
+
+
+
+
+Matt Croydon::Postneo  » Blog Archive   » Mobile Screen Scraping with BeautifulSoup and Python for Series 60
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Matt Croydon::Postneo
+what comes next?
+
+
+
+
+
+
+
+Busy making things: @mc, notes, tinycast, github, links, photos.
+
+
+
+
+Mobile Screen Scraping with BeautifulSoup and Python for Series 60
+Posted: March 28th, 2005 | Author: Matt Croydon | Filed under: Mobile, Projects, Python, Web Services  | 65 Comments »
+ 
+I haven’t had enough time to work up a proper hack for this, but I though I would pass along an interesting discovery that I made the other day before heading out to PyCon.  After hearing about how great BeautifulSoup is at scraping HTML and making it easy to get little bits from it that you need, I thought I’d have a go at running it on my taco.  You know what?  It worked.  I was expecting it to barf on import, but no, it chugged along just fine.
+Now unfortunately BeautifulSoup won’t work out of the box with the standard .SIS install of Python for Series 60.  It relies only on SGMLParser, string, and types, but those three libraries have some dependencies themselves.  Here is what BeautifulSoup requires according to modulefinder.py running on my Debian box:
+
+array
+copy_reg
+markupbase
+re
+sgmllib
+sre
+sre_compile
+sre_constraints
+sre_parse
+string
+strop
+sys
+types
+
+These dependencies can be easily taken care of by dropping the python modules from the source distro in the appropriate libs directory on the drive you installed Python on.
+One reason that BeautfulSoup “just works” on Series 60 is that the author strives to keep imports to a minimum and that the author srives to keep BeautifulSoup backwards compatible all the way back to Python 1.5.2.  There are probably many modules out there like BeautifulSoup that are designed to be backwards compatible and platform independent that should work just fine on Series 60.  As I find them, I will definitely point them out.  I also hope to do some hacking on a few screen scraping apps that use BeautifulSoup and appuifw to present web data using native widgets.
+
+
+
+
+65 Comments on “Mobile Screen Scraping with BeautifulSoup and Python for Series 60”
+
+
+
+1
+Senator Carl Kruger said at 8:46 pm on February 15th, 2011:
+Excellent post. I was checking continuously this blog and I’m impressed! Extremely useful info specially the last part 🙂 I care for such info a lot. I was seeking this certain information for a long time. Thank you and best of luck.
+
+
+
+2
+Carl Kruger said at 1:57 am on February 16th, 2011:
+Unquestionably believe that which you said. Your favorite justification seemed to be on the internet the simplest thing to be aware of. I say to you, I definitely get annoyed while people consider worries that they plainly don’t know about. You managed to hit the nail upon the top and defined out the whole thing without having side effect , people can take a signal. Will probably be back to get more. Thanks
+
+
+
+3
+resor said at 3:53 am on February 16th, 2011:
+i have checked this cool site a few times now and i have to say that i find it quite great actually. keep the nice work up! =p
+
+
+
+4
+payday loans said at 7:09 am on February 16th, 2011:
+Great Post, I love to read articles that are informative and acutally have good content. Thank you for sharing your experiences and I look forward to seeing more.
+
+
+
+5
+praca nieruchomosci poznan said at 10:19 am on February 16th, 2011:
+An interesting discussion is worth comment. I think that you should write more on this topic, it might not be a taboo subject but generally people are not enough to speak on such topics. To the next. Cheers
+
+
+
+6
+guild wars 2 guides said at 11:50 am on February 16th, 2011:
+Really wanted to tell you that I really enjoyed your blog, what kind of theme do you use? Is it a custom one? Mind to share with me? Thanks in advance!
+
+
+
+7
+KO Propo 17004 said at 8:01 pm on February 16th, 2011:
+The article at http://www.wadeindustries.com/article/Baby-Shower-Invitation-Help-What-To-Write.html explains my view on Baby Shower Invitation Help What To Write
+
+
+
+8
+phone number lookup said at 12:25 am on February 17th, 2011:
+This is some agreeable material. It took me some time to locate this site but it was worth the time. I noticed this content was buried in yahoo and not the number one spot. This weblog has a ton of decent stuff and it doesn’t deserve to be burried in the searches like that. By the way I’m going  to save this site to my favorites.
+
+
+
+9
+hostgator coupon said at 11:02 am on February 17th, 2011:
+My sis informed me about your web site and the way nice it is. Sheâ€™s right, I am really impressed with the writing and slick design. It appears to me youâ€™re just scratching the floor by way of what you possibly can accomplish, however youâ€™re off to a great begin!
+
+
+
+10
+car buying said at 1:48 pm on February 17th, 2011:
+Its like you read my mind! You appear to know a lot about this, like you wrote the book in it or something. I think that you can do with some pics to drive the message home a bit, but instead of that, this is magnificent blog. An excellent read. I will definitely be back.
+
+
+
+11
+Hb Ladies Shoes said at 2:39 pm on February 17th, 2011:
+Hi there, just became aware of your blog through Google, and found that it is really informative. I am going to watch out for brussels. Iâ€™ll be grateful if you continue this in future. Many people will be benefited from your writing. Cheers!
+
+
+
+12
+Vente maison Concarneau said at 8:44 pm on February 17th, 2011:
+I enjoy you because of all your valuable effort on this blog. My mother really likes participating in investigations and it is simple to grasp why. Most people hear all concerning the powerful means you provide informative guides via your website and improve response from other people on that subject matter while our own daughter is truly becoming educated so much. Enjoy the remaining portion of the new year. You are always conducting a wonderful job.
+
+
+
+13
+japanese import car insurance said at 3:48 pm on February 18th, 2011:
+Starting a article kind of like this one forced me to do some research and I found your post to be quite helpful. My website is centered around the idea of knowledge, fun and sharing. I wish you good quality luck with your internet site in the future and you can be sure Iâ€™ll be following it.
+
+
+
+14
+Film solaire said at 9:13 pm on February 18th, 2011:
+Thank you for all of the hard work on this web site. My aunt take interest in setting aside time for investigations and it’s really obvious why. Many of us notice all concerning the dynamic form you make rewarding information by means of this web site and as well improve participation from other people on this matter then my girl is really learning a great deal. Have fun with the rest of the year. Your conducting a terrific job.
+
+
+
+15
+mini celular 2 chips said at 5:58 pm on February 19th, 2011:
+You really make it seem so easy with your presentation but I find this matter to be actually something that I think I would never understand. It seems too complicated and extremely broad for me. I’m looking forward for your next post, I will try to get the hang of it!
+
+
+
+
+
+
+
+
+
+ Recent Posts 
+
+Explaining my Weird, Uncontrollable Podcasting Workflow
+
+
+And We’re Back
+
+
+Parsing CSV data in Scala with opencsv
+
+
+Social Graph Analysis using Elastic MapReduce and PyPy
+
+
+Literate Diffing
+
+
+Archives 
+July 2015
+January 2014
+July 2011
+May 2011
+April 2011
+March 2011
+February 2011
+February 2009
+August 2008
+June 2008
+May 2008
+March 2008
+February 2008
+January 2008
+December 2007
+November 2007
+October 2007
+September 2007
+August 2007
+July 2007
+June 2007
+May 2007
+April 2007
+March 2007
+February 2007
+January 2007
+December 2006
+October 2006
+September 2006
+August 2006
+July 2006
+June 2006
+May 2006
+April 2006
+March 2006
+February 2006
+January 2006
+November 2005
+October 2005
+September 2005
+August 2005
+July 2005
+June 2005
+May 2005
+April 2005
+March 2005
+February 2005
+January 2005
+December 2004
+August 2004
+July 2004
+June 2004
+May 2004
+April 2004
+March 2004
+February 2004
+January 2004
+December 2003
+November 2003
+October 2003
+September 2003
+August 2003
+July 2003
+June 2003
+May 2003
+April 2003
+March 2003
+February 2003
+January 2003
+December 2002
+November 2002
+October 2002
+September 2002
+August 2002
+July 2002
+
+Categories 
+.NET
+
+*BSD
+
+Apple
+
+Django
+
+Erlang
+
+Java
+
+Journalism
+
+Linux
+
+Mobile
+
+MySQL
+
+Open Source
+
+Perl
+
+PHP
+
+Projects
+
+Python
+
+Scala
+
+Web Services
+
+Weblogs
+
+
+Meta 
+Register Log in
+Entries RSS
+Comments RSS
+WordPress.org 
+ 
+
+© Copyright 2022 | Matt Croydon::Postneo | All Rights Reserved
+
+
+
+
+
+
+
+
+

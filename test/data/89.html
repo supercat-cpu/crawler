@@ -1,0 +1,42 @@
+About remote repositories - GitHub DocsSkip to main contentGitHub DocsAll productsGet startedQuickstartHello WorldSet up GitCreate a repoFork a repoGitHub flowContributing to projectsBe socialCommunicating on GitHubGitHub glossaryGit cheatsheetLearning resourcesOnboardingGetting started with your GitHub accountGetting started with GitHub TeamGetting started with GitHub Enterprise CloudLearning about GitHubGitHub’s productsDocs versionsGitHub language supportTypes of GitHub accountsAccess permissionsGitHub Advanced SecurityChanges to GitHub plansSigning up for GitHubSign up for a new GitHub accountVerify your email addressEnterprise Cloud trialEnterprise Server trialUsing GitHubFeature previewSupported browsersGitHub CLIGitHub DesktopGitHub MobileKeyboard shortcutsGitHub Command PaletteConnectivity problemsWriting on GitHubStart writing on GitHubWrite & format on GitHubBasic formatting syntaxWork with advanced formattingOrganized data with tablesCollapsed sectionsCreate code blocksCreate diagramsMathematical expressionsAuto linked referencesAttaching filesPermanent links to codeUsing keywords in issues and pull requestsWork with saved repliesAbout saved repliesCreating a saved replyEditing a saved replyDeleting a saved replyUsing saved repliesShare content with gistsCreating gistsForking and cloning gistsImporting your projectsImport code to GitHubAbout GitHub ImporterUse GitHub ImporterUpdate author GitHub ImporterImport repo locallyAdd locally hosted codeCode migration toolsWork with Subversion on GitHubSubversion & Git differencesSupport for Subversion clientsProperties supported by GitHubExplore projectsContribute to open sourceSave repos with starsFollowing peopleFollowing organizationsGetting started with GitSet your usernameCaching credentialsGit passwordsmacOS Keychain credentialsGit workflowsAbout remote repositoriesManage remote repositoriesAssociate text editorsHandle line endingsIgnoring filesUsing GitAbout GitPush commits to a remoteGet changes from a remoteNon-fast-forward errorSplitting a subfolderAbout Git subtree mergesAbout Git rebaseGit rebaseResolve conflicts after rebaseSpecial characters in namesCustomize your workflowExploring integrationsAbout integrationsAbout webhooksAbout GitHub MarketplaceExtensions & integrationsInstall Marketplace appsInstall app personal accountInstall app organizationPrivacy on GitHubGitHub's use of your dataRequest account archiveManage data use for private repoGitHub Archive programGet started/Getting started with Git/About remote repositoriesFree, Pro, & TeamEnglishSearch GitHub Docs GitHub DocsGet started/Getting started with Git/About remote repositoriesGet startedGet startedAccount and profileAuthenticationRepositoriesEnterprise administratorsBilling and paymentsSite policyOrganizationsCode securityPull requestsGitHub IssuesGitHub ActionsGitHub CopilotGitHub CodespacesGitHub PackagesSearch on GitHubDevelopersREST APIGraphQL APIGitHub CLIGitHub DiscussionsGitHub SponsorsBuilding communitiesGitHub PagesEducationGitHub DesktopGitHub SupportAtomElectronCodeQLnpmFree, Pro, & TeamFree, Pro, & TeamEnterprise CloudEnterprise Server 3.6Enterprise Server 3.5Enterprise Server 3.4Enterprise Server 3.3Enterprise Server 3.2GitHub AEAll Enterprise Server releasesAbout versionsEnglishEnglish简体中文日本語EspañolPortuguês do BrasilSearch GitHub Docs About remote repositoriesIn this articleAbout remote repositoriesCreating remote repositoriesChoosing a URL for your remote repositoryCloning with HTTPS URLsCloning with SSH URLsCloning with GitHub CLICloning with SubversionGitHub's collaborative approach to development depends on publishing commits from your local repository to GitHub for other people to view, fetch, and update.About remote repositories
+A remote URL is Git's fancy way of saying "the place where your code is stored." That URL could be your repository on GitHub, or another user's fork, or even on a completely different server.
+You can only push to two types of URL addresses:
+
+An HTTPS URL like https://github.com/user/repo.git
+An SSH URL, like git@github.com:user/repo.git
+
+Git associates a remote URL with a name, and your default remote is usually called origin.
+Creating remote repositories
+You can use the git remote add command to match a remote URL with a name.
+For example, you'd type the following in the command line:
+git remote add origin  <REMOTE_URL> 
+This associates the name origin with the REMOTE_URL.
+You can use the command git remote set-url to change a remote's URL.
+Choosing a URL for your remote repository
+There are several ways to clone repositories available on GitHub.com.
+When you view a repository while signed in to your account, the URLs you can use to clone the project onto your computer are available below the repository details.
+For information on setting or changing your remote URL, see "Managing remote repositories."
+Cloning with HTTPS URLs
+The https:// clone URLs are available on all repositories, regardless of visibility. https:// clone URLs work even if you are behind a firewall or proxy.
+When you git clone, git fetch, git pull, or git push to a remote repository using HTTPS URLs on the command line, Git will ask for your GitHub username and password. When Git prompts you for your password, enter your personal access token (PAT). Alternatively, you can use a credential helper like Git Credential Manager. Password-based authentication for Git has been removed in favor of more secure authentication methods. For more information, see "Creating a personal access token."
+If you are accessing an organization that uses SAML SSO, you must also authorize your personal access token to access the organization before you authenticate. For more information, see "About authentication with SAML single sign-on" and "Authorizing a personal access token for use with SAML single sign-on."
+
+Tips:
+
+You can use a credential helper so Git will remember your GitHub credentials every time it talks to GitHub. For more information, see "Caching your GitHub credentials in Git."
+To clone a repository without authenticating to GitHub on the command line, you can use GitHub Desktop to clone instead. For more information, see "Cloning a repository from GitHub to GitHub Desktop."
+
+
+ If you'd rather use SSH but cannot connect over port 22, you might be able to use SSH over the HTTPS port. For more information, see "Using SSH over the HTTPS port."
+Cloning with SSH URLs
+SSH URLs provide access to a Git repository via SSH, a secure protocol. To use these URLs, you must generate an SSH keypair on your computer and add the public key to your account on GitHub.com. For more information, see "Connecting to GitHub with SSH."
+When you git clone, git fetch, git pull, or git push to a remote repository using SSH URLs, you'll be prompted for a password and must provide your SSH key passphrase. For more information, see "Working with SSH key passphrases."
+If you are accessing an organization that uses SAML single sign-on (SSO), you must authorize your SSH key to access the organization before you authenticate. For more information, see "About authentication with SAML single sign-on" and "Authorizing an SSH key for use with SAML single sign-on" in the GitHub Enterprise Cloud documentation.
+
+Tip: You can use an SSH URL to clone a repository to your computer, or as a secure way of deploying your code to production servers. You can also use SSH agent forwarding with your deploy script to avoid managing keys on the server. For more information, see "Using SSH Agent Forwarding."
+
+Cloning with GitHub CLI
+You can also install GitHub CLI to use GitHub workflows in your terminal. For more information, see "About GitHub CLI."
+Cloning with Subversion
+You can also use a Subversion client to access any repository on GitHub. Subversion offers a different feature set than Git. For more information, see "What are the differences between Subversion and Git?"
+You can also access repositories on GitHub from Subversion clients. For more information, see "Support for Subversion clients."Did this doc help you?Privacy policyHelp us make these docs great!All GitHub docs are open source. See something that's wrong or unclear? Submit a pull request.Make a contributionOr, learn how to contribute.Still need help?Ask the GitHub communityContact support© 2022 GitHub, Inc.TermsPrivacySecurityStatusHelpContact GitHubPricingDeveloper APITrainingBlogAbout

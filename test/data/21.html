@@ -1,0 +1,149 @@
+
+
+
+
+
+
+
+The news done broke
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Skip to content
+
+
+
+
+James Bennett
+
+
+
+
+
+Contact
+Projects
+Weblog
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  The news done broke
+
+
+Published: November 2, 2010. Filed under:
+Misc.
+  
+
+(or, “Dear Louise…”)
+
+Once upon a time, Jacob wrote a wonderful insider’s view of how our election coverage works, and noted that basically the whole thing’s held together with baling twine and duct tape. That was 2006; it’s now 2010 and midterm elections are upon us again. As I write this I’m actually at my desk at the Journal-World office, and for the first time tonight nothing’s actually broken. So I’d like to update Jacob’s post with the story of how we do things now.
+
+That little feed on the TV screen thankfully isn’t our responsibility anymore, though the scripts for it are still sitting around on various hard drives, ready to be dusted off and put to use again. During the primary election in August I actually fired it up just to make sure it all still worked (it did).
+
+Instead, tonight is all about the online coverage. To produce that we pull two different data sources:
+
+
+
+     From the office of the Kansas Secretary of State, we get the total votes cast across the entire state, and number of precincts statewide which have reported.
+ 
+
+     From the office of the Clerk of Douglas County (where Lawrence is located), we get the breakdown of how each precinct in Lawrence and surrounding towns voted, as well as results for local offices and ballot measures.
+ 
+
+As in Jacob’s day, the Secretary of State publishes results on a web page. And that page is still locked up so that only specific IP addresses can actually hit it. Since it’s good to have a backup plan in case automation fails (as it did in the primary election a couple months ago), that IP in our case is the public gateway of the Journal-World offices, rather than one of our servers. So right now my laptop is sitting on my desk, running a little bash script which:
+
+
+
+     Pulls a copy of the Secretary of State’s page with wget.
+ 
+
+     Uploads it to one of our servers via scp.
+ 
+
+     Sleeps for two minutes.
+ 
+
+Then over on the server, another script is running, which knows where the web page will be uploaded, grabs its contents and with help from BeautifulSoup, parses out the results and inserts them into our database. This is a fairly baroque way to go about screen-scraping data, but it works. Most of the time.
+
+The county clerk, meanwhile, publishes a web page which is open to public access. But they also provide a pretty raw dump of the data, stashed away on an FTP server. On the same web server that’s sitting around processing the Secretary of State’s web page every two minutes, there’s also a script which grabs a copy of the county clerk’s file and parses and processes it. It’s a rather more daunting line-based file format, but it has the great benefit of not having changed in years; the only thing we ever have to do is update a dictionary that maps between the way they identify candidates, races and ballot issues, and the way we identify them. That takes a bit of time each election night once we see the first copy of the file, but once it’s done that will generally just work.
+
+So at this point we have the following things running:
+
+
+
+     On my laptop, a script which fetches the Secretary of State’s web page and uploads it to one of our servers.
+ 
+
+     On the server, a script which screen-scrapes the uploaded HTML to get the results, improvised over the course of a couple hours tonight to deal with the fact that the HTML had changed.
+ 
+
+     On the same server, a script which fetches the county clerk’s data via FTP, parses that and then deletes the file afterward.
+ 
+
+All the stuff on the server is, of course, running in a screen session so that whoever needs to poke at something can just attach and get to work. This means we’ve reduced the number of interactions slightly; in Jacob’s day there were eight machines involved, but now there are only five:
+
+
+
+     My laptop.
+ 
+
+     The Secretary of State’s web server.
+ 
+
+     One of our web servers.
+ 
+
+     Our database server.
+ 
+
+     The county clerk’s FTP server.
+ 
+
+Of course, complexity is a conserved quantity, just like angular momentum.
+
+Problem number one tonight actually started late this afternoon, when we got our first look at the Secretary of State’s web page. All screen-scraping techniques are vulnerable to the “whoops, they redesigned” problem. This screen-scraping technique was vulnerable to the “whoops, they redesigned and we go live in a couple hours” problem. So a frantic session of coding ensued, and the first few batches of results were entered by hand through the Django admin while the new screen-scraper was readied. Automation resumed shortly afterward, though I’ve had to tweak the screen-scraper a couple more times since then in response to minor issues.
+
+Problem number two came just when we thought we were importing the county clerk’s data properly. The mapping dictionary, mentioned above, had been updated and the script was running, but the results we were getting were… weird. And, when checked against the county’s own public web page, obviously wrong. Eventually we discovered that, first of all, we were pulling the wrong file; the live results were now in a different folder. So we swapped to fetching that, and re-ran the parser. Then we noticed that the results we were displaying weren’t keeping up at all with the actual numbers. A manic debugging session ensued, in which the parser was taken apart, its bits carefully isolated and tested to verify that they gave the correct results, and then finally the real problem was discovered: ncftp (which we use because it makes scripted FTP really easy) had decided, for whatever reason, that the data file on the county clerk’s FTP server wasn’t any newer than the one it already had locally. And so was just failing to download the fresh data. This was solved by adding a new line to the relevant script, which deleted the local copy of the data file after parsing it, and ncftp promptly began downloading things again.
+
+Problem number three came up just a little while ago, and is still being worked on, but for those who enjoy horror stories I can mention that it has so far involved my co-worker Nick writing and deploying brand-new code on the fly, prompting occasional shouts of “WE’LL DO IT LIVE” in the office.
+
+So for now I think our conservation of complexity has been satisfied. Check back again in four years to see if the baling twine and duct tape still holds.
+
+
+
+
+
+Copyright © 2006-2022 James Bennett, a software developer living in California. Opinions expressed here are solely those of the author.
+
+        Find me elsewhere:  GitHub
+        |
+         Twitter
+
+
+
+
+
+
+
